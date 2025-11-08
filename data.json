@@ -1,31 +1,108 @@
 {
-  "teachers": [
+  "categories": [
     {
-      "id": 1,
-      "name": "محاضرات تجريبية",
-      "subject": "دروس مجانية للتجربة",
-      "image": "https://b.top4top.io/p_35871m0441.jpg",
-      "isPaid": false,
+      "id": "biology",
+      "title": "الأحياء",
+      "description": "منهاج الأحياء للصف السادس العلمي (2026)",
+      "gradient": "linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)",
+      "teacher": {
+        "id": "t101",
+        "name": "أ. زيد أحمد",
+        "subject": "مدرس الأحياء",
+        "image_url": "images/teachers/zaid_ahmed.jpg",
+        "rating": 4.8
+      },
       "classes": [
         {
-          "name": "الوحدة الأولى",
+          "id": "c1",
+          "title": "الفصل الأول: أساسيات الخلية",
           "lectures": [
-            {"title": "المقدمة", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "محاضرة تعريفية"}
+            { "id": "l101", "name": "المحاضرة 1: الغشاء البلازمي", "video_id": "vid_bio_1_1" },
+            { "id": "l102", "name": "المحاضرة 2: السايتوبلازم والعضيات", "video_id": "vid_bio_1_2" },
+            { "id": "l103", "name": "المحاضرة 3: النواة ووظائفها", "video_id": "vid_bio_1_3" }
+          ]
+        },
+        {
+          "id": "c2",
+          "title": "الفصل الثاني: الانقسام الخلوي",
+          "lectures": [
+            { "id": "l104", "name": "المحاضرة 4: الانقسام الخيطي", "video_id": "vid_bio_2_1" },
+            { "id": "l105", "name": "المحاضرة 5: الانقسام الاختزالي", "video_id": "vid_bio_2_2" }
           ]
         }
       ]
     },
     {
-      "id": 2,
-      "name": "الدورة الإلكترونية الكاملة",
-      "subject": "الدروس المدفوعة",
-      "image": "https://b.top4top.io/p_35871m0441.jpg",
-      "isPaid": true,
+      "id": "chemistry",
+      "title": "الكيمياء",
+      "description": "منهاج الكيمياء للصف السادس العلمي (2026)",
+      "gradient": "linear-gradient(135deg, #434343 0%, #000000 100%)",
+      "teacher": {
+        "id": "t102",
+        "name": "أ. نورس علي",
+        "subject": "مدرس الكيمياء",
+        "image_url": "images/teachers/nawras_ali.jpg",
+        "rating": 4.9
+      },
       "classes": [
         {
-          "name": "الوحدة الأولى",
+          "id": "c3",
+          "title": "الفصل الأول: الثرموداينمك",
           "lectures": [
-            {"title": "المحاضرة الأولى", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "شرح مفصل"}
+            { "id": "l201", "name": "المحاضرة 1: المفاهيم الأساسية", "video_id": "vid_chem_1_1" },
+            { "id": "l202", "name": "المحاضرة 2: قانون هيس والإنثالبي", "video_id": "vid_chem_1_2" },
+            { "id": "l203", "name": "المحاضرة 3: طاقة كبس الحرة", "video_id": "vid_chem_1_3" },
+            { "id": "l204", "name": "المحاضرة 4: أمثلة تطبيقية", "video_id": "vid_chem_1_4" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "physics",
+      "title": "الفيزياء",
+      "description": "منهاج الفيزياء للصف السادس العلمي (2026)",
+      "gradient": "linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)",
+      "teacher": {
+        "id": "t103",
+        "name": "أ. حيدر محمد",
+        "subject": "مدرس الفيزياء",
+        "image_url": "images/teachers/haidar_mohamed.jpg",
+        "rating": 4.7
+      },
+      "classes": [
+        {
+          "id": "c4",
+          "title": "الفصل الأول: المتسعات",
+          "lectures": [
+            { "id": "l301", "name": "المحاضرة 1: سعة المتسعة وعواملها", "video_id": "vid_phys_1_1" },
+            { "id": "l302", "name": "المحاضرة 2: ربط التوالي والتوازي", "video_id": "vid_phys_1_2" },
+            { "id": "l303", "name": "المحاضرة 3: إدخال العازل الكهربائي", "video_id": "vid_phys_1_3" },
+            { "id": "l304", "name": "المحاضرة 4: حل مسائل المتسعات", "video_id": "vid_phys_1_4" },
+            { "id": "l305", "name": "المحاضرة 5: تطبيقات المتسعات", "video_id": "vid_phys_1_5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "title": "الرياضيات",
+      "description": "منهاج الرياضيات للصف السادس العلمي (2026)",
+      "gradient": "linear-gradient(135deg, #ee0979 0%, #ff6a00 100%)",
+      "teacher": {
+        "id": "t104",
+        "name": "أ. زينب قاسم",
+        "subject": "مدرسة الرياضيات",
+        "image_url": "images/teachers/zainab_qasim.jpg",
+        "rating": 5.0
+      },
+      "classes": [
+        {
+          "id": "c5",
+          "title": "الفصل الأول: الأعداد المركبة",
+          "lectures": [
+            { "id": "l401", "name": "المحاضرة 1: العمليات على الأعداد المركبة", "video_id": "vid_math_1_1" },
+            { "id": "l402", "name": "المحاضرة 2: نظرية ديموافر", "video_id": "vid_math_1_2" },
+            { "id": "l403", "name": "المحاضرة 3: الجذور التكعيبية", "video_id": "vid_math_1_3" }
           ]
         }
       ]
