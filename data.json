@@ -1,157 +1,147 @@
 {
-  "categories": [
+  "schoolName": "اعدادية جعفر النقدي",
+  "authors": ["قاسم عباس", "مقتدى سامي"],
+  "sections": [
     {
-      "id": "C1",
-      "name": "القسم الأول: الكيمياء 🧪",
+      "title": "امتحان الفيزيا",
+      "icon": "🔬",
       "teachers": [
         {
-          "id": "T1_C1",
-          "name": "الأستاذ أحمد علي",
-          "lectures": [
-            {"id": "L1_T1", "title": "المحاضرة 1: أساسيات الكيمياء", "url": "url_lecture_1"},
-            {"id": "L2_T1", "title": "المحاضرة 2: تفاعلات الأكسدة", "url": "url_lecture_2"},
-            {"id": "L3_T1", "title": "المحاضرة 3: حساب التركيز", "url": "url_lecture_3"},
-            {"id": "L4_T1", "title": "المحاضرة 4: الكيمياء العضوية", "url": "url_lecture_4"},
-            {"id": "L5_T1", "title": "المحاضرة 5: مراجعة شاملة", "url": "url_lecture_5"}
+          "name": "اسم مدرس الفيزياء 1",
+          "videos": [
+            { "title": "الفيديو الأول: مراجعة الفصل 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني: مسائل", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث: شرح", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع: مراجعة", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس: ملخص", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T2_C1",
-          "name": "الأستاذة فاطمة خالد",
-          "lectures": [
-            {"id": "L6_T2", "title": "المحاضرة 1", "url": "url_lecture_6"},
-            {"id": "L7_T2", "title": "المحاضرة 2", "url": "url_lecture_7"},
-            {"id": "L8_T2", "title": "المحاضرة 3", "url": "url_lecture_8"},
-            {"id": "L9_T2", "title": "المحاضرة 4", "url": "url_lecture_9"},
-            {"id": "L10_T2", "title": "المحاضرة 5", "url": "url_lecture_10"}
+          "name": "اسم مدرس الفيزياء 2",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T3_C1",
-          "name": "الأستاذ محمد قاسم",
-          "lectures": [
-            {"id": "L11_T3", "title": "المحاضرة 1", "url": "url_lecture_11"},
-            {"id": "L12_T3", "title": "المحاضرة 2", "url": "url_lecture_12"},
-            {"id": "L13_T3", "title": "المحاضرة 3", "url": "url_lecture_13"},
-            {"id": "L14_T3", "title": "المحاضرة 4", "url": "url_lecture_14"},
-            {"id": "L15_T3", "title": "المحاضرة 5", "url": "url_lecture_15"}
+          "name": "اسم مدرس الفيزياء 3",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         }
       ]
     },
     {
-      "id": "C2",
-      "name": "القسم الثاني: الفيزياء ⚡",
+      "title": "امتحان الانكليزي",
+      "icon": "🇬🇧",
       "teachers": [
         {
-          "id": "T1_C2",
-          "name": "الأستاذة سارة يوسف",
-          "lectures": [
-            {"id": "L1_T4", "title": "المحاضرة 1", "url": "url_lecture_16"},
-            {"id": "L2_T4", "title": "المحاضرة 2", "url": "url_lecture_17"},
-            {"id": "L3_T4", "title": "المحاضرة 3", "url": "url_lecture_18"},
-            {"id": "L4_T4", "title": "المحاضرة 4", "url": "url_lecture_19"},
-            {"id": "L5_T4", "title": "المحاضرة 5", "url": "url_lecture_20"}
+          "name": "اسم مدرس الانكليزي 1",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T2_C2",
-          "name": "الأستاذ علي حسن",
-          "lectures": [
-            {"id": "L6_T5", "title": "المحاضرة 1", "url": "url_lecture_21"},
-            {"id": "L7_T5", "title": "المحاضرة 2", "url": "url_lecture_22"},
-            {"id": "L8_T5", "title": "المحاضرة 3", "url": "url_lecture_23"},
-            {"id": "L9_T5", "title": "المحاضرة 4", "url": "url_lecture_24"},
-            {"id": "L10_T5", "title": "المحاضرة 5", "url": "url_lecture_25"}
+          "name": "اسم مدرس الانكليزي 2",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T3_C2",
-          "name": "الأستاذة منى جاسم",
-          "lectures": [
-            {"id": "L11_T6", "title": "المحاضرة 1", "url": "url_lecture_26"},
-            {"id": "L12_T6", "title": "المحاضرة 2", "url": "url_lecture_27"},
-            {"id": "L13_T6", "title": "المحاضرة 3", "url": "url_lecture_28"},
-            {"id": "L14_T6", "title": "المحاضرة 4", "url": "url_lecture_29"},
-            {"id": "L15_T6", "title": "المحاضرة 5", "url": "url_lecture_30"}
+          "name": "اسم مدرس الانكليزي 3",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         }
       ]
     },
     {
-      "id": "C3",
-      "name": "القسم الثالث: الرياضيات 🧮",
+      "title": "امتحان الكيميا",
+      "icon": "🧪",
       "teachers": [
         {
-          "id": "T1_C3",
-          "name": "الأستاذ خالد فهد",
-          "lectures": [
-            {"id": "L1_T7", "title": "المحاضرة 1", "url": "url_lecture_31"},
-            {"id": "L2_T7", "title": "المحاضرة 2", "url": "url_lecture_32"},
-            {"id": "L3_T7", "title": "المحاضرة 3", "url": "url_lecture_33"},
-            {"id": "L4_T7", "title": "المحاضرة 4", "url": "url_lecture_34"},
-            {"id": "L5_T7", "title": "المحاضرة 5", "url": "url_lecture_35"}
+          "name": "اسم مدرس الكيميا 1",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T2_C3",
-          "name": "الأستاذة ندى عبد الله",
-          "lectures": [
-            {"id": "L1_T8", "title": "المحاضرة 1", "url": "url_lecture_36"},
-            {"id": "L2_T8", "title": "المحاضرة 2", "url": "url_lecture_37"},
-            {"id": "L3_T8", "title": "المحاضرة 3", "url": "url_lecture_38"},
-            {"id": "L4_T8", "title": "المحاضرة 4", "url": "url_lecture_39"},
-            {"id": "L5_T8", "title": "المحاضرة 5", "url": "url_lecture_40"}
+          "name": "اسم مدرس الكيميا 2",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T3_C3",
-          "name": "الأستاذ حسن طارق",
-          "lectures": [
-            {"id": "L1_T9", "title": "المحاضرة 1", "url": "url_lecture_41"},
-            {"id": "L2_T9", "title": "المحاضرة 2", "url": "url_lecture_42"},
-            {"id": "L3_T9", "title": "المحاضرة 3", "url": "url_lecture_43"},
-            {"id": "L4_T9", "title": "المحاضرة 4", "url": "url_lecture_44"},
-            {"id": "L5_T9", "title": "المحاضرة 5", "url": "url_lecture_45"}
+          "name": "اسم مدرس الكيميا 3",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         }
       ]
     },
     {
-      "id": "C4",
-      "name": "القسم الرابع: الأحياء 🧬",
+      "title": "امتحان الرياضيات",
+      "icon": "🧮",
       "teachers": [
         {
-          "id": "T1_C4",
-          "name": "الأستاذة عائشة رائد",
-          "lectures": [
-            {"id": "L1_T10", "title": "المحاضرة 1", "url": "url_lecture_46"},
-            {"id": "L2_T10", "title": "المحاضرة 2", "url": "url_lecture_47"},
-            {"id": "L3_T10", "title": "المحاضرة 3", "url": "url_lecture_48"},
-            {"id": "L4_T10", "title": "المحاضرة 4", "url": "url_lecture_49"},
-            {"id": "L5_T10", "title": "المحاضرة 5", "url": "url_lecture_50"}
+          "name": "اسم مدرس الرياضيات 1",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T2_C4",
-          "name": "الأستاذ بلال صلاح",
-          "lectures": [
-            {"id": "L1_T11", "title": "المحاضرة 1", "url": "url_lecture_51"},
-            {"id": "L2_T11", "title": "المحاضرة 2", "url": "url_lecture_52"},
-            {"id": "L3_T11", "title": "المحاضرة 3", "url": "url_lecture_53"},
-            {"id": "L4_T11", "title": "المحاضرة 4", "url": "url_lecture_54"},
-            {"id": "L5_T11", "title": "المحاضرة 5", "url": "url_lecture_55"}
+          "name": "اسم مدرس الرياضيات 2",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         },
         {
-          "id": "T3_C4",
-          "name": "الأستاذة زينب قيس",
-          "lectures": [
-            {"id": "L1_T12", "title": "المحاضرة 1", "url": "url_lecture_56"},
-            {"id": "L2_T12", "title": "المحاضرة 2", "url": "url_lecture_57"},
-            {"id": "L3_T12", "title": "المحاضرة 3", "url": "url_lecture_58"},
-            {"id": "L4_T12", "title": "المحاضرة 4", "url": "url_lecture_59"},
-            {"id": "L5_T12", "title": "المحاضرة 5", "url": "url_lecture_60"}
+          "name": "اسم مدرس الرياضيات 3",
+          "videos": [
+            { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
+            { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
+            { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
+            { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
+            { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
           ]
         }
       ]
