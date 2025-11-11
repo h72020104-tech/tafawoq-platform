@@ -1,187 +1,200 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الملف الشخصي للمطور - قاسم عباس</title>
+    <title>كشف درجات 100 طالب - الأستاذ كرار حداد</title>
     <style>
-        /* الخطوط والأساسيات */
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto+Mono&display=swap');
-        
-        :root {
-            --dark-bg: #121212;
-            --main-color: #007BFF; /* أزرق قوي */
-            --accent-color: #FF5722; /* برتقالي مميز */
-            --text-light: #f0f0f0;
-            --text-muted: #aaaaaa;
-        }
-
+        /* التنسيقات الأساسية */
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            direction: rtl;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 20px;
+            direction: rtl; 
+            text-align: right;
         }
 
-        /* حاوية الصفحة الرئيسية */
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 0 40px rgba(0, 123, 255, 0.2);
-        }
-
-        /* قسم العنوان الرئيسي */
-        header {
+        /* تنسيق العنوان */
+        h1 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
             text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 3px solid var(--main-color);
             margin-bottom: 30px;
         }
 
-        header h1 {
-            font-size: 3em;
-            color: var(--main-color);
-            margin-bottom: 5px;
-        }
-
-        header p {
-            color: var(--accent-color);
-            font-size: 1.2em;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        /* قسم المهارات والمشاريع */
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section h2 {
-            font-size: 2em;
-            border-right: 4px solid var(--accent-color);
-            padding-right: 15px;
-            margin-bottom: 20px;
-            color: var(--text-light);
-        }
-
-        /* قائمة المهارات */
-        .skills-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .skills-list li {
-            background-color: #333;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-family: 'Roboto Mono', monospace;
-            transition: background-color 0.3s, transform 0.3s;
-            cursor: default;
-        }
-
-        .skills-list li:hover {
-            background-color: var(--main-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-        }
-
-        /* قسم المشاريع (لتوضيح القوة) */
-        .project-card {
-            background-color: #2a2a2a;
-            padding: 20px;
+        /* تنسيق الجدول */
+        .grades-table {
+            width: 90%; 
+            margin: 0 auto; 
+            border-collapse: collapse; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+            background-color: #ffffff;
             border-radius: 8px;
-            margin-top: 15px;
-            border-right: 5px solid var(--accent-color);
-            transition: transform 0.3s;
+            overflow: hidden; 
         }
 
-        .project-card:hover {
-            transform: translateX(5px);
-            box-shadow: 5px 5px 15px rgba(255, 87, 34, 0.2);
-        }
-
-        .project-card h3 {
-            color: var(--accent-color);
-            margin-top: 0;
-        }
-
-        .project-card a {
-            color: var(--main-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .project-card a:hover {
-            text-decoration: underline;
-        }
-
-        /* قسم الاتصال */
-        footer {
+        /* تنسيق رأس الجدول (العناوين) */
+        .grades-table th {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px dashed var(--text-muted);
-            color: var(--text-muted);
-            font-size: 0.9em;
+            font-weight: bold;
+            position: sticky; /* لجعل الرأس ثابتًا عند التمرير */
+            top: 0;
+            z-index: 10;
         }
+
+        /* تنسيق خلايا جسم الجدول */
+        .grades-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        /* تنسيق الصفوف (لجعلها تتناوب بالألوان) */
+        .grades-table tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        /* تأثير عند مرور المؤشر على الصف */
+        .grades-table tr:hover {
+            background-color: #e9f0f5;
+            cursor: pointer;
+        }
+
+        /* تنسيق خاص للدرجة (لجعلها بارزة) */
+        .grade-value {
+            font-weight: bolder;
+            color: #28a745; 
+        }
+
+        /* تنسيق درجات الرسوب */
+        .fail-grade {
+            color: #dc3545; 
+            font-weight: bolder;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-
-    <header>
-        <h1>قاسم عباس</h1>
-        <p>المهندس المعماري للويب | Full-Stack Architect</p>
-    </header>
-
-    <div class="section">
-        <h2>نبذة تعريفية</h2>
-        <p>مطور محترف بخبرة واسعة في بناء أنظمة الويب المعقدة والمستقرة. أركز على تقديم حلول قوية وفعالة باستخدام أحدث التقنيات لضمان أعلى مستوى من الأداء والأمان.</p>
-    </div>
-
-    <div class="section">
-        <h2>مجموعة المهارات التقنية</h2>
-        <ul class="skills-list">
-            <li>HTML5 / CSS3</li>
-            <li>JavaScript (ES6+)</li>
-            <li>React & Next.js</li>
-            <li>Node.js / Express</li>
-            <li>Python / Django</li>
-            <li>PostgreSQL / MongoDB</li>
-            <li>Docker / CI/CD</li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>مشاريع مختارة (القوة في الإنجاز)</h2>
-        
-        <div class="project-card">
-            <h3>نظام إدارة الموارد الضخم</h3>
-            <p>منصة متكاملة لإدارة العمليات، تم بناؤها باستخدام Node.js و React، قادرة على معالجة ملايين الطلبات يوميًا بأقل زمن استجابة.</p>
-            <a href="#">عرض المشروع &rarr;</a>
-        </div>
-
-        <div class="project-card">
-            <h3>أداة تحليل البيانات الفوري</h3>
-            <p>تطبيق ويب يعتمد على Python لتحليل البيانات الضخمة (Big Data) وتقديم تقارير ورسوم بيانية تفاعلية وفورية.</p>
-            <a href="#">عرض المشروع &rarr;</a>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 قاسم عباس - كل الحقوق محفوظة. بناء قوي يبدأ من هنا.</p>
-    </footer>
-
-</div>
+    <h1>كشف درجات 100 طالب - الأستاذ كرار حداد</h1>
+    
+    <table class="grades-table">
+        <thead>
+            <tr>
+                <th>الرقم التسلسلي</th>
+                <th>اسم الطالب</th>
+                <th>درجة الامتحان</th>
+                <th>ملاحظات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>الطالب رقم 1</td><td class="grade-value">85</td><td></td></tr>
+            <tr><td>2</td><td>الطالب رقم 2</td><td class="grade-value">92</td><td></td></tr>
+            <tr><td>3</td><td>الطالب رقم 3</td><td class="fail-grade">48</td><td></td></tr>
+            <tr><td>4</td><td>الطالب رقم 4</td><td class="grade-value">77</td><td></td></tr>
+            <tr><td>5</td><td>الطالب رقم 5</td><td class="grade-value">61</td><td></td></tr>
+            <tr><td>6</td><td>الطالب رقم 6</td><td class="grade-value">99</td><td></td></tr>
+            <tr><td>7</td><td>الطالب رقم 7</td><td class="grade-value">80</td><td></td></tr>
+            <tr><td>8</td><td>الطالب رقم 8</td><td class="fail-grade">50</td><td></td></tr>
+            <tr><td>9</td><td>الطالب رقم 9</td><td class="grade-value">71</td><td></td></tr>
+            <tr><td>10</td><td>الطالب رقم 10</td><td class="grade-value">88</td><td></td></tr>
+            <tr><td>11</td><td>الطالب رقم 11</td><td class="grade-value">95</td><td></td></tr>
+            <tr><td>12</td><td>الطالب رقم 12</td><td class="grade-value">79</td><td></td></tr>
+            <tr><td>13</td><td>الطالب رقم 13</td><td class="fail-grade">42</td><td></td></tr>
+            <tr><td>14</td><td>الطالب رقم 14</td><td class="grade-value">83</td><td></td></tr>
+            <tr><td>15</td><td>الطالب رقم 15</td><td class="grade-value">69</td><td></td></tr>
+            <tr><td>16</td><td>الطالب رقم 16</td><td class="grade-value">90</td><td></td></tr>
+            <tr><td>17</td><td>الطالب رقم 17</td><td class="grade-value">87</td><td></td></tr>
+            <tr><td>18</td><td>الطالب رقم 18</td><td class="grade-value">55</td><td></td></tr>
+            <tr><td>19</td><td>الطالب رقم 19</td><td class="grade-value">76</td><td></td></tr>
+            <tr><td>20</td><td>الطالب رقم 20</td><td class="grade-value">93</td><td></td></tr>
+            <tr><td>21</td><td>الطالب رقم 21</td><td class="fail-grade">39</td><td></td></tr>
+            <tr><td>22</td><td>الطالب رقم 22</td><td class="grade-value">84</td><td></td></tr>
+            <tr><td>23</td><td>الطالب رقم 23</td><td class="grade-value">70</td><td></td></tr>
+            <tr><td>24</td><td>الطالب رقم 24</td><td class="grade-value">91</td><td></td></tr>
+            <tr><td>25</td><td>الطالب رقم 25</td><td class="grade-value">66</td><td></td></tr>
+            <tr><td>26</td><td>الطالب رقم 26</td><td class="grade-value">82</td><td></td></tr>
+            <tr><td>27</td><td>الطالب رقم 27</td><td class="grade-value">75</td><td></td></tr>
+            <tr><td>28</td><td>الطالب رقم 28</td><td class="fail-grade">52</td><td></td></tr>
+            <tr><td>29</td><td>الطالب رقم 29</td><td class="grade-value">96</td><td></td></tr>
+            <tr><td>30</td><td>الطالب رقم 30</td><td class="grade-value">89</td><td></td></tr>
+            <tr><td>31</td><td>الطالب رقم 31</td><td class="grade-value">65</td><td></td></tr>
+            <tr><td>32</td><td>الطالب رقم 32</td><td class="grade-value">97</td><td></td></tr>
+            <tr><td>33</td><td>الطالب رقم 33</td><td class="fail-grade">44</td><td></td></tr>
+            <tr><td>34</td><td>الطالب رقم 34</td><td class="grade-value">78</td><td></td></tr>
+            <tr><td>35</td><td>الطالب رقم 35</td><td class="grade-value">81</td><td></td></tr>
+            <tr><td>36</td><td>الطالب رقم 36</td><td class="grade-value">74</td><td></td></tr>
+            <tr><td>37</td><td>الطالب رقم 37</td><td class="grade-value">94</td><td></td></tr>
+            <tr><td>38</td><td>الطالب رقم 38</td><td class="grade-value">68</td><td></td></tr>
+            <tr><td>39</td><td>الطالب رقم 39</td><td class="grade-value">86</td><td></td></tr>
+            <tr><td>40</td><td>الطالب رقم 40</td><td class="grade-value">73</td><td></td></tr>
+            <tr><td>41</td><td>الطالب رقم 41</td><td class="grade-value">98</td><td></td></tr>
+            <tr><td>42</td><td>الطالب رقم 42</td><td class="fail-grade">35</td><td></td></tr>
+            <tr><td>43</td><td>الطالب رقم 43</td><td class="grade-value">67</td><td></td></tr>
+            <tr><td>44</td><td>الطالب رقم 44</td><td class="grade-value">87</td><td></td></tr>
+            <tr><td>45</td><td>الطالب رقم 45</td><td class="grade-value">72</td><td></td></tr>
+            <tr><td>46</td><td>الطالب رقم 46</td><td class="grade-value">90</td><td></td></tr>
+            <tr><td>47</td><td>الطالب رقم 47</td><td class="grade-value">62</td><td></td></tr>
+            <tr><td>48</td><td>الطالب رقم 48</td><td class="grade-value">85</td><td></td></tr>
+            <tr><td>49</td><td>الطالب رقم 49</td><td class="fail-grade">51</td><td></td></tr>
+            <tr><td>50</td><td>الطالب رقم 50</td><td class="grade-value">79</td><td></td></tr>
+            <tr><td>51</td><td>الطالب رقم 51</td><td class="grade-value">93</td><td></td></tr>
+            <tr><td>52</td><td>الطالب رقم 52</td><td class="grade-value">64</td><td></td></tr>
+            <tr><td>53</td><td>الطالب رقم 53</td><td class="fail-grade">46</td><td></td></tr>
+            <tr><td>54</td><td>الطالب رقم 54</td><td class="grade-value">88</td><td></td></tr>
+            <tr><td>55</td><td>الطالب رقم 55</td><td class="grade-value">77</td><td></td></tr>
+            <tr><td>56</td><td>الطالب رقم 56</td><td class="grade-value">95</td><td></td></tr>
+            <tr><td>57</td><td>الطالب رقم 57</td><td class="grade-value">80</td><td></td></tr>
+            <tr><td>58</td><td>الطالب رقم 58</td><td class="grade-value">71</td><td></td></tr>
+            <tr><td>59</td><td>الطالب رقم 59</td><td class="grade-value">99</td><td></td></tr>
+            <tr><td>60</td><td>الطالب رقم 60</td><td class="grade-value">60</td><td></td></tr>
+            <tr><td>61</td><td>الطالب رقم 61</td><td class="grade-value">84</td><td></td></tr>
+            <tr><td>62</td><td>الطالب رقم 62</td><td class="grade-value">75</td><td></td></tr>
+            <tr><td>63</td><td>الطالب رقم 63</td><td class="fail-grade">40</td><td></td></tr>
+            <tr><td>64</td><td>الطالب رقم 64</td><td class="grade-value">91</td><td></td></tr>
+            <tr><td>65</td><td>الطالب رقم 65</td><td class="grade-value">83</td><td></td></tr>
+            <tr><td>66</td><td>الطالب رقم 66</td><td class="grade-value">70</td><td></td></tr>
+            <tr><td>67</td><td>الطالب رقم 67</td><td class="grade-value">92</td><td></td></tr>
+            <tr><td>68</td><td>الطالب رقم 68</td><td class="grade-value">66</td><td></td></tr>
+            <tr><td>69</td><td>الطالب رقم 69</td><td class="grade-value">89</td><td></td></tr>
+            <tr><td>70</td><td>الطالب رقم 70</td><td class="grade-value">73</td><td></td></tr>
+            <tr><td>71</td><td>الطالب رقم 71</td><td class="grade-value">94</td><td></td></tr>
+            <tr><td>72</td><td>الطالب رقم 72</td><td class="fail-grade">37</td><td></td></tr>
+            <tr><td>73</td><td>الطالب رقم 73</td><td class="grade-value">68</td><td></td></tr>
+            <tr><td>74</td><td>الطالب رقم 74</td><td class="grade-value">86</td><td></td></tr>
+            <tr><td>75</td><td>الطالب رقم 75</td><td class="grade-value">76</td><td></td></tr>
+            <tr><td>76</td><td>الطالب رقم 76</td><td class="grade-value">97</td><td></td></tr>
+            <tr><td>77</td><td>الطالب رقم 77</td><td class="grade-value">69</td><td></td></tr>
+            <tr><td>78</td><td>الطالب رقم 78</td><td class="grade-value">81</td><td></td></tr>
+            <tr><td>79</td><td>الطالب رقم 79</td><td class="grade-value">78</td><td></td></tr>
+            <tr><td>80</td><td>الطالب رقم 80</td><td class="grade-value">96</td><td></td></tr>
+            <tr><td>81</td><td>الطالب رقم 81</td><td class="grade-value">63</td><td></td></tr>
+            <tr><td>82</td><td>الطالب رقم 82</td><td class="grade-value">82</td><td></td></tr>
+            <tr><td>83</td><td>الطالب رقم 83</td><td class="fail-grade">49</td><td></td></tr>
+            <tr><td>84</td><td>الطالب رقم 84</td><td class="grade-value">74</td><td></td></tr>
+            <tr><td>85</td><td>الطالب رقم 85</td><td class="grade-value">90</td><td></td></tr>
+            <tr><td>86</td><td>الطالب رقم 86</td><td class="grade-value">65</td><td></td></tr>
+            <tr><td>87</td><td>الطالب رقم 87</td><td class="grade-value">88</td><td></td></tr>
+            <tr><td>88</td><td>الطالب رقم 88</td><td class="grade-value">72</td><td></td></tr>
+            <tr><td>89</td><td>الطالب رقم 89</td><td class="grade-value">93</td><td></td></tr>
+            <tr><td>90</td><td>الطالب رقم 90</td><td class="grade-value">67</td><td></td></tr>
+            <tr><td>91</td><td>الطالب رقم 91</td><td class="grade-value">85</td><td></td></tr>
+            <tr><td>92</td><td>الطالب رقم 92</td><td class="grade-value">77</td><td></td></tr>
+            <tr><td>93</td><td>الطالب رقم 93</td><td class="fail-grade">43</td><td></td></tr>
+            <tr><td>94</td><td>الطالب رقم 94</td><td class="grade-value">91</td><td></td></tr>
+            <tr><td>95</td><td>الطالب رقم 95</td><td class="grade-value">70</td><td></td></tr>
+            <tr><td>96</td><td>الطالب رقم 96</td><td class="grade-value">84</td><td></td></tr>
+            <tr><td>97</td><td>الطالب رقم 97</td><td class="grade-value">61</td><td></td></tr>
+            <tr><td>98</td><td>الطالب رقم 98</td><td class="grade-value">95</td><td></td></tr>
+            <tr><td>99</td><td>الطالب رقم 99</td><td class="grade-value">79</td><td></td></tr>
+            <tr><td>100</td><td>الطالب رقم 100</td><td class="grade-value">83</td><td></td></tr>
+            </tbody>
+    </table>
 
 </body>
 </html>
