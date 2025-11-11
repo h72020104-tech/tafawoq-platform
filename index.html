@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البوابة الإلكترونية لنتائج الطلاب - الأستاذ كرار حداد</title>
+    <title>بوابة نتائجكم - الأستاذ كرار حداد</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
@@ -15,32 +15,35 @@
 
     <style>
         :root {
-            --primary-color: #4a00e0;
-            --secondary-color: #8e2de2;
-            --success-color: #00ff87;
-            --fail-color: #ff416c;
-            --text-color: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.1);
-            --border-glass: rgba(255, 255, 255, 0.2);
+            --primary-light: #8ecae6; /* أزرق فاتح مريح */
+            --secondary-light: #219ebc; /* أزرق متوسط */
+            --gradient-start: #a8dadc; /* بداية تدرج أخضر/أزرق فاتح */
+            --gradient-end: #457b9d;   /* نهاية تدرج أزرق أغمق */
+            --success-color: #2a9d8f;  /* أخضر بحري للنجاح */
+            --fail-color: #e63946;     /* أحمر مريح للرسوب */
+            --text-dark: #3a506b;      /* لون نص داكن */
+            --text-light: #ffffff;     /* لون نص فاتح للخلفية الداكنة */
+            --soft-glass-bg: rgba(255, 255, 255, 0.6); /* خلفية زجاجية أنعم */
+            --soft-glass-border: rgba(255, 255, 255, 0.8); /* حدود أنعم */
+            --button-bg: linear-gradient(to right, #219ebc, #8ecae6); /* تدرج زر البحث */
         }
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(-45deg, #4a00e0, #8e2de2, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            background-size: 200% 200%;
+            animation: gradientAnim 10s ease infinite;
+            color: var(--text-dark); /* لون النص الأساسي داكن */
             direction: rtl; 
             text-align: right;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px 0; /* مساحة أعلى وأسفل */
+            padding: 20px;
         }
 
-        /* أنيميشن الخلفية المتحركة */
-        @keyframes gradientBG {
+        @keyframes gradientAnim {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -48,75 +51,101 @@
 
         .main-container {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px; /* زيادة عرض الحاوية قليلاً */
         }
         
-        /* تصميم "الواجهة الزجاجية" */
-        .glass-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        .soft-glass-card {
+            background: var(--soft-glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid var(--soft-glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            max-height: 90vh; /* تحديد أقصى ارتفاع */
-            overflow-y: auto; /* إضافة سكرول عند الحاجة */
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--text-dark); /* النص داخل البطاقة داكن */
         }
 
-        /* تخصيص شريط التمرير (للمسة احترافية) */
-        .glass-card::-webkit-scrollbar {
+        /* تخصيص شريط التمرير */
+        .soft-glass-card::-webkit-scrollbar {
             width: 8px;
         }
-        .glass-card::-webkit-scrollbar-track {
-            background: var(--bg-glass);
+        .soft-glass-card::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 10px;
         }
-        .glass-card::-webkit-scrollbar-thumb {
-            background-color: var(--border-glass);
+        .soft-glass-card::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-light);
             border-radius: 10px;
-            border: 2px solid var(--bg-glass);
+            border: 2px solid var(--soft-glass-bg);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .header-title {
             font-weight: 900;
-            font-size: 2.8rem;
-            text-align: center;
+            font-size: 3rem;
+            color: var(--secondary-light); /* لون أزرق جذاب */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
 
-        .header-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 40px;
+        /* الشعار المتحرك */
+        .animated-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            overflow: hidden; /* لإخفاء النص خارج نطاق الحركة */
+            white-space: nowrap; /* لمنع التفاف النص */
+            display: inline-block;
+            animation: typing 6s steps(40, end) infinite alternate,
+                       blink-caret .75s step-end infinite;
+            border-right: .15em solid var(--primary-light); /* مؤشر الكتابة */
+            max-width: 100%; /* لضمان التجاوب */
+            direction: ltr; /* لجعل الكتابة من اليسار لليمين */
+            text-align: left; /* لضمان الكتابة من اليسار لليمين */
+        }
+
+        /* الكي فريمز لحركة الشعار */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-light); }
         }
 
         /* تنسيق حقل البحث */
         .search-box {
             position: relative;
+            margin-bottom: 30px;
         }
 
         .search-input {
             width: 100%;
             font-size: 1.2rem;
-            padding: 15px 20px 15px 60px; /* مسافة للأيقونة */
-            background: var(--bg-glass);
-            border: 1px solid var(--border-glass);
-            color: var(--text-color);
+            padding: 15px 20px 15px 60px;
+            background: rgba(255, 255, 255, 0.7); /* خلفية فاتحة لحقل البحث */
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
             border-radius: 15px;
             transition: all 0.3s ease;
         }
 
         .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(58, 80, 107, 0.6); /* لون بليس هولدر داكن */
         }
 
         .search-input:focus {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: none;
-            border-color: #ffffff;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(33, 158, 188, 0.3); /* ظل أزرق خفيف */
+            border-color: var(--secondary-light);
             outline: none;
         }
 
@@ -125,86 +154,145 @@
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            background: var(--button-bg);
             border: none;
-            border-radius: 10px;
-            color: white;
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
+            border-radius: 12px; /* حواف أكثر استدارة */
+            color: var(--text-light);
+            width: 50px; /* حجم أكبر للزر */
+            height: 50px;
+            font-size: 1.4rem; /* أيقونة أكبر */
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         .search-button:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 15px var(--secondary-color);
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 0 20px rgba(33, 158, 188, 0.5);
         }
 
         /* منطقة عرض النتيجة */
         #result-container {
             margin-top: 30px;
-            display: none; /* مخفية افتراضياً */
-            animation: fadeIn 0.5s ease-out;
+            display: none;
+            animation: fadeInScale 0.6s ease-out forwards;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         #result-card {
-            background: rgba(0, 0, 0, 0.2); /* خلفية أغمق للنتيجة */
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8); /* خلفية فاتحة لبطاقة النتيجة */
+            border-radius: 18px;
             padding: 30px;
-            border: 1px solid var(--border-glass);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
         
         .result-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
+            color: var(--secondary-light);
         }
         
         .result-label {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            opacity: 0.7;
         }
 
         /* تنسيق عملاق للدرجة */
         .grade-display {
-            font-size: 5rem;
+            font-size: 6rem; /* حجم أكبر جداً للدرجة */
             font-weight: 900;
             line-height: 1;
+            text-align: center;
         }
         
         .grade-pass {
             color: var(--success-color);
-            text-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
+            text-shadow: 0 0 25px rgba(42, 157, 143, 0.4);
         }
         
         .grade-fail {
             color: var(--fail-color);
-            text-shadow: 0 0 20px rgba(255, 65, 108, 0.5);
+            text-shadow: 0 0 25px rgba(230, 57, 70, 0.4);
         }
 
         /* رسالة الخطأ */
         #error-message {
             display: none;
             animation: fadeIn 0.3s;
+            background-color: rgba(230, 57, 70, 0.1); /* خلفية خطأ أفتح */
+            color: var(--fail-color);
+            border-color: var(--fail-color);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        #error-message span {
+            font-weight: 700;
         }
 
         /* الجدول المخفي للبيانات */
         .table-hidden {
             display: none;
         }
+
+        /* تحسينات للتجاوب */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            .animated-logo {
+                font-size: 1.1rem;
+            }
+            .search-input {
+                padding-left: 50px;
+            }
+            .search-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .grade-display {
+                font-size: 4rem;
+            }
+            .result-name {
+                font-size: 1.5rem;
+            }
+            .soft-glass-card {
+                padding: 25px;
+            }
+        }
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            .animated-logo {
+                font-size: 1rem;
+            }
+            .grade-display {
+                font-size: 3rem;
+            }
+            .result-name {
+                font-size: 1.2rem;
+            }
+            .search-input {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="main-container">
-    <div class="glass-card">
+    <div class="soft-glass-card">
         
-        <h1 class="header-title">بوابة النتائج</h1>
-        <p class="header-subtitle">الأستاذ كرار حداد</p>
+        <div class="header-section">
+            <h1 class="header-title">بوابة النتائج الإلكترونية</h1>
+            <p class="animated-logo">الأستاذ كرار حداد - مدرس لغة إنجليزية</p>
+        </div>
         
         <div class="search-box">
             <input type="text" id="studentNameInput" class="search-input" placeholder="اكتب اسمك الثلاثي الكامل هنا ...">
@@ -213,24 +301,24 @@
             </button>
         </div>
         
-        <div class="alert alert-danger mt-3" role="alert" id="error-message">
-            <i class="fas fa-exclamation-triangle me-2"></i>
+        <div class="alert mt-3" role="alert" id="error-message">
+            <i class="fas fa-exclamation-circle me-2"></i>
             <span></span>
         </div>
 
         <div id="result-container">
             <div id="result-card">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <span class="result-label"><i class="fas fa-user me-2"></i>اسم الطالب</span>
+                    <div class="col-md-7">
+                        <span class="result-label"><i class="fas fa-user-graduate me-2"></i>اسم الطالب</span>
                         <h2 id="displayName" class="result-name"></h2>
-                        <hr class="border-light">
-                        <span class="result-label"><i class="fas fa-clipboard-check me-2"></i>الملاحظات</span>
-                        <p id="displayNotes" class="fs-5"></p>
+                        <hr class="text-secondary opacity-25 my-3">
+                        <span class="result-label"><i class="fas fa-comment-dots me-2"></i>الملاحظات</span>
+                        <p id="displayNotes" class="fs-5 mt-2"></p>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <span class="result-label">الدرجة</span>
-                        <div id="displayGrade" class="grade-display"></div>
+                    <div class="col-md-5 text-center">
+                        <span class="result-label">الدرجة النهائية</span>
+                        <div id="displayGrade" class="grade-display mt-2"></div>
                     </div>
                 </div>
             </div>
@@ -241,16 +329,16 @@
 
 <table id="gradesData" class="table-hidden">
     <tbody>
-        <tr><td>أحمد علي محمد</td><td>95</td><td>ممتاز</td></tr>
-        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>جيد جداً</td></tr>
-        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>يحتاج إلى دراسة إضافية</td></tr>
-        <tr><td>زينب قاسم أحمد</td><td>100</td><td>علامة كاملة، مثالي!</td></tr>
-        <tr><td>علي حسين محمود</td><td>72</td><td>جيد</td></tr>
-        <tr><td>محمد رضا سعيد</td><td>91</td><td>مستوى عالٍ</td></tr>
-        <tr><td>سارة جاسم كريم</td><td>80</td><td>ممتاز</td></tr>
-        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>تحتاج لمراجعة بسيطة</td></tr>
-        <tr><td>كرار حيدر حداد</td><td>100</td><td>تنسيق رائع أستاذ!</td></tr>
-        <tr><td>عمار سامي إبراهيم</td><td>85</td><td></td></tr>
+        <tr><td>أحمد علي محمد</td><td>95</td><td>أحسنت، جهد ممتاز يستحق التقدير!</td></tr>
+        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>مستوى جيد جداً، مع قليل من التركيز سيتحسن أكثر.</td></tr>
+        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>النتيجة تحتاج إلى مراجعة شاملة للمادة.</td></tr>
+        <tr><td>زينب قاسم أحمد</td><td>100</td><td>درجة كاملة! استمرت في التألق والإبداع.</td></tr>
+        <tr><td>علي حسين محمود</td><td>72</td><td>أداء جيد، ولكن هناك مجال كبير للتطور.</td></tr>
+        <tr><td>محمد رضا سعيد</td><td>91</td><td>مستوى عالٍ ومجهود واضح في الدراسة.</td></tr>
+        <tr><td>سارة جاسم كريم</td><td>80</td><td>ممتاز، استمرت في هذا الأداء الرائع.</td></tr>
+        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>تحتاج لمراجعة بسيطة لتجاوز الحد الأدنى للنجاح.</td></tr>
+        <tr><td>كرار حيدر حداد</td><td>100</td><td>أنت مبدع في التصميم أستاذ!</td></tr>
+        <tr><td>عمار سامي إبراهيم</td><td>85</td><td>مستوى ممتاز وواضح.</td></tr>
         <tr><td>بتول ليث كاظم</td><td>92</td><td></td></tr>
         <tr><td>جعفر مصطفى أحمد</td><td class="fail">48</td><td></td></tr>
         <tr><td>ريم عباس جبار</td><td>77</td><td></td></tr>
@@ -400,8 +488,9 @@
         <tr><td>الطالب رقم 148</td><td>81</td><td></td></tr>
         <tr><td>الطالب رقم 149</td><td class="fail">50</td><td></td></tr>
         <tr><td>الطالب رقم 150</td><td>78</td><td></td></tr>
-        </tbody>
+    </tbody>
 </table>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
@@ -409,7 +498,7 @@
         // 1. الحصول على المدخلات
         const inputElement = document.getElementById('studentNameInput');
         const studentName = inputElement.value.trim();
-        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' '); // تنظيف المسافات
+        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' '); // تنظيف المسافات وجعلها أحرف صغيرة
 
         // 2. الحصول على عناصر العرض
         const resultContainer = document.getElementById('result-container');
@@ -421,7 +510,7 @@
         errorElement.style.display = 'none';
 
         if (studentName === '') {
-            errorSpan.textContent = 'يجب إدخال اسم الطالب للبحث.';
+            errorSpan.textContent = 'يرجى إدخال اسمك الثلاثي أو الرباعي للبحث عن نتيجتك.';
             errorElement.style.display = 'block';
             return;
         }
@@ -466,7 +555,7 @@
 
         // 8. في حال عدم العثور على الطالب
         if (!found) {
-            errorSpan.textContent = 'الاسم المدخل غير موجود. يرجى التأكد من كتابة الاسم الثلاثي أو الرباعي بدقة.';
+            errorSpan.textContent = 'عفواً، لم يتم العثور على نتيجة لهذا الاسم. يرجى التأكد من كتابة الاسم الثلاثي أو الرباعي بدقة.';
             errorElement.style.display = 'block';
         }
     }
