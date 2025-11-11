@@ -1,532 +1,178 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة اعدادية جعفر النقدي التعليمية - الأقوى</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-
-
+    <title>قائمة المهام اليومية</title>
     <style>
-        /* --- متغيرات التصميم الحديث والألوان القوية --- */
-        :root {
-            --primary-bg: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* خلفية متدرجة قوية */
-            --secondary-bg: #2c3e50; /* أزرق داكن */
-            --accent-color: #f39c12; /* برتقالي لامع */
-            --text-light: #ecf0f1; /* نص فاتح جداً */
-            --text-dark: #34495e; /* نص داكن */
-            --card-bg: #ffffff;
-            --shadow-strong: 0 10px 25px rgba(0, 0, 0, 0.2);
-            --border-radius: 12px;
-            --tab-active-color: #c0392b; /* أحمر داكن للتبويبة النشطة */
+        /* CSS للتصميم */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            direction: rtl; /* لدعم اللغة العربية */
         }
 
-        /* --- إعدادات عامة وخط احترافي --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
+        .todo-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #taskInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px; /* ليتناسب مع اتجاه RTL */
+            font-size: 16px;
+            text-align: right;
+        }
+
+        #addTaskBtn {
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0; /* ليتناسب مع اتجاه RTL */
+            transition: background-color 0.3s;
+        }
+
+        #addTaskBtn:hover {
+            background-color: #4cae4c;
+        }
+
+        #taskList {
+            list-style: none;
             padding: 0;
         }
 
-        body {
-            font-family: 'Tajawal', sans-serif; /* خط Tajawal عصري وواضح */
-            background: var(--primary-bg);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite; /* حركة الخلفية المتدرجة */
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
+        #taskList li {
             display: flex;
-            flex-direction: column;
-            direction: rtl; /* للغة العربية */
-            text-align: right; /* للغة العربية */
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* --- الهيدر (العنوان) --- */
-        .main-header {
-            background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة قليلاً */
-            color: var(--text-light);
-            padding: 2.5rem 0;
-            text-align: center;
-            box-shadow: var(--shadow-strong);
-            margin-bottom: 2rem;
-        }
-
-        .main-header h1 {
-            font-family: 'Cairo', sans-serif; /* خط Cairo للعنوان الرئيسي */
-            font-size: 3rem;
-            margin-bottom: 0.8rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-        }
-
-        .main-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* --- الشريط الرئيسي للمحتوى --- */
-        main {
-            flex: 1; /* لجعل المحتوى يملأ المساحة المتبقية */
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .content-wrapper {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-strong);
-            padding: 2.5rem;
-            flex: 1;
-        }
-
-        /* --- نظام التبويبات (Tabs) للأقسام --- */
-        .tabs-nav {
-            display: flex;
-            flex-wrap: wrap; /* للسماح للتبويبات بالنزول لسطر جديد في الموبايل */
-            border-bottom: 3px solid var(--secondary-bg);
-            margin-bottom: 2rem;
-            gap: 0.5rem; /* مسافة بين التبويبات */
-        }
-
-        .tab-button {
-            background-color: var(--secondary-bg);
-            color: var(--text-light);
-            border: none;
-            padding: 1rem 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-top-left-radius: var(--border-radius);
-            border-top-right-radius: var(--border-radius);
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-            position: relative;
-            z-index: 1; /* لجعل التبويبة النشطة تظهر فوق الحدود */
-        }
-
-        .tab-button:hover {
-            background-color: #3f5872;
-            transform: translateY(-3px);
-        }
-
-        .tab-button.active {
-            background-color: var(--card-bg); /* لون خلفية الكارت */
-            color: var(--tab-active-color);
-            transform: translateY(0);
-            border-bottom: 3px solid var(--card-bg); /* إخفاء خط الحدود تحت التبويبة النشطة */
-            box-shadow: var(--shadow-light); /* لإعطاء شعور بأنها "بارزة" */
-        }
-
-        .tab-content {
-            display: none; /* إخفاء المحتوى افتراضياً */
-            padding-top: 1rem;
-            animation: fadeIn 0.5s ease-out; /* تأثير الظهور */
-        }
-
-        .tab-content.active {
-            display: block; /* إظهار المحتوى النشط */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- تصميم كارت المدرس --- */
-        .teacher-card {
-            background: #fdfdfd;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-        }
-
-        .teacher-header {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--secondary-bg);
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid var(--accent-color);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-
-        /* --- شبكة الفيديوهات الاحترافية --- */
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* 320px كحد أدنى */
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .video-item {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .video-item:hover {
-            transform: translateY(-7px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .video-embed {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* ضمان أبعاد 16:9 */
-            border: none;
-            display: block; /* لإزالة المسافات الزائدة أسفل iframe */
-        }
-
-        .video-item h4 {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.1rem;
-            padding: 1rem;
-            text-align: center;
-            color: var(--text-dark);
-            background-color: #f8f8f8;
-            flex-grow: 1; /* لجعل العنوان يملأ المساحة المتبقية إذا كانت هناك فوارق في الطول */
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-        /* --- تصميم متجاوب (Responsive) للموبايل والأجهزة اللوحية --- */
-        @media (max-width: 992px) {
-            .main-header h1 {
-                font-size: 2.5rem;
-            }
-            .main-header p {
-                font-size: 1.1rem;
-            }
-            .content-wrapper {
-                padding: 1.5rem;
-            }
-            .tabs-nav {
-                flex-direction: column; /* التبويبات فوق بعض في الشاشات الصغيرة */
-                align-items: stretch;
-            }
-            .tab-button {
-                width: 100%;
-                border-radius: var(--border-radius);
-                margin-bottom: 0.5rem;
-            }
-            .tab-button.active {
-                border-bottom: none;
-                border: 2px solid var(--tab-active-color);
-                background-color: var(--card-bg);
-            }
-            .videos-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
-            }
-            .teacher-header {
-                font-size: 1.4rem;
-            }
+        .task-text {
+            flex-grow: 1;
+            cursor: pointer;
+            text-align: right;
         }
 
-        @media (max-width: 576px) {
-            .main-header {
-                padding: 2rem 0;
-            }
-            .main-header h1 {
-                font-size: 2rem;
-            }
-            .main-header p {
-                font-size: 1rem;
-            }
-            .content-wrapper {
-                padding: 1rem;
-            }
-            .videos-grid {
-                grid-template-columns: 1fr; /* عمود واحد في أصغر الشاشات */
-            }
-            .teacher-header {
-                font-size: 1.2rem;
-            }
+        .completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .delete-btn {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px; /* لتفصل عن النص في اتجاه RTL */
+        }
+
+        .delete-btn:hover {
+            background-color: #c9302c;
         }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container">
-            <h1 id="school-name"></h1>
-            <p id="authors"></p>
-        </div>
-    </header>
+<div class="todo-container">
+    <h1>مهامك لليوم</h1>
+    
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="أضف مهمة جديدة...">
+        <button id="addTaskBtn">إضافة</button>
+    </div>
 
-    <main class="container">
-        <div class="content-wrapper">
-            <nav id="tabs-nav" class="tabs-nav"></nav>
-            <div id="tabs-content">
-                </div>
-        </div>
-    </main>
+    <ul id="taskList">
+        </ul>
+</div>
 
-    <script>
-        // انتظر حتى يتم تحميل محتوى الصفحة بالكامل
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // ----------------------------------------------
-            // ** 🛑 بيانات JSON مدمجة مباشرة هنا 🛑 **
-            // ** قم بالتعديل على البيانات داخل هذا الكائن فقط **
-            // ----------------------------------------------
-            const data = {
-              "schoolName": "اعدادية جعفر النقدي",
-              "authors": ["قاسم عباس", "مقتدى سامي"],
-              "sections": [
-                {
-                  "id": "physics",
-                  "title": "امتحان الفيزيا",
-                  "icon": "🔬",
-                  "teachers": [
-                    {
-                      "name": "الأستاذ: علي محمد",
-                      "videos": [
-                        { "title": "الفيديو الأول: مراجعة الفصل 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_1" },
-                        { "title": "الفيديو الثاني: مسائل وتطبيقات", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_2" },
-                        { "title": "الفيديو الثالث: شرح مفصل للطاقة", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_3" },
-                        { "title": "الفيديو الرابع: قوانين الحركة", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_4" },
-                        { "title": "الفيديو الخامس: ملخص ومراجعة نهائية", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_5" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذ: أحمد قاسم",
-                      "videos": [
-                        { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_6" },
-                        { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_7" },
-                        { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_8" },
-                        { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_9" },
-                        { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_10" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذة: فاطمة الزهراء",
-                      "videos": [
-                        { "title": "الفيديو الأول", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_11" },
-                        { "title": "الفيديو الثاني", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_12" },
-                        { "title": "الفيديو الثالث", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_13" },
-                        { "title": "الفيديو الرابع", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_14" },
-                        { "title": "الفيديو الخامس", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_15" }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "english",
-                  "title": "امتحان الانكليزي",
-                  "icon": "🇬🇧",
-                  "teachers": [
-                    {
-                      "name": "الأستاذ: مايكل سميث",
-                      "videos": [
-                        { "title": "Grammar Basics", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_16" },
-                        { "title": "Vocabulary Expansion", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_17" },
-                        { "title": "Writing Skills", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_18" },
-                        { "title": "Reading Comprehension", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_19" },
-                        { "title": "Listening Practice", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_20" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذة: سارة جونسون",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_21" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_22" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_23" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_24" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_25" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذ: حسن كاظم",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_26" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_27" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_28" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_29" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_30" }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "chemistry",
-                  "title": "امتحان الكيميا",
-                  "icon": "🧪",
-                  "teachers": [
-                    {
-                      "name": "الأستاذ: خليل إبراهيم",
-                      "videos": [
-                        { "title": "الفيديو الأول: أساسيات الكيمياء", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_31" },
-                        { "title": "الفيديو الثاني: الجدول الدوري", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_32" },
-                        { "title": "الفيديو الثالث: التفاعلات الكيميائية", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_33" },
-                        { "title": "الفيديو الرابع: الكيمياء العضوية", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_34" },
-                        { "title": "الفيديو الخامس: مراجعة شاملة", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_35" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذة: منال سالم",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_36" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_37" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_38" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_39" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_40" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذ: زيد علي",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_41" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_42" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_43" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_44" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_45" }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "math",
-                  "title": "امتحان الرياضيات",
-                  "icon": "🧮",
-                  "teachers": [
-                    {
-                      "name": "الأستاذ: يوسف عباس",
-                      "videos": [
-                        { "title": "الفيديو الأول: الجبر والمعادلات", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_46" },
-                        { "title": "الفيديو الثاني: الهندسة الفراغية", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_47" },
-                        { "title": "الفيديو الثالث: التفاضل والتكامل", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_48" },
-                        { "title": "الفيديو الرابع: الإحصاء والاحتمالات", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_49" },
-                        { "title": "الفيديو الخامس: مراجعة لأهم المبرهنات", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_50" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذة: ليلى عامر",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_51" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_52" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_53" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_54" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_55" }
-                      ]
-                    },
-                    {
-                      "name": "الأستاذ: كريم حسين",
-                      "videos": [
-                        { "title": "Video 1", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_56" },
-                        { "title": "Video 2", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_57" },
-                        { "title": "Video 3", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_58" },
-                        { "title": "Video 4", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_59" },
-                        { "title": "Video 5", "embedUrl": "https://www.youtube.com/embed/VIDEO_ID_60" }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            };
-            // ----------------------------------------------
-            
-            populatePage(data);
+<script>
+    // JavaScript للوظائف التفاعلية
+
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+
+    // وظيفة إضافة مهمة جديدة
+    function addTask() {
+        const taskText = taskInput.value.trim();
+
+        if (taskText === '') {
+            alert('الرجاء إدخال مهمة أولاً.');
+            return;
+        }
+
+        // إنشاء عنصر القائمة (<li>)
+        const listItem = document.createElement('li');
+
+        // إضافة نص المهمة
+        const taskSpan = document.createElement('span');
+        taskSpan.classList.add('task-text');
+        taskSpan.textContent = taskText;
+
+        // وضع علامة "مكتملة" عند النقر على النص
+        taskSpan.addEventListener('click', () => {
+            listItem.classList.toggle('completed');
         });
 
-        // وظيفة لملء الصفحة بالبيانات وتوليد نظام التبويبات
-        function populatePage(data) {
-            
-            // --- 1. ملء الهيدر ---
-            document.getElementById('school-name').textContent = data.schoolName;
-            document.getElementById('authors').textContent = `اعداد: ${data.authors.join(' و ')}`;
+        // إنشاء زر الحذف
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'حذف';
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.addEventListener('click', () => {
+            taskList.removeChild(listItem);
+        });
+        
+        // تجميع العناصر وإضافتها إلى القائمة
+        listItem.appendChild(deleteBtn);
+        listItem.appendChild(taskSpan);
+        taskList.appendChild(listItem);
 
-            const tabsNav = document.getElementById('tabs-nav');
-            const tabsContent = document.getElementById('tabs-content');
-            
-            tabsNav.innerHTML = ''; // تنظيف شريط التبويبات
-            tabsContent.innerHTML = ''; // تنظيف محتوى التبويبات
+        // مسح خانة الإدخال بعد الإضافة
+        taskInput.value = '';
+    }
 
-            // بناء التبويبات ومحتواها
-            data.sections.forEach((section, index) => {
-                // بناء زر التبويبة
-                const tabButton = document.createElement('button');
-                tabButton.className = 'tab-button';
-                tabButton.setAttribute('data-tab', section.id);
-                tabButton.innerHTML = `<span class="section-icon">${section.icon}</span> ${section.title}`;
-                tabsNav.appendChild(tabButton);
+    // ربط زر "إضافة" بالوظيفة
+    addTaskBtn.addEventListener('click', addTask);
 
-                // بناء محتوى التبويبة
-                const tabContentDiv = document.createElement('div');
-                tabContentDiv.id = `tab-${section.id}`;
-                tabContentDiv.className = 'tab-content';
-                
-                let sectionHTML = '';
-                section.teachers.forEach(teacher => {
-                    let videosHTML = '';
-                    teacher.videos.forEach(video => {
-                        videosHTML += `
-                            <div class="video-item">
-                                <iframe 
-                                    class="video-embed" 
-                                    src="${video.embedUrl}" 
-                                    title="${video.title}" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                                </iframe>
-                                <h4>${video.title}</h4>
-                            </div>
-                        `;
-                    }); 
-                    sectionHTML += `
-                        <div class="teacher-card">
-                            <div class="teacher-header">${teacher.name}</div>
-                            <div class="videos-grid">${videosHTML}</div>
-                        </div>
-                    `;
-                }); 
-                tabContentDiv.innerHTML = sectionHTML;
-                tabsContent.appendChild(tabContentDiv);
-
-                // تفعيل أول تبويبة افتراضياً
-                if (index === 0) {
-                    tabButton.classList.add('active');
-                    tabContentDiv.classList.add('active');
-                }
-            });
-
-            // إضافة وظيفة التبديل بين التبويبات
-            tabsNav.addEventListener('click', (event) => {
-                const clickedButton = event.target.closest('.tab-button');
-                if (!clickedButton) return; // إذا لم يتم النقر على زر تبويبة
-
-                // إزالة التفعيل من الزر والمحتوى الحاليين
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-                // تفعيل الزر والمحتوى الجديد
-                clickedButton.classList.add('active');
-                const targetTabId = clickedButton.getAttribute('data-tab');
-                document.getElementById(`tab-${targetTabId}`).classList.add('active');
-            });
+    // إضافة مهمة عند الضغط على مفتاح Enter
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTask();
         }
-    </script>
+    });
+
+</script>
+
 </body>
 </html>
