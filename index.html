@@ -3,176 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة المهام اليومية</title>
+    <title>الملف الشخصي للمطور - قاسم عباس</title>
     <style>
-        /* CSS للتصميم */
+        /* الخطوط والأساسيات */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto+Mono&display=swap');
+        
+        :root {
+            --dark-bg: #121212;
+            --main-color: #007BFF; /* أزرق قوي */
+            --accent-color: #FF5722; /* برتقالي مميز */
+            --text-light: #f0f0f0;
+            --text-muted: #aaaaaa;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
             margin: 0;
-            direction: rtl; /* لدعم اللغة العربية */
+            padding: 0;
+            direction: rtl;
         }
 
-        .todo-container {
-            background-color: #fff;
+        /* حاوية الصفحة الرئيسية */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
             padding: 30px;
+            background-color: #1e1e1e;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
+            box-shadow: 0 0 40px rgba(0, 123, 255, 0.2);
         }
 
-        h1 {
-            color: #333;
+        /* قسم العنوان الرئيسي */
+        header {
             text-align: center;
-            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--main-color);
+            margin-bottom: 30px;
         }
 
-        .input-group {
-            display: flex;
+        header h1 {
+            font-size: 3em;
+            color: var(--main-color);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* قسم المهارات والمشاريع */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 2em;
+            border-right: 4px solid var(--accent-color);
+            padding-right: 15px;
             margin-bottom: 20px;
+            color: var(--text-light);
         }
 
-        #taskInput {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px; /* ليتناسب مع اتجاه RTL */
-            font-size: 16px;
-            text-align: right;
-        }
-
-        #addTaskBtn {
-            padding: 10px 15px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 0 5px 5px 0; /* ليتناسب مع اتجاه RTL */
-            transition: background-color 0.3s;
-        }
-
-        #addTaskBtn:hover {
-            background-color: #4cae4c;
-        }
-
-        #taskList {
+        /* قائمة المهارات */
+        .skills-list {
             list-style: none;
             padding: 0;
-        }
-
-        #taskList li {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 8px;
-            background-color: #f9f9f9;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skills-list li {
+            background-color: #333;
+            padding: 8px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            font-family: 'Roboto Mono', monospace;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: default;
         }
 
-        .task-text {
-            flex-grow: 1;
-            cursor: pointer;
-            text-align: right;
+        .skills-list li:hover {
+            background-color: var(--main-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
         }
 
-        .completed .task-text {
-            text-decoration: line-through;
-            color: #888;
+        /* قسم المشاريع (لتوضيح القوة) */
+        .project-card {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-right: 5px solid var(--accent-color);
+            transition: transform 0.3s;
         }
 
-        .delete-btn {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px; /* لتفصل عن النص في اتجاه RTL */
+        .project-card:hover {
+            transform: translateX(5px);
+            box-shadow: 5px 5px 15px rgba(255, 87, 34, 0.2);
         }
 
-        .delete-btn:hover {
-            background-color: #c9302c;
+        .project-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        .project-card a {
+            color: var(--main-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .project-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* قسم الاتصال */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--text-muted);
+            color: var(--text-muted);
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
-<div class="todo-container">
-    <h1>مهامك لليوم</h1>
-    
-    <div class="input-group">
-        <input type="text" id="taskInput" placeholder="أضف مهمة جديدة...">
-        <button id="addTaskBtn">إضافة</button>
+<div class="container">
+
+    <header>
+        <h1>قاسم عباس</h1>
+        <p>المهندس المعماري للويب | Full-Stack Architect</p>
+    </header>
+
+    <div class="section">
+        <h2>نبذة تعريفية</h2>
+        <p>مطور محترف بخبرة واسعة في بناء أنظمة الويب المعقدة والمستقرة. أركز على تقديم حلول قوية وفعالة باستخدام أحدث التقنيات لضمان أعلى مستوى من الأداء والأمان.</p>
     </div>
 
-    <ul id="taskList">
+    <div class="section">
+        <h2>مجموعة المهارات التقنية</h2>
+        <ul class="skills-list">
+            <li>HTML5 / CSS3</li>
+            <li>JavaScript (ES6+)</li>
+            <li>React & Next.js</li>
+            <li>Node.js / Express</li>
+            <li>Python / Django</li>
+            <li>PostgreSQL / MongoDB</li>
+            <li>Docker / CI/CD</li>
         </ul>
-</div>
+    </div>
 
-<script>
-    // JavaScript للوظائف التفاعلية
-
-    const taskInput = document.getElementById('taskInput');
-    const addTaskBtn = document.getElementById('addTaskBtn');
-    const taskList = document.getElementById('taskList');
-
-    // وظيفة إضافة مهمة جديدة
-    function addTask() {
-        const taskText = taskInput.value.trim();
-
-        if (taskText === '') {
-            alert('الرجاء إدخال مهمة أولاً.');
-            return;
-        }
-
-        // إنشاء عنصر القائمة (<li>)
-        const listItem = document.createElement('li');
-
-        // إضافة نص المهمة
-        const taskSpan = document.createElement('span');
-        taskSpan.classList.add('task-text');
-        taskSpan.textContent = taskText;
-
-        // وضع علامة "مكتملة" عند النقر على النص
-        taskSpan.addEventListener('click', () => {
-            listItem.classList.toggle('completed');
-        });
-
-        // إنشاء زر الحذف
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'حذف';
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.addEventListener('click', () => {
-            taskList.removeChild(listItem);
-        });
+    <div class="section">
+        <h2>مشاريع مختارة (القوة في الإنجاز)</h2>
         
-        // تجميع العناصر وإضافتها إلى القائمة
-        listItem.appendChild(deleteBtn);
-        listItem.appendChild(taskSpan);
-        taskList.appendChild(listItem);
+        <div class="project-card">
+            <h3>نظام إدارة الموارد الضخم</h3>
+            <p>منصة متكاملة لإدارة العمليات، تم بناؤها باستخدام Node.js و React، قادرة على معالجة ملايين الطلبات يوميًا بأقل زمن استجابة.</p>
+            <a href="#">عرض المشروع &rarr;</a>
+        </div>
 
-        // مسح خانة الإدخال بعد الإضافة
-        taskInput.value = '';
-    }
+        <div class="project-card">
+            <h3>أداة تحليل البيانات الفوري</h3>
+            <p>تطبيق ويب يعتمد على Python لتحليل البيانات الضخمة (Big Data) وتقديم تقارير ورسوم بيانية تفاعلية وفورية.</p>
+            <a href="#">عرض المشروع &rarr;</a>
+        </div>
+    </div>
 
-    // ربط زر "إضافة" بالوظيفة
-    addTaskBtn.addEventListener('click', addTask);
+    <footer>
+        <p>&copy; 2025 قاسم عباس - كل الحقوق محفوظة. بناء قوي يبدأ من هنا.</p>
+    </footer>
 
-    // إضافة مهمة عند الضغط على مفتاح Enter
-    taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addTask();
-        }
-    });
-
-</script>
+</div>
 
 </body>
 </html>
