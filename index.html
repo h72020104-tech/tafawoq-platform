@@ -3,206 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> الأستاذ كرار حداد</title>
+    <title>البحث عن النتيجة الفردية - الأستاذ كرار حداد</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
-        /* التنسيقات العربية والأساسية */
         body {
             font-family: 'Tahoma', sans-serif;
-            background-color: #e9ecef; /* لون خلفية خفيف */
+            background-color: #f8f9fa;
             direction: rtl; 
             text-align: right;
-            padding-top: 20px;
-            padding-bottom: 50px;
+            padding-top: 40px;
         }
-
-        /* تنسيق العنوان الرئيسي */
-        .page-title {
-            color: #0d6efd; /* لون أزرق برايمري */
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        /* تنسيق اسم الأستاذ */
-        .instructor-name {
-            font-size: 1.2rem;
-            color: #6c757d; /* لون رمادي ثانوي */
+        .header-section {
+            background-color: #0d6efd;
+            color: white;
+            padding: 30px 0;
             margin-bottom: 30px;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* تنسيق الحاوية (البطاقة) التي تحتوي على الجدول */
-        .grades-container {
+        .result-card {
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* ظل أنيق */
-            padding: 20px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            margin-top: 30px;
+            border-right: 5px solid #0d6efd; /* خط جانبي مميز */
+            display: none; /* يتم إظهارها بواسطة JavaScript */
         }
-        
-        /* تنسيق رأس الجدول (T Head) */
-        .table thead th {
-            background-color: #0d6efd; /* اللون الأزرق الأساسي */
-            color: white;
-            border-bottom: none;
-            position: sticky; /* لجعل الرأس ثابتًا عند التمرير */
-            top: 0;
-            z-index: 10;
-        }
-
-        /* تنسيق قيمة الدرجات */
         .grade-pass {
             font-weight: 700;
             color: #198754; /* أخضر للنجاح */
-            font-size: 1.1em;
+            font-size: 1.5rem;
         }
-
-        /* تنسيق درجات الرسوب */
         .grade-fail {
             font-weight: 700;
             color: #dc3545; /* أحمر للرسوب */
-            font-size: 1.1em;
-            background-color: #f8d7da; /* خلفية حمراء فاتحة */
+            font-size: 1.5rem;
         }
-
-        /* تنسيق الأرقام التسلسلية */
-        .serial-number {
-            font-weight: 500;
-            color: #495057;
+        .table-hidden {
+            display: none; /* لإخفاء جدول البيانات الرئيسي */
         }
     </style>
 </head>
 <body>
 
-<div class="container mt-5">
-    <div class="text-center">
-        <h1 class="page-title">نتائج اختبار الفترة</h1>
-        <p class="instructor-name">إعداد وتنسيق: الأستاذ كرار حداد</p>
+<div class="container">
+    <div class="header-section text-center">
+        <h1 class="display-5">نظام استعلام النتائج الفردية</h1>
+        <p class="lead">أهلاً بكم في صفحة نتائج الأستاذ كرار حداد</p>
     </div>
-    
-    <div class="grades-container">
-        
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th scope="col" class="serial-number">#</th>
-                        <th scope="col">اسم الطالب</th>
-                        <th scope="col">الدرجة النهائية</th>
-                        <th scope="col">الملاحظات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td class="serial-number">1</td><td>أحمد محمد</td><td class="grade-pass">95</td><td>ممتاز، عمل متقن</td></tr>
-                    <tr><td class="serial-number">2</td><td>فاطمة علي</td><td class="grade-pass">88</td><td>جيد جداً، مع بعض التركيز</td></tr>
-                    <tr><td class="serial-number">3</td><td>يوسف خالد</td><td class="grade-fail">45</td><td>يحتاج إلى دراسة إضافية</td></tr>
-                    <tr><td class="serial-number">4</td><td>زينب قاسم</td><td class="grade-pass">100</td><td>علامة كاملة، مثالي!</td></tr>
-                    <tr><td class="serial-number">5</td><td>علي حسين</td><td class="grade-pass">72</td><td>جيد، يمكن تحسين الأداء</td></tr>
-                    <tr><td class="serial-number">6</td><td>محمد رضا</td><td class="grade-pass">91</td><td>مستوى عالٍ</td></tr>
-                    <tr><td class="serial-number">7</td><td>سارة جاسم</td><td class="grade-pass">80</td><td>ممتاز</td></tr>
-                    <tr><td class="serial-number">8</td><td>حسن كريم</td><td class="grade-fail">49</td><td>تحتاج لمراجعة بسيطة لتجاوز الحد الأدنى</td></tr>
-                    <tr><td class="serial-number">9</td><td>مريم نزار</td><td class="grade-pass">77</td><td>جيد جداً</td></tr>
-                    <tr><td class="serial-number">10</td><td>عباس ليث</td><td class="grade-pass">65</td><td>مقبول</td></tr>
-                    <tr><td class="serial-number">11</td><td>الطالب رقم 11</td><td class="grade-pass">85</td><td></td></tr>
-                    <tr><td class="serial-number">12</td><td>الطالب رقم 12</td><td class="grade-pass">92</td><td></td></tr>
-                    <tr><td class="serial-number">13</td><td>الطالب رقم 13</td><td class="grade-fail">48</td><td></td></tr>
-                    <tr><td class="serial-number">14</td><td>الطالب رقم 14</td><td class="grade-pass">77</td><td></td></tr>
-                    <tr><td class="serial-number">15</td><td>الطالب رقم 15</td><td class="grade-pass">61</td><td></td></tr>
-                    <tr><td class="serial-number">16</td><td>الطالب رقم 16</td><td class="grade-pass">99</td><td></td></tr>
-                    <tr><td class="serial-number">17</td><td>الطالب رقم 17</td><td class="grade-pass">80</td><td></td></tr>
-                    <tr><td class="serial-number">18</td><td>الطالب رقم 18</td><td class="grade-fail">35</td><td></td></tr>
-                    <tr><td class="serial-number">19</td><td>الطالب رقم 19</td><td class="grade-pass">71</td><td></td></tr>
-                    <tr><td class="serial-number">20</td><td>الطالب رقم 20</td><td class="grade-pass">88</td><td></td></tr>
-                    <tr><td class="serial-number">21</td><td>الطالب رقم 21</td><td class="grade-pass">95</td><td></td></tr>
-                    <tr><td class="serial-number">22</td><td>الطالب رقم 22</td><td class="grade-pass">79</td><td></td></tr>
-                    <tr><td class="serial-number">23</td><td>الطالب رقم 23</td><td class="grade-fail">42</td><td></td></tr>
-                    <tr><td class="serial-number">24</td><td>الطالب رقم 24</td><td class="grade-pass">83</td><td></td></tr>
-                    <tr><td class="serial-number">25</td><td>الطالب رقم 25</td><td class="grade-pass">69</td><td></td></tr>
-                    <tr><td class="serial-number">26</td><td>الطالب رقم 26</td><td class="grade-pass">90</td><td></td></tr>
-                    <tr><td class="serial-number">27</td><td>الطالب رقم 27</td><td class="grade-pass">87</td><td></td></tr>
-                    <tr><td class="serial-number">28</td><td>الطالب رقم 28</td><td class="grade-pass">55</td><td></td></tr>
-                    <tr><td class="serial-number">29</td><td>الطالب رقم 29</td><td class="grade-pass">76</td><td></td></tr>
-                    <tr><td class="serial-number">30</td><td>الطالب رقم 30</td><td class="grade-pass">93</td><td></td></tr>
-                    <tr><td class="serial-number">31</td><td>الطالب رقم 31</td><td class="grade-fail">39</td><td></td></tr>
-                    <tr><td class="serial-number">32</td><td>الطالب رقم 32</td><td class="grade-pass">84</td><td></td></tr>
-                    <tr><td class="serial-number">33</td><td>الطالب رقم 33</td><td class="grade-pass">70</td><td></td></tr>
-                    <tr><td class="serial-number">34</td><td>الطالب رقم 34</td><td class="grade-pass">91</td><td></td></tr>
-                    <tr><td class="serial-number">35</td><td>الطالب رقم 35</td><td class="grade-pass">66</td><td></td></tr>
-                    <tr><td class="serial-number">36</td><td>الطالب رقم 36</td><td class="grade-pass">82</td><td></td></tr>
-                    <tr><td class="serial-number">37</td><td>الطالب رقم 37</td><td class="grade-pass">75</td><td></td></tr>
-                    <tr><td class="serial-number">38</td><td>الطالب رقم 38</td><td class="grade-pass">52</td><td></td></tr>
-                    <tr><td class="serial-number">39</td><td>الطالب رقم 39</td><td class="grade-pass">96</td><td></td></tr>
-                    <tr><td class="serial-number">40</td><td>الطالب رقم 40</td><td class="grade-pass">89</td><td></td></tr>
-                    <tr><td class="serial-number">41</td><td>الطالب رقم 41</td><td class="grade-pass">65</td><td></td></tr>
-                    <tr><td class="serial-number">42</td><td>الطالب رقم 42</td><td class="grade-pass">97</td><td></td></tr>
-                    <tr><td class="serial-number">43</td><td>الطالب رقم 43</td><td class="grade-fail">44</td><td></td></tr>
-                    <tr><td class="serial-number">44</td><td>الطالب رقم 44</td><td class="grade-pass">78</td><td></td></tr>
-                    <tr><td class="serial-number">45</td><td>الطالب رقم 45</td><td class="grade-pass">81</td><td></td></tr>
-                    <tr><td class="serial-number">46</td><td>الطالب رقم 46</td><td class="grade-pass">74</td><td></td></tr>
-                    <tr><td class="serial-number">47</td><td>الطالب رقم 47</td><td class="grade-pass">94</td><td></td></tr>
-                    <tr><td class="serial-number">48</td><td>الطالب رقم 48</td><td class="grade-pass">68</td><td></td></tr>
-                    <tr><td class="serial-number">49</td><td>الطالب رقم 49</td><td class="grade-pass">86</td><td></td></tr>
-                    <tr><td class="serial-number">50</td><td>الطالب رقم 50</td><td class="grade-pass">73</td><td></td></tr>
-                    <tr><td class="serial-number">51</td><td>الطالب رقم 51</td><td class="grade-pass">98</td><td></td></tr>
-                    <tr><td class="serial-number">52</td><td>الطالب رقم 52</td><td class="grade-fail">35</td><td></td></tr>
-                    <tr><td class="serial-number">53</td><td>الطالب رقم 53</td><td class="grade-pass">67</td><td></td></tr>
-                    <tr><td class="serial-number">54</td><td>الطالب رقم 54</td><td class="grade-pass">87</td><td></td></tr>
-                    <tr><td class="serial-number">55</td><td>الطالب رقم 55</td><td class="grade-pass">72</td><td></td></tr>
-                    <tr><td class="serial-number">56</td><td>الطالب رقم 56</td><td class="grade-pass">90</td><td></td></tr>
-                    <tr><td class="serial-number">57</td><td>الطالب رقم 57</td><td class="grade-pass">62</td><td></td></tr>
-                    <tr><td class="serial-number">58</td><td>الطالب رقم 58</td><td class="grade-pass">85</td><td></td></tr>
-                    <tr><td class="serial-number">59</td><td>الطالب رقم 59</td><td class="grade-pass">51</td><td></td></tr>
-                    <tr><td class="serial-number">60</td><td>الطالب رقم 60</td><td class="grade-pass">79</td><td></td></tr>
-                    <tr><td class="serial-number">61</td><td>الطالب رقم 61</td><td class="grade-pass">93</td><td></td></tr>
-                    <tr><td class="serial-number">62</td><td>الطالب رقم 62</td><td class="grade-pass">64</td><td></td></tr>
-                    <tr><td class="serial-number">63</td><td>الطالب رقم 63</td><td class="grade-fail">46</td><td></td></tr>
-                    <tr><td class="serial-number">64</td><td>الطالب رقم 64</td><td class="grade-pass">88</td><td></td></tr>
-                    <tr><td class="serial-number">65</td><td>الطالب رقم 65</td><td class="grade-pass">77</td><td></td></tr>
-                    <tr><td class="serial-number">66</td><td>الطالب رقم 66</td><td class="grade-pass">95</td><td></td></tr>
-                    <tr><td class="serial-number">67</td><td>الطالب رقم 67</td><td class="grade-pass">80</td><td></td></tr>
-                    <tr><td class="serial-number">68</td><td>الطالب رقم 68</td><td class="grade-pass">71</td><td></td></tr>
-                    <tr><td class="serial-number">69</td><td>الطالب رقم 69</td><td class="grade-pass">99</td><td></td></tr>
-                    <tr><td class="serial-number">70</td><td>الطالب رقم 70</td><td class="grade-pass">60</td><td></td></tr>
-                    <tr><td class="serial-number">71</td><td>الطالب رقم 71</td><td class="grade-pass">84</td><td></td></tr>
-                    <tr><td class="serial-number">72</td><td>الطالب رقم 72</td><td class="grade-pass">75</td><td></td></tr>
-                    <tr><td class="serial-number">73</td><td>الطالب رقم 73</td><td class="grade-fail">40</td><td></td></tr>
-                    <tr><td class="serial-number">74</td><td>الطالب رقم 74</td><td class="grade-pass">91</td><td></td></tr>
-                    <tr><td class="serial-number">75</td><td>الطالب رقم 75</td><td class="grade-pass">83</td><td></td></tr>
-                    <tr><td class="serial-number">76</td><td>الطالب رقم 76</td><td class="grade-pass">70</td><td></td></tr>
-                    <tr><td class="serial-number">77</td><td>الطالب رقم 77</td><td class="grade-pass">92</td><td></td></tr>
-                    <tr><td class="serial-number">78</td><td>الطالب رقم 78</td><td class="grade-pass">66</td><td></td></tr>
-                    <tr><td class="serial-number">79</td><td>الطالب رقم 79</td><td class="grade-pass">89</td><td></td></tr>
-                    <tr><td class="serial-number">80</td><td>الطالب رقم 80</td><td class="grade-pass">73</td><td></td></tr>
-                    <tr><td class="serial-number">81</td><td>الطالب رقم 81</td><td class="grade-pass">94</td><td></td></tr>
-                    <tr><td class="serial-number">82</td><td>الطالب رقم 82</td><td class="grade-fail">37</td><td></td></tr>
-                    <tr><td class="serial-number">83</td><td>الطالب رقم 83</td><td class="grade-pass">68</td><td></td></tr>
-                    <tr><td class="serial-number">84</td><td>الطالب رقم 84</td><td class="grade-pass">86</td><td></td></tr>
-                    <tr><td class="serial-number">85</td><td>الطالب رقم 85</td><td class="grade-pass">76</td><td></td></tr>
-                    <tr><td class="serial-number">86</td><td>الطالب رقم 86</td><td class="grade-pass">97</td><td></td></tr>
-                    <tr><td class="serial-number">87</td><td>الطالب رقم 87</td><td class="grade-pass">69</td><td></td></tr>
-                    <tr><td class="serial-number">88</td><td>الطالب رقم 88</td><td class="grade-pass">81</td><td></td></tr>
-                    <tr><td class="serial-number">89</td><td>الطالب رقم 89</td><td class="grade-pass">78</td><td></td></tr>
-                    <tr><td class="serial-number">90</td><td>الطالب رقم 90</td><td class="grade-pass">96</td><td></td></tr>
-                    <tr><td class="serial-number">91</td><td>الطالب رقم 91</td><td class="grade-pass">63</td><td></td></tr>
-                    <tr><td class="serial-number">92</td><td>الطالب رقم 92</td><td class="grade-pass">82</td><td></td></tr>
-                    <tr><td class="serial-number">93</td><td>الطالب رقم 93</td><td class="grade-fail">49</td><td></td></tr>
-                    <tr><td class="serial-number">94</td><td>الطالب رقم 94</td><td class="grade-pass">74</td><td></td></tr>
-                    <tr><td class="serial-number">95</td><td>الطالب رقم 95</td><td class="grade-pass">90</td><td></td></tr>
-                    <tr><td class="serial-number">96</td><td>الطالب رقم 96</td><td class="grade-pass">65</td><td></td></tr>
-                    <tr><td class="serial-number">97</td><td>الطالب رقم 97</td><td class="grade-pass">88</td><td></td></tr>
-                    <tr><td class="serial-number">98</td><td>الطالب رقم 98</td><td class="grade-pass">72</td><td></td></tr>
-                    <tr><td class="serial-number">99</td><td>الطالب رقم 99</td><td class="grade-pass">93</td><td></td></tr>
-                    <tr><td class="serial-number">100</td><td>الطالب رقم 100</td><td class="grade-pass">83</td><td></td></tr>
-                    </tbody>
-            </table>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-sm">
+                <h3 class="card-title text-primary mb-3">ابحث عن نتيجتك</h3>
+                <div class="input-group mb-3">
+                    <input type="text" id="studentNameInput" class="form-control form-control-lg" placeholder="يرجى كتابة الاسم الثلاثي أو الرباعي" aria-label="اسم الطالب">
+                    <button class="btn btn-primary btn-lg" type="button" onclick="searchResult()">عرض النتيجة</button>
+                </div>
+                <div class="form-text text-danger" id="error-message"></div>
+            </div>
         </div>
-        
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div id="resultDisplay" class="result-card">
+                <h4 class="mb-3 text-secondary">النتيجة الخاصة بالطالب: <span id="displayedName" class="text-dark"></span></h4>
+                <div class="row">
+                    <div class="col-4"><strong>الدرجة:</strong></div>
+                    <div class="col-8"><span id="displayedGrade"></span></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4"><strong>الملاحظات:</strong></div>
+                    <div class="col-8"><span id="displayedNote"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table id="gradesData" class="table-hidden">
+        <tbody>
+            <tr><td>قاسم عباس خماس</td><td>95</td><td>ممتاز، عمل متقن</td></tr>
+            <tr><td>فاطمة جاسم حسين</td><td>88</td><td>جيد جداً</td></tr>
+            <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>يحتاج إلى دراسة إضافية</td></tr>
+            <tr><td>زينب قاسم أحمد</td><td>100</td><td>علامة كاملة، مثالي!</td></tr>
+            <tr><td>علي حسين محمود</td><td>72</td><td>جيد</td></tr>
+            <tr><td>محمد رضا سعيد</td><td>91</td><td>مستوى عالٍ</td></tr>
+            <tr><td>سارة جاسم كريم</td><td>80</td><td>ممتاز</td></tr>
+            <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>تحتاج لمراجعة بسيطة لتجاوز الحد الأدنى</td></tr>
+            <tr><td>عمار سامي إبراهيم</td><td>85</td><td></td></tr>
+            <tr><td>بتول ليث كاظم</td><td>92</td><td></td></tr>
+            <tr><td>جعفر مصطفى أحمد</td><td class="fail">48</td><td></td></tr>
+            <tr><td>ريم عباس جبار</td><td>77</td><td></td></tr>
+            <tr><td>هيثم وليد سعد</td><td>61</td><td></td></tr>
+            <tr><td>نور عادل فاضل</td><td>99</td><td></td></tr>
+            <tr><td>مهدي علي حسن</td><td>80</td><td></td></tr>
+            <tr><td>دانة ماجد حميد</td><td class="fail">35</td><td></td></tr>
+            <tr><td>سيف صلاح الدين</td><td>71</td><td></td></tr>
+            <tr><td>مؤمل باقر جعفر</td><td>88</td><td></td></tr>
+            <tr><td>زهراء فلاح هادي</td><td>95</td><td></td></tr>
+            <tr><td>كرار حيدر حداد</td><td>79</td><td></td></tr>
+            <tr><td>ليلى رسول عباس</td><td class="fail">42</td><td></td></tr>
+            <tr><td>مصطفى أيمن كريم</td><td>83</td><td></td></tr>
+            <tr><td>هاجر نزار سامي</td><td>69</td><td></td></tr>
+            <tr><td>حسام حسن علي</td><td>90</td><td></td></tr>
+            <tr><td>ملاك عمار جليل</td><td>87</td><td></td></tr>
+            <tr><td>مرتضى غسان نجم</td><td>55</td><td></td></tr>
+            <tr><td>بنين صادق خليل</td><td>76</td><td></td></tr>
+            <tr><td>عمر قيس طالب</td><td>93</td><td></td></tr>
+            <tr><td>نزار عدنان يوسف</td><td class="fail">39</td><td></td></tr>
+            <tr><td>آية علي خضر</td><td>84</td><td></td></tr>
+            <tr><td>وسام جميل نوري</td><td>70</td><td></td></tr>
+            <tr><td>مروة فؤاد شاكر</td><td>91</td><td></td></tr>
+            <tr><td>كاظم زكي محمد</td><td>66</td><td></td></tr>
+            <tr><td>هند رعد جاسم</td><td>82</td><td></td></tr>
+            <tr><td>علياء ماجد ستار</td><td>75</td><td></td></tr>
+            <tr><td>حيدر صباح عودة</td><td>52</td><td></td></tr>
+            <tr><td>شهد وسام كاظم</td><td>96</td><td></td></tr>
+            <tr><td>جواد حسين جبار</td><td>89</td><td></td></tr>
+            <tr><td>نرجس محمد ناصر</td><td>65</td><td></td></tr>
+            <tr><td>ياسر فوزي حسين</td><td>97</td><td></td></tr>
+            <tr><td>سجى سالم كريم</td><td class="fail">44</td><td></td></tr>
+            <tr><td>حسن إحسان رضا</td><td>78</td><td></td></tr>
+            <tr><td>نغم جمال شاكر</td><td>81</td><td></td></tr>
+            <tr><td>حسام جبار نجم</td><td>74</td><td></td></tr>
+            <tr><td>مروان طارق يونس</td><td>94</td><td></td></tr>
+            <tr><td>أسرار صباح جاسم</td><td>68</td><td></td></tr>
+            <tr><td>زيد هشام علي</td><td>86</td><td></td></tr>
+            <tr><td>لينا رسول محمد</td><td>73</td><td></td></tr>
+            <tr><td>غيث علي حسن</td><td>98</td><td></td></tr>
+            <tr><td>جنى فؤاد مهدي</td><td class="fail">35</td><td></td></tr>
+            <tr><td>سالم أياد خليل</td><td>67</td><td></td></tr>
+            <tr><td>عائشة رياض سامي</td><td>87</td><td></td></tr>
+            <tr><td>فارس نزار عمار</td><td>72</td><td></td></tr>
+            <tr><td>هدى كاظم ياسين</td><td>90</td><td></td></tr>
+            <tr><td>سعد عامر حسن</td><td>62</td><td></td></tr>
+            <tr><td>ميس صلاح الدين</td><td>85</td><td></td></tr>
+            <tr><td>نور الهدى إياد</td><td>51</td><td></td></tr>
+            <tr><td>يعقوب مازن حسين</td><td>79</td><td></td></tr>
+            <tr><td>أمير جاسم محمد</td><td>93</td><td></td></tr>
+            <tr><td>زهير باسم رضا</td><td>64</td><td></td></tr>
+            <tr><td>آلاء عادل فاضل</td><td class="fail">46</td><td></td></tr>
+            <tr><td>ياسين عبد الله</td><td>88</td><td></td></tr>
+            <tr><td>براء عمار حسين</td><td>77</td><td></td></tr>
+            <tr><td>حوراء مرتضى</td><td>95</td><td></td></tr>
+            <tr><td>عباس علي محمد</td><td>80</td><td></td></tr>
+            <tr><td>رقية قيس كاظم</td><td>71</td><td></td></tr>
+            <tr><td>جعفر هادي علي</td><td>99</td><td></td></tr>
+            <tr><td>صفاء باقر كاظم</td><td>60</td><td></td></tr>
+            <tr><td>نبراس حسن كريم</td><td>84</td><td></td></tr>
+            <tr><td>محمد سيف نزار</td><td>75</td><td></td></tr>
+            <tr><td>زينب خالد شاكر</td><td class="fail">40</td><td></td></tr>
+            <tr><td>علي رعد طالب</td><td>91</td><td></td></tr>
+            <tr><td>هبة جمال رضا</td><td>83</td><td></td></tr>
+            <tr><td>سامر أحمد علي</td><td>70</td><td></td></tr>
+            <tr><td>جاسم محمد نوري</td><td>92</td><td></td></tr>
+            <tr><td>سارة حسين جاسم</td><td>66</td><td></td></tr>
+            <tr><td>مؤيد حسين علي</td><td>89</td><td></td></tr>
+            <tr><td>مريم محمد رضا</td><td>73</td><td></td></tr>
+            <tr><td>حنين علي إبراهيم</td><td>94</td><td></td></tr>
+            <tr><td>علياء حسن كريم</td><td class="fail">37</td><td></td></tr>
+            <tr><td>ياسين كريم طاهر</td><td>68</td><td></td></tr>
+            <tr><td>سنا علي عبد</td><td>86</td><td></td></tr>
+            <tr><td>صادق ماجد نوري</td><td>76</td><td></td></tr>
+            <tr><td>نادية نزار فاضل</td><td>97</td><td></td></tr>
+            <tr><td>أيهم طارق عادل</td><td>69</td><td></td></tr>
+            <tr><td>بتول محمد علي</td><td>81</td><td></td></tr>
+            <tr><td>حسين أحمد قاسم</td><td>78</td><td></td></tr>
+            <tr><td>شمس علي محمد</td><td>96</td><td></td></tr>
+            <tr><td>كرار حيدر عباس</td><td>63</td><td></td></tr>
+            <tr><td>فاطمة حيدر علي</td><td>82</td><td></td></tr>
+            <tr><td>جعفر حسن محمد</td><td class="fail">49</td><td></td></tr>
+            <tr><td>آمنة علي يوسف</td><td>74</td><td></td></tr>
+            <tr><td>عمر أحمد عباس</td><td>90</td><td></td></tr>
+            <tr><td>هديل رعد جبار</td><td>65</td><td></td></tr>
+            <tr><td>علاء محمد نجم</td><td>88</td><td></td></tr>
+            <tr><td>آسيا قاسم علي</td><td>72</td><td></td></tr>
+            <tr><td>نور حيدر عباس</td><td>93</td><td></td></tr>
+            <tr><td>مصطفى محمد إحسان</td><td>67</td><td></td></tr>
+            <tr><td>مروة علي محمد</td><td>85</td><td></td></tr>
+            <tr><td>يوسف إياد محمد</td><td>77</td><td></td></tr>
+            <tr><td>هالة طه محمود</td><td class="fail">43</td><td></td></tr>
+            <tr><td>أحمد طارق علي</td><td>91</td><td></td></tr>
+            <tr><td>بنين صادق هادي</td><td>70</td><td></td></tr>
+            <tr><td>علي حسين علي</td><td>84</td><td></td></tr>
+            <tr><td>دعاء حيدر كريم</td><td>61</td><td></td></tr>
+            <tr><td>حيدر محمد نزار</td><td>95</td><td></td></tr>
+            <tr><td>رغد ماجد أحمد</td><td>79</td><td></td></tr>
+            <tr><td>سجاد حسن علي</td><td>83</td><td></td></tr>
+            
+        </tbody>
+    </table>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function searchResult() {
+        // 1. الحصول على مدخلات الطالب وتنقيتها
+        const inputElement = document.getElementById('studentNameInput');
+        const studentName = inputElement.value.trim();
+        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' '); // تنظيف المسافات وجعلها أحرف صغيرة
+
+        // عناصر عرض النتيجة والخطأ
+        const resultDisplay = document.getElementById('resultDisplay');
+        const errorMessage = document.getElementById('error-message');
+        
+        // إخفاء العرض السابق ورسالة الخطأ
+        resultDisplay.style.display = 'none';
+        errorMessage.textContent = '';
+
+        if (studentName === '') {
+            errorMessage.textContent = 'يرجى إدخال اسم الطالب الثلاثي أو الرباعي للبحث.';
+            return;
+        }
+
+        // 2. البحث في جدول البيانات المخفي
+        const tableBody = document.getElementById('gradesData').getElementsByTagName('tbody')[0];
+        const rows = tableBody.getElementsByTagName('tr');
+        let found = false;
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            const studentCell = cells[0];
+            
+            // تنظيف اسم الطالب في الجدول للمقارنة
+            const storedName = studentCell.textContent.trim().toLowerCase().replace(/\s+/g, ' ');
+
+            if (storedName === normalizedName) {
+                // 3. تم العثور على الطالب
+                found = true;
+                const grade = cells[1].textContent.trim();
+                const note = cells[2].textContent.trim() || 'لا توجد ملاحظات إضافية.';
+                const isFail = cells[1].classList.contains('fail'); // التحقق من كلاس الرسوب في الجدول المخفي
+
+                // 4. عرض النتيجة
+                document.getElementById('displayedName').textContent = studentName;
+                const gradeSpan = document.getElementById('displayedGrade');
+                const noteSpan = document.getElementById('displayedNote');
+
+                gradeSpan.textContent = grade;
+                noteSpan.textContent = note;
+
+                // تحديث تنسيق الدرجة (نجاح/رسوب)
+                gradeSpan.classList.remove('grade-pass', 'grade-fail');
+                if (isFail || parseInt(grade) < 50) { // نفترض أن درجة النجاح هي 50
+                    gradeSpan.classList.add('grade-fail');
+                } else {
+                    gradeSpan.classList.add('grade-pass');
+                }
+
+                // إظهار بطاقة النتيجة
+                resultDisplay.style.display = 'block';
+                inputElement.value = ''; // مسح حقل الإدخال
+                break;
+            }
+        }
+
+        // 5. في حال عدم العثور على الطالب
+        if (!found) {
+            errorMessage.textContent = 'عفواً، لم يتم العثور على نتيجة لهذا الاسم. يرجى التأكد من كتابة الاسم الثلاثي أو الرباعي بشكل صحيح.';
+        }
+    }
+</script>
+
 </body>
 </html>
