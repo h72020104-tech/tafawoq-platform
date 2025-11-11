@@ -3,37 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نتائجكم - الأستاذ كرار حداد</title>
+    <title>TERMINAL_RESULTS - الأستاذ كرار حداد</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-light: #8ecae6; /* أزرق فاتح مريح */
-            --secondary-light: #219ebc; /* أزرق متوسط */
-            --gradient-start: #a8dadc; /* بداية تدرج أخضر/أزرق فاتح */
-            --gradient-end: #457b9d;   /* نهاية تدرج أزرق أغمق */
-            --success-color: #2a9d8f;  /* أخضر بحري للنجاح */
-            --fail-color: #e63946;     /* أحمر مريح للرسوب */
-            --text-dark: #3a506b;      /* لون نص داكن */
-            --text-light: #ffffff;     /* لون نص فاتح للخلفية الداكنة */
-            --soft-glass-bg: rgba(255, 255, 255, 0.6); /* خلفية زجاجية أنعم */
-            --soft-glass-border: rgba(255, 255, 255, 0.8); /* حدود أنعم */
-            --button-bg: linear-gradient(to right, #219ebc, #8ecae6); /* تدرج زر البحث */
+            --bg-color: #03001C; /* أزرق ليلي عميق جداً */
+            --primary-neon: #00f2ea; /* سيان ساطع */
+            --secondary-neon: #ff00ff; /* ماجنتا/وردي ساطع */
+            --text-color: #e0e0e0; /* أبيض خافت */
+            --success-color: #00ff87; /* أخضر نيون */
+            --fail-color: #ff3b3b;   /* أحمر نيون */
+            --card-bg: rgba(10, 20, 40, 0.7); /* خلفية بطاقة شفافة داكنة */
+            --border-neon: rgba(0, 242, 234, 0.5); /* حدود البطاقة */
+            --shadow-neon: rgba(0, 242, 234, 0.3); /* ظل البطاقة */
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-            background-size: 200% 200%;
-            animation: gradientAnim 10s ease infinite;
-            color: var(--text-dark); /* لون النص الأساسي داكن */
+            font-family: 'Share Tech Mono', 'Cairo', monospace; /* خط تكنولوجي + خط عربي */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             direction: rtl; 
             text-align: right;
             min-height: 100vh;
@@ -41,268 +37,243 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            overflow: hidden; /* لإخفاء أي سكرول يسببه البارتكلز */
         }
 
-        @keyframes gradientAnim {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* حاوية الجزيئات المتحركة (الخلفية) */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
         .main-container {
             width: 100%;
-            max-width: 800px; /* زيادة عرض الحاوية قليلاً */
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
         }
         
-        .soft-glass-card {
-            background: var(--soft-glass-bg);
+        /* تصميم الواجهة المستقبلية (FUI) */
+        .fui-card {
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 25px;
-            border: 1px solid var(--soft-glass-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--border-neon);
+            border-radius: 10px;
+            box-shadow: 0 0 30px var(--shadow-neon), inset 0 0 15px var(--shadow-neon);
             padding: 40px;
             max-height: 90vh;
             overflow-y: auto;
-            color: var(--text-dark); /* النص داخل البطاقة داكن */
-        }
-
-        /* تخصيص شريط التمرير */
-        .soft-glass-card::-webkit-scrollbar {
-            width: 8px;
-        }
-        .soft-glass-card::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 10px;
-        }
-        .soft-glass-card::-webkit-scrollbar-thumb {
-            background-color: var(--secondary-light);
-            border-radius: 10px;
-            border: 2px solid var(--soft-glass-bg);
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-title {
-            font-weight: 900;
-            font-size: 3rem;
-            color: var(--secondary-light); /* لون أزرق جذاب */
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-        }
-
-        /* الشعار المتحرك */
-        .animated-logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            overflow: hidden; /* لإخفاء النص خارج نطاق الحركة */
-            white-space: nowrap; /* لمنع التفاف النص */
-            display: inline-block;
-            animation: typing 6s steps(40, end) infinite alternate,
-                       blink-caret .75s step-end infinite;
-            border-right: .15em solid var(--primary-light); /* مؤشر الكتابة */
-            max-width: 100%; /* لضمان التجاوب */
-            direction: ltr; /* لجعل الكتابة من اليسار لليمين */
-            text-align: left; /* لضمان الكتابة من اليسار لليمين */
-        }
-
-        /* الكي فريمز لحركة الشعار */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary-light); }
-        }
-
-        /* تنسيق حقل البحث */
-        .search-box {
             position: relative;
+        }
+        
+        /* زوايا مزخرفة (لإحساس مستقبلي) */
+        .fui-card::before, .fui-card::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-color: var(--primary-neon);
+            border-style: solid;
+        }
+        .fui-card::before {
+            top: -5px; right: -5px;
+            border-width: 3px 3px 0 0;
+        }
+        .fui-card::after {
+            bottom: -5px; left: -5px;
+            border-width: 0 0 3px 3px;
+        }
+
+        /* شريط التمرير */
+        .fui-card::-webkit-scrollbar { width: 6px; }
+        .fui-card::-webkit-scrollbar-track { background: transparent; }
+        .fui-card::-webkit-scrollbar-thumb {
+            background-color: var(--primary-neon);
+            border-radius: 6px;
+        }
+
+        /* === تأثير الـ Glitch للعنوان === */
+        .glitch-wrapper {
+            text-align: center;
             margin-bottom: 30px;
         }
+        .glitch {
+            font-family: 'Orbitron', 'Cairo', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            position: relative;
+            text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon);
+            animation: glitch-anim 3s infinite alternate cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glitch span {
+            display: block;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: "الأستاذ كرار حداد - مدرس إنجليزي";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch::before {
+            color: var(--secondary-neon);
+            z-index: -2;
+            animation: glitch-anim-2 2s infinite alternate-reverse cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translate(2px, 2px);
+        }
+        .glitch::after {
+            color: var(--primary-neon);
+            z-index: -1;
+            animation: glitch-anim-1 2.5s infinite alternate-reverse cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translate(-2px, -2px);
+        }
+        @keyframes glitch-anim { 0% { clip-path: inset(5% 0 20% 0); } 100% { clip-path: inset(40% 0 30% 0); } }
+        @keyframes glitch-anim-1 { 0% { clip-path: inset(10% 0 85% 0); } 100% { clip-path: inset(70% 0 10% 0); } }
+        @keyframes glitch-anim-2 { 0% { clip-path: inset(80% 0 5% 0); } 100% { clip-path: inset(5% 0 90% 0); } }
+        /* === نهاية تأثير الـ Glitch === */
 
+        /* لوحة البحث */
+        .search-console {
+            position: relative;
+            margin-bottom: 25px;
+        }
         .search-input {
             width: 100%;
+            font-family: 'Share Tech Mono', 'Cairo', monospace;
             font-size: 1.2rem;
-            padding: 15px 20px 15px 60px;
-            background: rgba(255, 255, 255, 0.7); /* خلفية فاتحة لحقل البحث */
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            color: var(--text-dark);
-            border-radius: 15px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--border-neon);
+            color: #fff;
+            border-radius: 8px;
             transition: all 0.3s ease;
+            caret-color: var(--primary-neon); /* لون مؤشر الكتابة */
         }
-
         .search-input::placeholder {
-            color: rgba(58, 80, 107, 0.6); /* لون بليس هولدر داكن */
+            color: var(--text-color);
+            opacity: 0.6;
         }
-
         .search-input:focus {
-            background: #ffffff;
-            box-shadow: 0 0 15px rgba(33, 158, 188, 0.3); /* ظل أزرق خفيف */
-            border-color: var(--secondary-light);
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 20px var(--shadow-neon);
+            border-color: var(--primary-neon);
             outline: none;
         }
-
         .search-button {
             position: absolute;
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--button-bg);
+            background: var(--primary-neon);
             border: none;
-            border-radius: 12px; /* حواف أكثر استدارة */
-            color: var(--text-light);
-            width: 50px; /* حجم أكبر للزر */
-            height: 50px;
-            font-size: 1.4rem; /* أيقونة أكبر */
+            border-radius: 6px;
+            color: var(--bg-color);
+            width: 45px;
+            height: 45px;
+            font-size: 1.3rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        
         .search-button:hover {
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 0 20px rgba(33, 158, 188, 0.5);
+            background: #fff;
+            box-shadow: 0 0 20px #fff;
+            transform: translateY(-50%) scale(1.1);
         }
 
-        /* منطقة عرض النتيجة */
+        /* منطقة النتيجة */
         #result-container {
-            margin-top: 30px;
             display: none;
-            animation: fadeInScale 0.6s ease-out forwards;
+            margin-top: 30px;
+            animation: fadeInTerminal 0.8s ease-out;
+        }
+        @keyframes fadeInTerminal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
         #result-card {
-            background: rgba(255, 255, 255, 0.8); /* خلفية فاتحة لبطاقة النتيجة */
-            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
             padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-neon);
         }
-        
+        .result-label {
+            font-size: 1rem;
+            color: var(--primary-neon);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         .result-name {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--secondary-light);
+            color: #fff;
+            margin-bottom: 15px;
         }
-        
-        .result-label {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            opacity: 0.7;
+        .result-notes {
+            font-size: 1.2rem;
+            color: var(--text-color);
         }
-
-        /* تنسيق عملاق للدرجة */
         .grade-display {
-            font-size: 6rem; /* حجم أكبر جداً للدرجة */
+            font-family: 'Orbitron', sans-serif; /* خط أرقام مميز */
+            font-size: 6rem;
             font-weight: 900;
             line-height: 1;
             text-align: center;
         }
-        
         .grade-pass {
             color: var(--success-color);
-            text-shadow: 0 0 25px rgba(42, 157, 143, 0.4);
+            text-shadow: 0 0 30px rgba(0, 255, 135, 0.7);
         }
-        
         .grade-fail {
             color: var(--fail-color);
-            text-shadow: 0 0 25px rgba(230, 57, 70, 0.4);
+            text-shadow: 0 0 30px rgba(255, 59, 59, 0.7);
         }
 
         /* رسالة الخطأ */
         #error-message {
             display: none;
-            animation: fadeIn 0.3s;
-            background-color: rgba(230, 57, 70, 0.1); /* خلفية خطأ أفتح */
+            background-color: rgba(255, 59, 59, 0.1);
+            border: 1px solid var(--fail-color);
             color: var(--fail-color);
-            border-color: var(--fail-color);
-            border-radius: 10px;
-            padding: 15px;
-        }
-        #error-message span {
-            font-weight: 700;
-        }
-
-        /* الجدول المخفي للبيانات */
-        .table-hidden {
-            display: none;
-        }
-
-        /* تحسينات للتجاوب */
-        @media (max-width: 768px) {
-            .header-title {
-                font-size: 2.5rem;
-            }
-            .animated-logo {
-                font-size: 1.1rem;
-            }
-            .search-input {
-                padding-left: 50px;
-            }
-            .search-button {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            .grade-display {
-                font-size: 4rem;
-            }
-            .result-name {
-                font-size: 1.5rem;
-            }
-            .soft-glass-card {
-                padding: 25px;
-            }
-        }
-        @media (max-width: 576px) {
-            .header-title {
-                font-size: 2rem;
-            }
-            .animated-logo {
-                font-size: 1rem;
-            }
-            .grade-display {
-                font-size: 3rem;
-            }
-            .result-name {
-                font-size: 1.2rem;
-            }
-            .search-input {
-                font-size: 1rem;
-            }
+            font-size: 1.1rem;
+            border-radius: 5px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
+<div id="particles-js"></div>
+
 <div class="main-container">
-    <div class="soft-glass-card">
+    <div class="fui-card">
         
-        <div class="header-section">
-            <h1 class="header-title">بوابة النتائج الإلكترونية</h1>
-            <p class="animated-logo">الأستاذ كرار حداد - مدرس لغة إنجليزية</p>
+        <div class="glitch-wrapper">
+            <h1 class="glitch" data-text="الأستاذ كرار حداد - مدرس إنجليزي">
+                <span>الأستاذ كرار حداد - مدرس إنجليزي</span>
+            </h1>
         </div>
         
-        <div class="search-box">
-            <input type="text" id="studentNameInput" class="search-input" placeholder="اكتب اسمك الثلاثي الكامل هنا ...">
+        <div class="search-console">
+            <label for="studentNameInput" class="form-label text-white-50"><i class="fas fa-terminal me-2"></i>أدخل اسم الطالب الثلاثي للتحقق من النتيجة:</label>
+            <input type="text" id="studentNameInput" class="search-input" placeholder="[... USER_NAME ...]">
             <button class="search-button" type="button" onclick="searchResult()">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-arrow-left"></i>
             </button>
         </div>
         
         <div class="alert mt-3" role="alert" id="error-message">
-            <i class="fas fa-exclamation-circle me-2"></i>
+            <i class="fas fa-exclamation-triangle me-2"></i>
             <span></span>
         </div>
 
@@ -310,14 +281,14 @@
             <div id="result-card">
                 <div class="row align-items-center">
                     <div class="col-md-7">
-                        <span class="result-label"><i class="fas fa-user-graduate me-2"></i>اسم الطالب</span>
+                        <span class="result-label">STUDENT_NAME:</span>
                         <h2 id="displayName" class="result-name"></h2>
-                        <hr class="text-secondary opacity-25 my-3">
-                        <span class="result-label"><i class="fas fa-comment-dots me-2"></i>الملاحظات</span>
-                        <p id="displayNotes" class="fs-5 mt-2"></p>
+                        <hr class="border-secondary">
+                        <span class="result-label">SYSTEM_LOG:</span>
+                        <p id="displayNotes" class="result-notes mt-2"></p>
                     </div>
                     <div class="col-md-5 text-center">
-                        <span class="result-label">الدرجة النهائية</span>
+                        <span class="result-label">FINAL_GRADE</span>
                         <div id="displayGrade" class="grade-display mt-2"></div>
                     </div>
                 </div>
@@ -327,18 +298,18 @@
     </div>
 </div>
 
-<table id="gradesData" class="table-hidden">
+<table id="gradesData" class="d-none">
     <tbody>
-        <tr><td>أحمد علي محمد</td><td>95</td><td>أحسنت، جهد ممتاز يستحق التقدير!</td></tr>
-        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>مستوى جيد جداً، مع قليل من التركيز سيتحسن أكثر.</td></tr>
-        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>النتيجة تحتاج إلى مراجعة شاملة للمادة.</td></tr>
-        <tr><td>زينب قاسم أحمد</td><td>100</td><td>درجة كاملة! استمرت في التألق والإبداع.</td></tr>
-        <tr><td>علي حسين محمود</td><td>72</td><td>أداء جيد، ولكن هناك مجال كبير للتطور.</td></tr>
-        <tr><td>محمد رضا سعيد</td><td>91</td><td>مستوى عالٍ ومجهود واضح في الدراسة.</td></tr>
-        <tr><td>سارة جاسم كريم</td><td>80</td><td>ممتاز، استمرت في هذا الأداء الرائع.</td></tr>
-        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>تحتاج لمراجعة بسيطة لتجاوز الحد الأدنى للنجاح.</td></tr>
-        <tr><td>كرار حيدر حداد</td><td>100</td><td>أنت مبدع في التصميم أستاذ!</td></tr>
-        <tr><td>عمار سامي إبراهيم</td><td>85</td><td>مستوى ممتاز وواضح.</td></tr>
+        <tr><td>أحمد علي محمد</td><td>95</td><td>SYSTEM: STATUS_EXCELLENT.</td></tr>
+        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>SYSTEM: STATUS_VERY_GOOD.</td></tr>
+        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>SYSTEM: RETEST_REQUIRED.</td></tr>
+        <tr><td>زينب قاسم أحمد</td><td>100</td><td>SYSTEM: STATUS_PERFECT. ALL_METRICS_PASSED.</td></tr>
+        <tr><td>علي حسين محمود</td><td>72</td><td>SYSTEM: STATUS_GOOD.</td></tr>
+        <tr><td>محمد رضا سعيد</td><td>91</td><td>SYSTEM: HIGH_PERFORMANCE.</td></tr>
+        <tr><td>سارة جاسم كريم</td><td>80</td><td>SYSTEM: STATUS_EXCELLENT.</td></tr>
+        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>SYSTEM: WARNING_BELOW_THRESHOLD.</td></tr>
+        <tr><td>كرار حيدر حداد</td><td>100</td><td>SYSTEM: ADMIN_OVERRIDE_PERFECT.</td></tr>
+        <tr><td>عمار سامي إبراهيم</td><td>85</td><td></td></tr>
         <tr><td>بتول ليث كاظم</td><td>92</td><td></td></tr>
         <tr><td>جعفر مصطفى أحمد</td><td class="fail">48</td><td></td></tr>
         <tr><td>ريم عباس جبار</td><td>77</td><td></td></tr>
@@ -490,15 +461,36 @@
         <tr><td>الطالب رقم 150</td><td>78</td><td></td></tr>
     </tbody>
 </table>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#00f2ea" }, /* لون الجزيئات */
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+            "size": { "value": 3, "random": true, "anim": { "enable": false } },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00f2ea", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
+        },
+        "retina_detect": true
+    });
+</script>
 
 <script>
     function searchResult() {
         // 1. الحصول على المدخلات
         const inputElement = document.getElementById('studentNameInput');
         const studentName = inputElement.value.trim();
-        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' '); // تنظيف المسافات وجعلها أحرف صغيرة
+        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' ');
 
         // 2. الحصول على عناصر العرض
         const resultContainer = document.getElementById('result-container');
@@ -510,7 +502,7 @@
         errorElement.style.display = 'none';
 
         if (studentName === '') {
-            errorSpan.textContent = 'يرجى إدخال اسمك الثلاثي أو الرباعي للبحث عن نتيجتك.';
+            errorSpan.textContent = 'ERROR: INPUT_FIELD_EMPTY. PLEASE_ENTER_NAME.';
             errorElement.style.display = 'block';
             return;
         }
@@ -528,8 +520,8 @@
                 // 5. تم العثور على الطالب
                 found = true;
                 const grade = cells[1].textContent.trim();
-                const note = cells[2].textContent.trim() || 'لا توجد ملاحظات إضافية.';
-                const isFail = cells[1].classList.contains('fail') || parseInt(grade) < 50; // افتراض الرسوب تحت 50
+                const note = cells[2].textContent.trim() || 'SYSTEM: NO_ADDITIONAL_NOTES.';
+                const isFail = cells[1].classList.contains('fail') || parseInt(grade) < 50;
 
                 // 6. تعبئة بطاقة النتيجة
                 document.getElementById('displayName').textContent = studentName;
@@ -538,7 +530,6 @@
                 const gradeElement = document.getElementById('displayGrade');
                 gradeElement.textContent = grade;
                 
-                // تطبيق تنسيق النجاح أو الرسوب "العملاق"
                 gradeElement.classList.remove('grade-pass', 'grade-fail');
                 if (isFail) {
                     gradeElement.classList.add('grade-fail');
@@ -546,16 +537,16 @@
                     gradeElement.classList.add('grade-pass');
                 }
 
-                // 7. إظهار النتيجة بأنيميشن
+                // 7. إظهار النتيجة
                 resultContainer.style.display = 'block';
-                inputElement.value = ''; // مسح الحقل بعد البحث
+                inputElement.value = '';
                 break;
             }
         }
 
-        // 8. في حال عدم العثور على الطالب
+        // 8. في حال عدم العثور
         if (!found) {
-            errorSpan.textContent = 'عفواً، لم يتم العثور على نتيجة لهذا الاسم. يرجى التأكد من كتابة الاسم الثلاثي أو الرباعي بدقة.';
+            errorSpan.textContent = 'ERROR: 404_USER_NOT_FOUND. VERIFY_NAME_AND_RETRY.';
             errorElement.style.display = 'block';
         }
     }
