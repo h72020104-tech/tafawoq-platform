@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL_RESULTS - الأستاذ كرار حداد</title>
+    <title>منصة النتائج الماسية - الأستاذ كرار حداد</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -11,25 +11,27 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #03001C; /* أزرق ليلي عميق جداً */
-            --primary-neon: #00f2ea; /* سيان ساطع */
-            --secondary-neon: #ff00ff; /* ماجنتا/وردي ساطع */
-            --text-color: #e0e0e0; /* أبيض خافت */
-            --success-color: #00ff87; /* أخضر نيون */
-            --fail-color: #ff3b3b;   /* أحمر نيون */
-            --card-bg: rgba(10, 20, 40, 0.7); /* خلفية بطاقة شفافة داكنة */
-            --border-neon: rgba(0, 242, 234, 0.5); /* حدود البطاقة */
-            --shadow-neon: rgba(0, 242, 234, 0.3); /* ظل البطاقة */
+            --bg-color: #0a0f18; /* أزرق داكن جداً (قاعدة) */
+            --card-bg: rgba(15, 22, 38, 0.7); /* زجاج داكن */
+            --border-color: rgba(0, 191, 255, 0.3); /* حدود زرقاء شفافة */
+            --shadow-color: rgba(0, 191, 255, 0.2); /* ظل أزرق */
+            --primary-crystal: #00bfff; /* أزرق كريستالي (DeepSkyBlue) */
+            --text-primary: #ffffff; /* أبيض ناصع */
+            --text-secondary: #c0c0c0; /* فضي خافت */
+            --success-color: #00ff7f; /* أخضر ساطع (SpringGreen) */
+            --fail-color: #ff4d4d;   /* أحمر ساطع */
         }
 
         body {
-            font-family: 'Share Tech Mono', 'Cairo', monospace; /* خط تكنولوجي + خط عربي */
+            font-family: 'Tajawal', sans-serif; /* الخط الجديد الواضح */
             background-color: var(--bg-color);
-            color: var(--text-color);
+            /* خلفية بتدرج خفيف ومتحرك */
+            background-image: linear-gradient(145deg, var(--bg-color) 0%, #101827 50%, #0d1117 100%);
+            color: var(--text-primary);
             direction: rtl; 
             text-align: right;
             min-height: 100vh;
@@ -37,17 +39,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow: hidden; /* لإخفاء أي سكرول يسببه البارتكلز */
-        }
-
-        /* حاوية الجزيئات المتحركة (الخلفية) */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
         }
 
         .main-container {
@@ -57,218 +48,190 @@
             z-index: 10;
         }
         
-        /* تصميم الواجهة المستقبلية (FUI) */
-        .fui-card {
+        /* البطاقة الزجاجية الداكنة */
+        .crystal-card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid var(--border-neon);
-            border-radius: 10px;
-            box-shadow: 0 0 30px var(--shadow-neon), inset 0 0 15px var(--shadow-neon);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 25px var(--shadow-color);
             padding: 40px;
             max-height: 90vh;
             overflow-y: auto;
-            position: relative;
-        }
-        
-        /* زوايا مزخرفة (لإحساس مستقبلي) */
-        .fui-card::before, .fui-card::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-color: var(--primary-neon);
-            border-style: solid;
-        }
-        .fui-card::before {
-            top: -5px; right: -5px;
-            border-width: 3px 3px 0 0;
-        }
-        .fui-card::after {
-            bottom: -5px; left: -5px;
-            border-width: 0 0 3px 3px;
         }
 
         /* شريط التمرير */
-        .fui-card::-webkit-scrollbar { width: 6px; }
-        .fui-card::-webkit-scrollbar-track { background: transparent; }
-        .fui-card::-webkit-scrollbar-thumb {
-            background-color: var(--primary-neon);
-            border-radius: 6px;
+        .crystal-card::-webkit-scrollbar { width: 8px; }
+        .crystal-card::-webkit-scrollbar-track { background: transparent; }
+        .crystal-card::-webkit-scrollbar-thumb {
+            background-color: var(--primary-crystal);
+            border-radius: 8px;
         }
 
-        /* === تأثير الـ Glitch للعنوان === */
-        .glitch-wrapper {
+        .header-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
-        .glitch {
-            font-family: 'Orbitron', 'Cairo', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: #fff;
-            position: relative;
-            text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon);
-            animation: glitch-anim 3s infinite alternate cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        /* === الشعار المتحرك (تأثير اللمعان) === */
+        .animated-shine-text {
+            font-size: 3rem; /* خط كبير وواضح */
+            font-weight: 900; /* أثقل وزن للخط */
+            background: linear-gradient(90deg, 
+                var(--text-primary), 
+                var(--primary-crystal), 
+                var(--text-primary)
+            );
+            background-size: 200% auto;
+            color: #000;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 4s linear infinite;
         }
-        .glitch span {
-            display: block;
+        @keyframes textShine {
+            to {
+                background-position: -200% center;
+            }
         }
-        .glitch::before,
-        .glitch::after {
-            content: "الأستاذ كرار حداد - مدرس إنجليزي";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
+        /* === نهاية الشعار === */
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-secondary); /* لون فضي */
+            margin-top: 5px;
         }
-        .glitch::before {
-            color: var(--secondary-neon);
-            z-index: -2;
-            animation: glitch-anim-2 2s infinite alternate-reverse cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translate(2px, 2px);
-        }
-        .glitch::after {
-            color: var(--primary-neon);
-            z-index: -1;
-            animation: glitch-anim-1 2.5s infinite alternate-reverse cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translate(-2px, -2px);
-        }
-        @keyframes glitch-anim { 0% { clip-path: inset(5% 0 20% 0); } 100% { clip-path: inset(40% 0 30% 0); } }
-        @keyframes glitch-anim-1 { 0% { clip-path: inset(10% 0 85% 0); } 100% { clip-path: inset(70% 0 10% 0); } }
-        @keyframes glitch-anim-2 { 0% { clip-path: inset(80% 0 5% 0); } 100% { clip-path: inset(5% 0 90% 0); } }
-        /* === نهاية تأثير الـ Glitch === */
 
         /* لوحة البحث */
         .search-console {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .search-input {
             width: 100%;
-            font-family: 'Share Tech Mono', 'Cairo', monospace;
-            font-size: 1.2rem;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--border-neon);
-            color: #fff;
-            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700; /* خط عريض للإدخال */
+            font-size: 1.3rem;
+            padding: 18px 25px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 15px;
             transition: all 0.3s ease;
-            caret-color: var(--primary-neon); /* لون مؤشر الكتابة */
+            caret-color: var(--primary-crystal);
         }
         .search-input::placeholder {
-            color: var(--text-color);
-            opacity: 0.6;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         .search-input:focus {
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 20px var(--shadow-neon);
-            border-color: var(--primary-neon);
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px var(--shadow-color);
+            border-color: var(--primary-crystal);
             outline: none;
         }
         .search-button {
             position: absolute;
-            left: 10px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary-neon);
+            background: var(--primary-crystal);
             border: none;
-            border-radius: 6px;
-            color: var(--bg-color);
-            width: 45px;
-            height: 45px;
-            font-size: 1.3rem;
+            border-radius: 10px;
+            color: var(--bg-color); /* لون الأيقونة داكن */
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            font-weight: 900;
             transition: all 0.3s ease;
         }
         .search-button:hover {
             background: #fff;
-            box-shadow: 0 0 20px #fff;
-            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 25px #fff;
+            transform: translateY(-50%) scale(1.05);
         }
 
         /* منطقة النتيجة */
         #result-container {
             display: none;
             margin-top: 30px;
-            animation: fadeInTerminal 0.8s ease-out;
+            animation: resultFadeIn 0.7s ease-out;
         }
-        @keyframes fadeInTerminal {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes resultFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         
         #result-card {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
             padding: 30px;
-            border: 1px solid var(--border-neon);
+            border: 1px solid var(--border-color);
         }
         .result-label {
-            font-size: 1rem;
-            color: var(--primary-neon);
+            font-size: 1.1rem;
+            color: var(--primary-crystal);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         .result-name {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
             margin-bottom: 15px;
         }
         .result-notes {
-            font-size: 1.2rem;
-            color: var(--text-color);
+            font-size: 1.3rem; /* خط أوضح للملاحظات */
+            font-weight: 500;
+            color: var(--text-secondary);
         }
+        
+        /* الدرجة العملاقة والواضحة */
         .grade-display {
-            font-family: 'Orbitron', sans-serif; /* خط أرقام مميز */
-            font-size: 6rem;
-            font-weight: 900;
+            font-family: 'Tajawal', sans-serif; /* نفس الخط الواضح */
+            font-size: 7rem; /* حجم عملاق */
+            font-weight: 900; /* أثقل وزن */
             line-height: 1;
             text-align: center;
         }
         .grade-pass {
             color: var(--success-color);
-            text-shadow: 0 0 30px rgba(0, 255, 135, 0.7);
+            text-shadow: 0 0 30px rgba(0, 255, 127, 0.5);
         }
         .grade-fail {
             color: var(--fail-color);
-            text-shadow: 0 0 30px rgba(255, 59, 59, 0.7);
+            text-shadow: 0 0 30px rgba(255, 77, 77, 0.6);
         }
 
         /* رسالة الخطأ */
         #error-message {
             display: none;
-            background-color: rgba(255, 59, 59, 0.1);
+            background-color: rgba(255, 77, 77, 0.1);
             border: 1px solid var(--fail-color);
             color: var(--fail-color);
-            font-size: 1.1rem;
-            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 10px;
             text-align: center;
+            padding: 15px;
         }
     </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
-
 <div class="main-container">
-    <div class="fui-card">
+    <div class="crystal-card">
         
-        <div class="glitch-wrapper">
-            <h1 class="glitch" data-text="الأستاذ كرار حداد - مدرس إنجليزي">
-                <span>الأستاذ كرار حداد - مدرس إنجليزي</span>
-            </h1>
+        <div class="header-section">
+            <h1 class="animated-shine-text">الأستاذ كرار حداد</h1>
+            <h2 class="subtitle">مدرس لغة إنجليزية</h2>
         </div>
         
         <div class="search-console">
-            <label for="studentNameInput" class="form-label text-white-50"><i class="fas fa-terminal me-2"></i>أدخل اسم الطالب الثلاثي للتحقق من النتيجة:</label>
-            <input type="text" id="studentNameInput" class="search-input" placeholder="[... USER_NAME ...]">
+            <label for="studentNameInput" class="form-label text-secondary mb-2"><i class="fas fa-keyboard me-2"></i>الرجاء إدخال اسم الطالب الثلاثي الكامل:</label>
+            <input type="text" id="studentNameInput" class="search-input" placeholder="مثال: أحمد علي محمد">
             <button class="search-button" type="button" onclick="searchResult()">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-search"></i>
             </button>
         </div>
         
@@ -279,16 +242,16 @@
 
         <div id="result-container">
             <div id="result-card">
-                <div class="row align-items-center">
+                <div class="row align-items-center gy-4">
                     <div class="col-md-7">
-                        <span class="result-label">STUDENT_NAME:</span>
+                        <span class="result-label"><i class="fas fa-user-check me-2"></i>بيانات الطالب</span>
                         <h2 id="displayName" class="result-name"></h2>
-                        <hr class="border-secondary">
-                        <span class="result-label">SYSTEM_LOG:</span>
+                        <hr style="border-color: var(--border-color); opacity: 0.5;">
+                        <span class="result-label"><i class="fas fa-pen-alt me-2"></i>ملاحظات الأستاذ</span>
                         <p id="displayNotes" class="result-notes mt-2"></p>
                     </div>
-                    <div class="col-md-5 text-center">
-                        <span class="result-label">FINAL_GRADE</span>
+                    <div class="col-md-5">
+                        <span class="result-label d-block text-center">الدرجة النهائية</span>
                         <div id="displayGrade" class="grade-display mt-2"></div>
                     </div>
                 </div>
@@ -300,15 +263,15 @@
 
 <table id="gradesData" class="d-none">
     <tbody>
-        <tr><td>أحمد علي محمد</td><td>95</td><td>SYSTEM: STATUS_EXCELLENT.</td></tr>
-        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>SYSTEM: STATUS_VERY_GOOD.</td></tr>
-        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>SYSTEM: RETEST_REQUIRED.</td></tr>
-        <tr><td>زينب قاسم أحمد</td><td>100</td><td>SYSTEM: STATUS_PERFECT. ALL_METRICS_PASSED.</td></tr>
-        <tr><td>علي حسين محمود</td><td>72</td><td>SYSTEM: STATUS_GOOD.</td></tr>
-        <tr><td>محمد رضا سعيد</td><td>91</td><td>SYSTEM: HIGH_PERFORMANCE.</td></tr>
-        <tr><td>سارة جاسم كريم</td><td>80</td><td>SYSTEM: STATUS_EXCELLENT.</td></tr>
-        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>SYSTEM: WARNING_BELOW_THRESHOLD.</td></tr>
-        <tr><td>كرار حيدر حداد</td><td>100</td><td>SYSTEM: ADMIN_OVERRIDE_PERFECT.</td></tr>
+        <tr><td>أحمد علي محمد</td><td>95</td><td>أداء متميز وجهد واضح، أحسنت.</td></tr>
+        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>جيد جداً، استمري بهذا المستوى.</td></tr>
+        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>تحتاج إلى مضاعفة الجهد والمتابعة.</td></tr>
+        <tr><td>زينب قاسم أحمد</td><td>100</td><td>درجة كاملة مستحقة، مثال للتفوق.</td></tr>
+        <tr><td>علي حسين محمود</td><td>72</td><td>جيد، يمكنك تقديم الأفضل في المرات القادمة.</td></tr>
+        <tr><td>محمد رضا سعيد</td><td>91</td><td>ممتاز، مستوى ثابت ورائع.</td></tr>
+        <tr><td>سارة جاسم كريم</td><td>80</td><td>جيد جداً، عمل متقن.</td></tr>
+        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>قريب من النجاح، تحتاج لمراجعة بسيطة.</td></tr>
+        <tr><td>كرار حيدر حداد</td><td>100</td><td>أداء رائع في التصميم والتدريس!</td></tr>
         <tr><td>عمار سامي إبراهيم</td><td>85</td><td></td></tr>
         <tr><td>بتول ليث كاظم</td><td>92</td><td></td></tr>
         <tr><td>جعفر مصطفى أحمد</td><td class="fail">48</td><td></td></tr>
@@ -461,36 +424,14 @@
         <tr><td>الطالب رقم 150</td><td>78</td><td></td></tr>
     </tbody>
 </table>
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#00f2ea" }, /* لون الجزيئات */
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
-            "size": { "value": 3, "random": true, "anim": { "enable": false } },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00f2ea", "opacity": 0.4, "width": 1 },
-            "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
-        },
-        "retina_detect": true
-    });
-</script>
 
 <script>
     function searchResult() {
         // 1. الحصول على المدخلات
         const inputElement = document.getElementById('studentNameInput');
         const studentName = inputElement.value.trim();
-        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' ');
+        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' '); // تنظيف المسافات
 
         // 2. الحصول على عناصر العرض
         const resultContainer = document.getElementById('result-container');
@@ -502,7 +443,7 @@
         errorElement.style.display = 'none';
 
         if (studentName === '') {
-            errorSpan.textContent = 'ERROR: INPUT_FIELD_EMPTY. PLEASE_ENTER_NAME.';
+            errorSpan.textContent = 'خطأ: حقل الإدخال فارغ. يرجى كتابة الاسم الكامل.';
             errorElement.style.display = 'block';
             return;
         }
@@ -520,7 +461,7 @@
                 // 5. تم العثور على الطالب
                 found = true;
                 const grade = cells[1].textContent.trim();
-                const note = cells[2].textContent.trim() || 'SYSTEM: NO_ADDITIONAL_NOTES.';
+                const note = cells[2].textContent.trim() || 'لا توجد ملاحظات إضافية من الأستاذ.';
                 const isFail = cells[1].classList.contains('fail') || parseInt(grade) < 50;
 
                 // 6. تعبئة بطاقة النتيجة
@@ -539,14 +480,14 @@
 
                 // 7. إظهار النتيجة
                 resultContainer.style.display = 'block';
-                inputElement.value = '';
+                inputElement.value = ''; // مسح الحقل بعد البحث
                 break;
             }
         }
 
         // 8. في حال عدم العثور
         if (!found) {
-            errorSpan.textContent = 'ERROR: 404_USER_NOT_FOUND. VERIFY_NAME_AND_RETRY.';
+            errorSpan.textContent = 'خطأ 404: الاسم غير موجود في السجلات. يرجى التحقق من دقة الاسم المدخل.';
             errorElement.style.display = 'block';
         }
     }
