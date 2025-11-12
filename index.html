@@ -3,609 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة النتائج الاكترونيه |اعداديه جعفر النقدي </title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-
+    <title>تبليغات التحاضير اليومية</title>
     <style>
-        :root {
-            --bg-dark: #000a12; /* خلفية داكنة جداً */
-            --holographic-blue: #00e5ff; /* أزرق سماوي هولوغرافي */
-            --holographic-purple: #9d00ff; /* بنفسجي هولوغرافي */
-            --text-light: #e0f2f7; /* أبيض مائل للزرقة */
-            --text-secondary: #a0d9e7; /* أزرق فاتح ثانوي */
-            --glass-bg: rgba(0, 10, 20, 0.7); /* خلفية زجاجية داكنة جداً */
-            --glass-border: rgba(0, 229, 255, 0.4); /* حدود زجاجية متوهجة */
-            --success-color: #39ff14; /* أخضر نيون */
-            --fail-color: #ff3366;   /* أحمر نيون */
-        }
-
+        /* الأنماط العامة للهيكلة */
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
             direction: rtl; 
             text-align: right;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow: hidden; /* لإخفاء أي شريط تمرير زائد */
-            position: relative; /* لتحديد موقع الفيديو */
         }
 
-        /* خلفية الفيديو الكونية */
-        #video-background {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -2;
-            background-size: cover;
-            filter: brightness(0.7) blur(2px); /* لتغميق الخلفية وجعلها أقل حدة */
-        }
-        #video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* طبقة سوداء شفافة فوق الفيديو */
-            z-index: -1;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .main-container {
-            width: 100%;
-            max-width: 900px; /* توسيع الحاوية قليلاً */
-            position: relative;
-            z-index: 10;
-        }
-        
-        /* بطاقة الزجاج الهولوغرافي */
-        .holographic-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            border: 2px solid var(--glass-border);
-            border-radius: 25px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--holographic-blue);
-            padding: 50px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: card-appear 1s ease-out;
-        }
-
-        @keyframes card-appear {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* شريط التمرير المخصص */
-        .holographic-card::-webkit-scrollbar { width: 10px; }
-        .holographic-card::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
-        .holographic-card::-webkit-scrollbar-thumb {
-            background-color: var(--holographic-blue);
-            border-radius: 10px;
-            border: 2px solid var(--glass-bg);
-        }
-        .holographic-card::-webkit-scrollbar-thumb:hover { background-color: var(--holographic-purple); }
-
-
-        .header-section {
+        h1 {
+            color: #1a237e;
             text-align: center;
-            margin-bottom: 45px;
+            border-bottom: 3px solid #1a237e;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
 
-        /* === الشعار المتوهج === */
-        .glow-logo {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--text-light);
-            text-shadow: 0 0 10px var(--holographic-blue), 0 0 20px var(--holographic-purple);
-            animation: text-glow 2s infinite alternate ease-in-out;
-        }
-        @keyframes text-glow {
-            from { text-shadow: 0 0 5px var(--holographic-blue), 0 0 10px var(--holographic-purple); }
-            to { text-shadow: 0 0 15px var(--holographic-blue), 0 0 30px var(--holographic-purple), 0 0 40px var(--holographic-blue); }
-        }
-        /* === نهاية الشعار === */
-
-        .portal-title {
-            font-family: 'Orbitron', sans-serif; /* خط علمي مستقبلي */
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--holographic-blue);
-            margin-top: 10px;
-            letter-spacing: 2px;
-        }
-
-        /* لوحة إدخال البيانات */
-        .data-input-console {
-            position: relative;
-            margin-bottom: 40px;
-        }
-        .input-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            display: block;
-            letter-spacing: 1px;
-        }
-        .data-input {
-            width: 100%;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-            padding: 20px 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--holographic-blue);
-            color: var(--text-light);
-            border-radius: 10px;
-            transition: all 0.4s ease;
-            box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.2);
-            caret-color: var(--holographic-blue);
-        }
-        .data-input::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.7;
-            font-weight: 500;
-        }
-        .data-input:focus {
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 30px var(--holographic-blue), inset 0 0 15px var(--holographic-blue);
-            border-color: var(--holographic-purple);
-            outline: none;
-        }
-        .activate-button {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(45deg, var(--holographic-blue), var(--holographic-purple));
-            border: none;
-            border-radius: 8px;
-            color: var(--bg-dark);
-            width: 60px;
-            height: 60px;
-            font-size: 1.6rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.5);
-        }
-        .activate-button:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 40px var(--holographic-purple), 0 0 20px var(--holographic-blue);
-            background: linear-gradient(45deg, var(--holographic-purple), var(--holographic-blue));
-        }
-
-        /* لوحة النتائج */
-        #result-container {
-            display: none;
-            margin-top: 40px;
-            animation: result-fade-in 0.9s ease-out forwards;
-        }
-        @keyframes result-fade-in {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        #result-panel {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: 35px;
-            border: 1px solid var(--holographic-blue);
-            box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.2);
-        }
-        .result-key {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--holographic-blue);
-            font-weight: 700;
-            letter-spacing: 1px;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .result-value {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 2.3rem;
-            font-weight: 800;
-            color: var(--text-light);
+        .date {
+            text-align: center;
+            font-size: 1.1em;
+            color: #607d8b;
             margin-bottom: 20px;
+            padding: 8px;
+            background-color: #e3f2fd;
+            border-radius: 5px;
         }
-        .result-notes {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: var(--text-secondary);
+
+        /* بطاقة القسم */
+        .section-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        /* عنوان الشعبة (الذي سيتم النقر عليه) */
+        .section-header {
+            padding: 20px;
+            cursor: pointer; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 8px 8px 0 0; 
         }
         
-        /* الدرجة الكونية المتحركة */
-        .cosmic-grade-display {
-            font-family: 'Press Start 2P', monospace; /* خط بيكسل كلاسيكي للأرقام */
-            font-size: 8rem; /* حجم ضخم */
-            font-weight: 700;
-            line-height: 1;
-            text-align: center;
-            letter-spacing: -5px; /* لتقريب الأرقام */
-            text-shadow: 0 0 20px var(--holographic-blue), 0 0 40px var(--holographic-purple);
-            /* تأثير تذبذب خفيف */
-            animation: grade-pulse 1.5s infinite alternate ease-in-out; 
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.5em;
         }
 
-        @keyframes grade-pulse {
-            from { text-shadow: 0 0 15px var(--holographic-blue), 0 0 30px var(--holographic-purple); }
-            to { text-shadow: 0 0 25px var(--holographic-blue), 0 0 50px var(--holographic-purple), 0 0 60px var(--holographic-blue); }
+        /* محتوى التحاضير (الذي سيتم إخفاؤه/إظهاره) */
+        .section-content {
+            padding: 0 20px 20px 20px;
+            overflow: hidden; 
+        }
+        
+        /* أيقونة الفتح/الإغلاق */
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+        
+        .open .toggle-icon {
+            transform: rotate(90deg);
         }
 
-        .cosmic-grade-pass {
-            color: var(--success-color);
-            text-shadow: 0 0 20px var(--success-color), 0 0 40px rgba(57, 255, 20, 0.6);
+
+        /* تمييز شعبة د */
+        .section-d .section-header {
+            background-color: #ff9800; 
+            color: white;
+            border-bottom: 1px solid #e65100;
         }
-        .cosmic-grade-fail {
-            color: var(--fail-color);
-            text-shadow: 0 0 20px var(--fail-color), 0 0 40px rgba(255, 51, 102, 0.6);
+        
+        .section-d .section-content {
+            background-color: #fffde7;
+            border-radius: 0 0 8px 8px;
+            border-left: 5px solid #ff9800;
         }
 
-        /* رسالة الخطأ */
-        #error-message {
-            display: none;
-            background-color: rgba(255, 51, 102, 0.1);
-            border: 1px solid var(--fail-color);
-            color: var(--fail-color);
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 10px;
-            text-align: center;
-            padding: 20px;
-            animation: error-shake 0.5s ease-in-out;
+
+        /* تمييز شعبة ج */
+        .section-c .section-header {
+            background-color: #4caf50; 
+            color: white;
+            border-bottom: 1px solid #2e7d32;
         }
-        @keyframes error-shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+        
+        .section-c .section-content {
+            background-color: #e8f5e9;
+            border-radius: 0 0 8px 8px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        /* تنسيق اسم المسؤول */
+        .section-content .responsible-person {
+            font-weight: bold;
+            color: #1b5e20; /* أخضر غامق */
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            background-color: #c8e6c9; /* خلفية خفيفة */
+            display: inline-block;
+            border-radius: 4px;
         }
 
-        /* تجاوب */
-        @media (max-width: 768px) {
-            .holographic-card { padding: 30px; }
-            .glow-logo { font-size: 2.5rem; }
-            .portal-title { font-size: 1.4rem; }
-            .data-input { font-size: 1.1rem; padding: 15px 20px; }
-            .activate-button { width: 50px; height: 50px; font-size: 1.3rem; }
-            .result-value { font-size: 1.8rem; }
-            .cosmic-grade-display { font-size: 6rem; }
-            .result-key { font-size: 1rem; }
-            .result-notes { font-size: 1.1rem; }
+        /* قائمة التحاضير */
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            padding-top: 5px; /* تم تقليل المسافة بعد إضافة اسم المسؤول */
         }
-        @media (max-width: 576px) {
-            .holographic-card { padding: 20px; border-radius: 15px; }
-            .glow-logo { font-size: 2rem; }
-            .portal-title { font-size: 1.2rem; letter-spacing: 1px; }
-            .data-input { font-size: 1rem; padding: 12px 15px; }
-            .activate-button { width: 45px; height: 45px; font-size: 1.2rem; }
-            .result-value { font-size: 1.5rem; }
-            .cosmic-grade-display { font-size: 5rem; }
-            .result-key { font-size: 0.9rem; }
-            .result-notes { font-size: 1rem; }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        li::before {
+            content: "📚";
+            margin-left: 10px;
+            font-weight: bold;
+            color: #1a237e;
+        }
+        
+        .note {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #ffe0b2;
+            border-right: 5px solid #ff9800;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #3e2723;
         }
     </style>
 </head>
 <body>
-
-<video autoplay muted loop id="video-background">
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-space-background-191-large.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-<div id="video-overlay"></div>
-
-<div class="main-container">
-    <div class="holographic-card">
+    
+    <div class="container">
         
-        <div class="header-section">
-            <h1 class="glow-logo">اعداديه جعفر النقدي </h1>
-            <h2 class="portal-title">بوابة النتائج الاكترونية</h2>
+        <h1>🔔 تبليغات التحاضير اليومية 🔔</h1>
+        <div class="date">
+            تاريخ التبليغ: **الأربعاء 20 نوفمبر 2025**
         </div>
         
-        <div class="data-input-console">
-            <label for="studentNameInput" class="input-label"><i class="fas fa-satellite-dish me-2"></i>أدخل رمز هوية الطالب (الاسم الثلاثي):</label>
-            <input type="text" id="studentNameInput" class="data-input" placeholder="مثال: أحمد علي محمد">
-            <button class="activate-button" type="button" onclick="searchResult()">
-                <i class="fas fa-share-square"></i>
-            </button>
-        </div>
-        
-        <div class="alert mt-3" role="alert" id="error-message">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <span>خطأ في بروتوكول البيانات: الاسم غير مطابق.</span>
-        </div>
-
-        <div id="result-container">
-            <div id="result-panel">
-                <div class="row align-items-center gy-4">
-                    <div class="col-md-7">
-                        <span class="result-key"><i class="fas fa-id-card-alt me-2"></i>معرف الكيان (الطالب):</span>
-                        <h2 id="displayName" class="result-value"></h2>
-                        <hr style="border-color: var(--holographic-blue); opacity: 0.3;">
-                        <span class="result-key"><i class="fas fa-clipboard-list me-2"></i>تقييم وحدة التحكم:</span>
-                        <p id="displayNotes" class="result-notes mt-2"></p>
-                    </div>
-                    <div class="col-md-5">
-                        <span class="result-key d-block text-center">مؤشر الأداء الكلي:</span>
-                        <div id="displayGrade" class="cosmic-grade-display mt-2">0</div>
-                    </div>
-                </div>
+        <div class="section-card section-d">
+            <div class="section-header" onclick="toggleContent('content-d')">
+                <h2>شعبة (د) - انقر هنا لعرض التحاضير 🟠</h2>
+                <span class="toggle-icon">▶</span>
             </div>
+            
+            <div class="section-content" id="content-d" style="display: none;">
+                <p>**المطلوب تحضيره لهذا اليوم:**</p>
+                <ul>
+                    <li>تحضير الفصل الثالث: **المعادلات التفاضلية** (من صفحة 45 إلى 55).</li>
+                    <li>حل التمارين رقم 3 و 5 من نهاية الفصل.</li>
+                    <li>مراجعة الملاحظات الهامة بخصوص نظرية **التكامل غير المحدد**.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section-card section-c">
+            
+            <div class="section-header" onclick="toggleContent('content-c')">
+                <h2>شعبة (ج) - اضغط للإخفاء/الإظهار 🟢</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            
+            <div class="section-content open" id="content-c">
+                <p class="responsible-person">✨ **المسؤول:** مصطفى محسن جبر</p>
+                <p>**المطلوب تحضيره لهذا اليوم:**</p>
+                <ul>
+                    <li>تحضير الفصل الثاني: **مقدمة في الجبر الخطي** (الدرس 4 و 5).</li>
+                    <li>إعداد ملخص للمفاهيم الأساسية للمصفوفات المتماثلة.</li>
+                    <li>حل الواجب البيتي **القديم** الذي تم تسليمه الأسبوع الماضي.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="note">
+            **ملاحظة هامة للجميع:** يرجى الالتزام بالتحضيرات لضمان سير العملية التعليمية. سيتم طرح أسئلة عشوائية في بداية المحاضرة.
         </div>
 
     </div>
-</div>
 
-<table id="gradesData" class="d-none">
-    <tbody>
-        <tr><td>قاسم عباس خماس</td><td>95</td><td>وحدة الأداء: ممتاز. جميع الأهداف الأساسية محققة.</td></tr>
-        <tr><td>فاطمة جاسم حسين</td><td>88</td><td>وحدة الأداء: جيد جداً. تتبع مسار التقدم.</td></tr>
-        <tr><td>يوسف خالد عبدالله</td><td class="fail">45</td><td>تنبيه: الأداء أقل من المعيار. يتطلب إعادة تهيئة.</td></tr>
-        <tr><td>زينب قاسم أحمد</td><td>100</td><td>وحدة الأداء: مثالي. تجاوز كل المعايير المتوقعة.</td></tr>
-        <tr><td>علي حسين محمود</td><td>72</td><td>وحدة الأداء: جيد. يحتاج لتوسيع نطاق المعرفة.</td></tr>
-        <tr><td>محمد رضا سعيد</td><td>91</td><td>وحدة الأداء: متميز. تحليل بيانات فعال.</td></tr>
-        <tr><td>سارة جاسم كريم</td><td>80</td><td>وحدة الأداء: جيد جداً. نمو مستمر.</td></tr>
-        <tr><td>حسن كريم فاضل</td><td class="fail">49</td><td>تحذير: الأداء على الحافة. يتطلب دعم إضافي.</td></tr>
-        <tr><td>كرار حيدر حداد</td><td>100</td><td>وحدة الأداء: المعلم الكوني. تصميم وتدريس خارج المجرة!</td></tr>
-        <tr><td>عمار سامي إبراهيم</td><td>85</td><td></td></tr>
-        <tr><td>بتول ليث كاظم</td><td>92</td><td></td></tr>
-        <tr><td>جعفر مصطفى أحمد</td><td class="fail">48</td><td></td></tr>
-        <tr><td>ريم عباس جبار</td><td>77</td><td></td></tr>
-        <tr><td>هيثم وليد سعد</td><td>61</td><td></td></tr>
-        <tr><td>نور عادل فاضل</td><td>99</td><td></td></tr>
-        <tr><td>مهدي علي حسن</td><td>80</td><td></td></tr>
-        <tr><td>دانة ماجد حميد</td><td class="fail">35</td><td></td></tr>
-        <tr><td>سيف صلاح الدين</td><td>71</td><td></td></tr>
-        <tr><td>مؤمل باقر جعفر</td><td>88</td><td></td></tr>
-        <tr><td>زهراء فلاح هادي</td><td>95</td><td></td></tr>
-        <tr><td>كرار حيدر عباس</td><td>79</td><td></td></tr>
-        <tr><td>ليلى رسول عباس</td><td class="fail">42</td><td></td></tr>
-        <tr><td>مصطفى أيمن كريم</td><td>83</td><td></td></tr>
-        <tr><td>هاجر نزار سامي</td><td>69</td><td></td></tr>
-        <tr><td>حسام حسن علي</td><td>90</td><td></td></tr>
-        <tr><td>ملاك عمار جليل</td><td>87</td><td></td></tr>
-        <tr><td>مرتضى غسان نجم</td><td>55</td><td></td></tr>
-        <tr><td>بنين صادق خليل</td><td>76</td><td></td></tr>
-        <tr><td>عمر قيس طالب</td><td>93</td><td></td></tr>
-        <tr><td>نزار عدنان يوسف</td><td class="fail">39</td><td></td></tr>
-        <tr><td>آية علي خضر</td><td>84</td><td></td></tr>
-        <tr><td>وسام جميل نوري</td><td>70</td><td></td></tr>
-        <tr><td>مروة فؤاد شاكر</td><td>91</td><td></td></tr>
-        <tr><td>كاظم زكي محمد</td><td>66</td><td></td></tr>
-        <tr><td>هند رعد جاسم</td><td>82</td><td></td></tr>
-        <tr><td>علياء ماجد ستار</td><td>75</td><td></td></tr>
-        <tr><td>حيدر صباح عودة</td><td>52</td><td></td></tr>
-        <tr><td>شهد وسام كاظم</td><td>96</td><td></td></tr>
-        <tr><td>جواد حسين جبار</td><td>89</td><td></td></tr>
-        <tr><td>نرجس محمد ناصر</td><td>65</td><td></td></tr>
-        <tr><td>ياسر فوزي حسين</td><td>97</td><td></td></tr>
-        <tr><td>سجى سالم كريم</td><td class="fail">44</td><td></td></tr>
-        <tr><td>حسن إحسان رضا</td><td>78</td><td></td></tr>
-        <tr><td>نغم جمال شاكر</td><td>81</td><td></td></tr>
-        <tr><td>حسام جبار نجم</td><td>74</td><td></td></tr>
-        <tr><td>مروان طارق يونس</td><td>94</td><td></td></tr>
-        <tr><td>أسرار صباح جاسم</td><td>68</td><td></td></tr>
-        <tr><td>زيد هشام علي</td><td>86</td><td></td></tr>
-        <tr><td>لينا رسول محمد</td><td>73</td><td></td></tr>
-        <tr><td>غيث علي حسن</td><td>98</td><td></td></tr>
-        <tr><td>جنى فؤاد مهدي</td><td class="fail">35</td><td></td></tr>
-        <tr><td>سالم أياد خليل</td><td>67</td><td></td></tr>
-        <tr><td>عائشة رياض سامي</td><td>87</td><td></td></tr>
-        <tr><td>فارس نزار عمار</td><td>72</td><td></td></tr>
-        <tr><td>هدى كاظم ياسين</td><td>90</td><td></td></tr>
-        <tr><td>سعد عامر حسن</td><td>62</td><td></td></tr>
-        <tr><td>ميس صلاح الدين</td><td>85</td><td></td></tr>
-        <tr><td>نور الهدى إياد</td><td>51</td><td></td></tr>
-        <tr><td>يعقوب مازن حسين</td><td>79</td><td></td></tr>
-        <tr><td>أمير جاسم محمد</td><td>93</td><td></td></tr>
-        <tr><td>زهير باسم رضا</td><td>64</td><td></td></tr>
-        <tr><td>آلاء عادل فاضل</td><td class="fail">46</td><td></td></tr>
-        <tr><td>ياسين عبد الله</td><td>88</td><td></td></tr>
-        <tr><td>براء عمار حسين</td><td>77</td><td></td></tr>
-        <tr><td>حوراء مرتضى</td><td>95</td><td></td></tr>
-        <tr><td>عباس علي محمد</td><td>80</td><td></td></tr>
-        <tr><td>رقية قيس كاظم</td><td>71</td><td></td></tr>
-        <tr><td>جعفر هادي علي</td><td>99</td><td></td></tr>
-        <tr><td>صفاء باقر كاظم</td><td>60</td><td></td></tr>
-        <tr><td>نبراس حسن كريم</td><td>84</td><td></td></tr>
-        <tr><td>محمد سيف نزار</td><td>75</td><td></td></tr>
-        <tr><td>زينب خالد شاكر</td><td class="fail">40</td><td></td></tr>
-        <tr><td>علي رعد طالب</td><td>91</td><td></td></tr>
-        <tr><td>هبة جمال رضا</td><td>83</td><td></td></tr>
-        <tr><td>سامر أحمد علي</td><td>70</td><td></td></tr>
-        <tr><td>جاسم محمد نوري</td><td>92</td><td></td></tr>
-        <tr><td>سارة حسين جاسم</td><td>66</td><td></td></tr>
-        <tr><td>مؤيد حسين علي</td><td>89</td><td></td></tr>
-        <tr><td>مريم محمد رضا</td><td>73</td><td></td></tr>
-        <tr><td>حنين علي إبراهيم</td><td>94</td><td></td></tr>
-        <tr><td>علياء حسن كريم</td><td class="fail">37</td><td></td></tr>
-        <tr><td>ياسين كريم طاهر</td><td>68</td><td></td></tr>
-        <tr><td>سنا علي عبد</td><td>86</td><td></td></tr>
-        <tr><td>صادق ماجد نوري</td><td>76</td><td></td></tr>
-        <tr><td>نادية نزار فاضل</td><td>97</td><td></td></tr>
-        <tr><td>أيهم طارق عادل</td><td>69</td><td></td></tr>
-        <tr><td>بتول محمد علي</td><td>81</td><td></td></tr>
-        <tr><td>حسين أحمد قاسم</td><td>78</td><td></td></tr>
-        <tr><td>شمس علي محمد</td><td>96</td><td></td></tr>
-        <tr><td>كرار حيدر عباس</td><td>63</td><td></td></tr>
-        <tr><td>فاطمة حيدر علي</td><td>82</td><td></td></tr>
-        <tr><td>جعفر حسن محمد</td><td class="fail">49</td><td></td></tr>
-        <tr><td>آمنة علي يوسف</td><td>74</td><td></td></tr>
-        <tr><td>عمر أحمد عباس</td><td>90</td><td></td></tr>
-        <tr><td>هديل رعد جبار</td><td>65</td><td></td></tr>
-        <tr><td>علاء محمد نجم</td><td>88</td><td></td></tr>
-        <tr><td>آسيا قاسم علي</td><td>72</td><td></td></tr>
-        <tr><td>نور حيدر عباس</td><td>93</td><td></td></tr>
-        <tr><td>مصطفى محمد إحسان</td><td>67</td><td></td></tr>
-        <tr><td>مروة علي محمد</td><td>85</td><td></td></tr>
-        <tr><td>يوسف إياد محمد</td><td>77</td><td></td></tr>
-        <tr><td>هالة طه محمود</td><td class="fail">43</td><td></td></tr>
-        <tr><td>أحمد طارق علي</td><td>91</td><td></td></tr>
-        <tr><td>بنين صادق هادي</td><td>70</td><td></td></tr>
-        <tr><td>علي حسين علي</td><td>84</td><td></td></tr>
-        <tr><td>دعاء حيدر كريم</td><td>61</td><td></td></tr>
-        <tr><td>حيدر محمد نزار</td><td>95</td><td></td></tr>
-        <tr><td>رغد ماجد أحمد</td><td>79</td><td></td></tr>
-        <tr><td>سجاد حسن علي</td><td>83</td><td></td></tr>
-        <tr><td>الطالب رقم 101</td><td>88</td><td></td></tr>
-        <tr><td>الطالب رقم 102</td><td>92</td><td></td></tr>
-        <tr><td>الطالب رقم 103</td><td class="fail">41</td><td></td></tr>
-        <tr><td>الطالب رقم 104</td><td>76</td><td></td></tr>
-        <tr><td>الطالب رقم 105</td><td>63</td><td></td></tr>
-        <tr><td>الطالب رقم 106</td><td>98</td><td></td></tr>
-        <tr><td>الطالب رقم 107</td><td>82</td><td></td></tr>
-        <tr><td>الطالب رقم 108</td><td>55</td><td></td></tr>
-        <tr><td>الطالب رقم 109</td><td>70</td><td></td></tr>
-        <tr><td>الطالب رقم 110</td><td>89</td><td></td></tr>
-        <tr><td>الطالب رقم 111</td><td>94</td><td></td></tr>
-        <tr><td>الطالب رقم 112</td><td>78</td><td></td></tr>
-        <tr><td>الطالب رقم 113</td><td class="fail">43</td><td></td></tr>
-        <tr><td>الطالب رقم 114</td><td>81</td><td></td></tr>
-        <tr><td>الطالب رقم 115</td><td>68</td><td></td></tr>
-        <tr><td>الطالب رقم 116</td><td>91</td><td></td></tr>
-        <tr><td>الطالب رقم 117</td><td>86</td><td></td></tr>
-        <tr><td>الطالب رقم 118</td><td>57</td><td></td></tr>
-        <tr><td>الطالب رقم 119</td><td>75</td><td></td></tr>
-        <tr><td>الطالب رقم 120</td><td>93</td><td></td></tr>
-        <tr><td>الطالب رقم 121</td><td class="fail">38</td><td></td></tr>
-        <tr><td>الطالب رقم 122</td><td>84</td><td></td></tr>
-        <tr><td>الطالب رقم 123</td><td>71</td><td></td></tr>
-        <tr><td>الطالب رقم 124</td><td>90</td><td></td></tr>
-        <tr><td>الطالب رقم 125</td><td>67</td><td></td></tr>
-        <tr><td>الطالب رقم 126</td><td>83</td><td></td></tr>
-        <tr><td>الطالب رقم 127</td><td>74</td><td></td></tr>
-        <tr><td>الطالب رقم 128</td><td>53</td><td></td></tr>
-        <tr><td>الطالب رقم 129</td><td>97</td><td></td></tr>
-        <tr><td>الطالب رقم 130</td><td>87</td><td></td></tr>
-        <tr><td>الطالب رقم 131</td><td>64</td><td></td></tr>
-        <tr><td>الطالب رقم 132</td><td>96</td><td></td></tr>
-        <tr><td>الطالب رقم 133</td><td class="fail">47</td><td></td></tr>
-        <tr><td>الطالب رقم 134</td><td>79</td><td></td></tr>
-        <tr><td>الطالب رقم 135</td><td>80</td><td></td></tr>
-        <tr><td>الطالب رقم 136</td><td>73</td><td></td></tr>
-        <tr><td>الطالب رقم 137</td><td>95</td><td></td></tr>
-        <tr><td>الطالب رقم 138</td><td>69</td><td></td></tr>
-        <tr><td>الطالب رقم 139</td><td>85</td><td></td></tr>
-        <tr><td>الطالب رقم 140</td><td>72</td><td></td></tr>
-        <tr><td>الطالب رقم 141</td><td>99</td><td></td></tr>
-        <tr><td>الطالب رقم 142</td><td class="fail">36</td><td></td></tr>
-        <tr><td>الطالب رقم 143</td><td>66</td><td></td></tr>
-        <tr><td>الطالب رقم 144</td><td>88</td><td></td></tr>
-        <tr><td>الطالب رقم 145</td><td>71</td><td></td></tr>
-        <tr><td>الطالب رقم 146</td><td>92</td><td></td></tr>
-        <tr><td>الطالب رقم 147</td><td>60</td><td></td></tr>
-        <tr><td>الطالب رقم 148</td><td>81</td><td></td></tr>
-        <tr><td>الطالب رقم 149</td><td class="fail">50</td><td></td></tr>
-        <tr><td>الطالب رقم 150</td><td>78</td><td></td></tr>
-    </tbody>
-</table>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    // دالة عداد الدرجة المتحرك (تم تعديلها لتناسب الخط الجديد)
-    function animateGradeCounter(elementId, finalGrade, isFail) {
-        const gradeElement = document.getElementById(elementId);
-        let currentGrade = 0;
-        const duration = 2000; // مدة أطول قليلاً (2 ثانية) لتناسب الثيم الكوني
-        const start = performance.now();
-
-        gradeElement.classList.remove('cosmic-grade-pass', 'cosmic-grade-fail');
-        if (isFail) {
-            gradeElement.classList.add('cosmic-grade-fail');
-        } else {
-            gradeElement.classList.add('cosmic-grade-pass');
-        }
-
-        function step(timestamp) {
-            const elapsed = timestamp - start;
-            const progress = Math.min(elapsed / duration, 1);
+    <script>
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            const header = content.previousElementSibling; 
             
-            currentGrade = Math.floor(progress * finalGrade);
-            gradeElement.textContent = currentGrade;
-
-            if (progress < 1) {
-                requestAnimationFrame(step);
+            if (content.style.display === "none") {
+                content.style.display = "block"; 
+                header.querySelector('.toggle-icon').textContent = "▼"; 
+                header.classList.add('open');
             } else {
-                gradeElement.textContent = finalGrade;
+                content.style.display = "none"; 
+                header.querySelector('.toggle-icon').textContent = "▶"; 
+                header.classList.remove('open');
             }
         }
-
-        requestAnimationFrame(step);
-    }
-
-    // دالة البحث الرئيسية
-    function searchResult() {
-        const inputElement = document.getElementById('studentNameInput');
-        const studentName = inputElement.value.trim();
-        const normalizedName = studentName.toLowerCase().replace(/\s+/g, ' ');
-
-        const resultContainer = document.getElementById('result-container');
-        const errorElement = document.getElementById('error-message');
-        const errorSpan = errorElement.querySelector('span');
         
-        resultContainer.style.display = 'none';
-        errorElement.style.display = 'none';
-
-        if (studentName === '') {
-            errorSpan.textContent = 'خطأ في بروتوكول الإدخال: حقل هوية الطالب فارغ. يرجى إدخال البيانات.';
-            errorElement.style.display = 'block';
-            return;
-        }
-
-        const tableBody = document.getElementById('gradesData').getElementsByTagName('tbody')[0];
-        const rows = tableBody.getElementsByTagName('tr');
-        let found = false;
-
-        for (let i = 0; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName('td');
-            const storedName = cells[0].textContent.trim().toLowerCase().replace(/\s+/g, ' ');
-
-            if (storedName === normalizedName) {
-                found = true;
-                const gradeText = cells[1].textContent.trim();
-                const finalGrade = parseInt(gradeText);
-                const note = cells[2].textContent.trim() || 'وحدة التحكم: لا توجد ملاحظات إضافية تم تسجيلها.';
-                const isFail = cells[1].classList.contains('fail') || finalGrade < 50;
-
-                document.getElementById('displayName').textContent = studentName;
-                document.getElementById('displayNotes').textContent = note;
-                
-                const gradeElement = document.getElementById('displayGrade');
-                gradeElement.textContent = '0'; 
-                resultContainer.style.display = 'block';
-                inputElement.value = '';
-
-                animateGradeCounter('displayGrade', finalGrade, isFail);
-                
-                break;
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const contentC = document.getElementById('content-c');
+            if(contentC) {
+                const headerC = contentC.previousElementSibling;
+                if (contentC.style.display !== "none") {
+                    headerC.querySelector('.toggle-icon').textContent = "▼"; 
+                }
             }
-        }
-
-        if (!found) {
-            errorSpan.textContent = 'خطأ 404: لم يتم العثور على هوية الطالب في قاعدة البيانات الكونية. يرجى التحقق من المدخلات.';
-            errorElement.style.display = 'block';
-        }
-    }
-</script>
+        });
+    </script>
 
 </body>
 </html>
-
-
-
