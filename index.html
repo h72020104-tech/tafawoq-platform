@@ -3,116 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتائج كرار حداد</title>
+    <title>نتائج كرار حداد (عرض الدرجات)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
+        /* --- تنسيق أساسي --- */
         body {
-            font-family: 'Cairo', 'Arial', sans-serif; /* خط عربي مميز */
-            background-color: #f0f2f5;
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            padding: 20px 0;
             margin: 0;
         }
+
+        /* --- الحاوية الرئيسية --- */
         .container {
             width: 90%;
-            max-width: 600px;
-            margin-top: 30px;
+            max-width: 650px;
         }
+
+        /* --- الهيدر (الشعار والاسم) --- */
         .header {
             text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border-bottom: 5px solid #007bff;
         }
         .logo {
-            max-width: 100px; /* حجم اللوجو */
-            border-radius: 50%; /* لجعل اللوجو دائري */
-            border: 3px solid #007bff;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
         }
         .title {
-            font-size: 2em;
-            color: #333;
-            margin-top: 10px;
+            font-size: 2.2em;
+            color: #1a2b4d;
+            margin: 10px 0 0 0;
             font-weight: 700;
         }
+
+        /* --- صندوق البحث --- */
         .search-box {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background-color: #ffffff;
+            padding: 30px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             text-align: center;
         }
         .search-box label {
-            font-size: 1.2em;
+            font-size: 1.3em;
+            color: #333;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
         .search-input {
             width: 100%;
-            padding: 12px;
-            font-size: 1.1em;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box; /* لضمان الحجم الصحيح */
+            padding: 15px;
+            font-size: 1.2em;
+            font-family: 'Tajawal', sans-serif;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0,123,255,0.3);
         }
         .search-button {
-            background-color: #007bff;
+            background: linear-gradient(45deg, #007bff, #0056b3);
             color: white;
-            padding: 12px 30px;
-            font-size: 1.1em;
+            padding: 14px 35px;
+            font-size: 1.2em;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         .search-button:hover {
-            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0,123,255,0.3);
         }
 
-        /* --- بطاقة النتيجة (أهم جزء) --- */
+        /* --- حاوية النتيجة (مع حركة ظهور) --- */
         #result-container {
-            margin-top: 20px;
-            display: none; /* مخفية حتى يتم البحث */
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            display: none;
         }
-        .result-card {
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-            border-top: 10px solid; /* شريط علوي سميك للتمييز */
-        }
-        .result-card h2 {
-            margin-top: 0;
-            font-size: 2.5em; /* حجم كبير لكلمة ناجح/راسب */
-        }
-        .student-name {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
+        #result-container.show {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
         }
         
-        /* تصميم بطاقة الناجح (شغل فول) */
-        .result-pass {
-            background-color: #e6f7ec;
-            border-color: #28a745;
+        /* --- بطاقة النتيجة (التصميم المشترك) --- */
+        .result-card {
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        .result-pass h2 {
-            color: #28a745;
+        .result-card .icon {
+            font-size: 4.5em; /* أيقونة ضخمة */
+            margin-bottom: 15px;
+        }
+        .student-name {
+            font-size: 2em;
+            font-weight: 700;
+            color: #1a2b4d;
+            margin-bottom: 10px;
+        }
+        
+        /* --- (الدرجة) هذا هو الجزء الأهم --- */
+        .grade-label {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #666;
+            margin-top: 15px;
+        }
+        .student-grade {
+            font-size: 7.5em; /* !!! حجم ضخم جداً للدرجة !!! */
+            font-weight: 800; /* أثقل وزن للخط */
+            margin: -10px 0 10px 0; /* تقليل المسافات */
+        }
+        .result-message {
+            font-size: 1.3em; /* تكبير الخط */
+            color: #555;
+            margin-top: 10px; /* تعديل المسافة */
         }
 
-        /* تصميم بطاقة الراسب (شغل فول) */
+        /* --- تصميم بطاقة الناجح (أخضر) --- */
+        .result-pass {
+            background-color: #f0fff4;
+            border-top: 10px solid #28a745;
+        }
+        .result-pass .icon { color: #28a745; }
+        .result-pass .student-grade { color: #28a745; } /* الدرجة باللون الأخضر */
+
+        /* --- تصميم بطاقة الراسب (أحمر) --- */
         .result-fail {
-            background-color: #fdeeee;
-            border-color: #dc3545;
+            background-color: #fff5f5;
+            border-top: 10px solid #dc3545;
         }
-        .result-fail h2 {
-            color: #dc3545;
-        }
+        .result-fail .icon { color: #dc3545; }
+        .result-fail .student-grade { color: #dc3545; } /* الدرجة باللون الأحمر */
     </style>
 </head>
 <body>
@@ -124,55 +181,106 @@
         </div>
 
         <div class="search-box">
-            <label for="studentName">أدخل اسمك الثلاثي للبحث عن نتيجتك:</label>
-            <input type="text" id="studentName" class="search-input" placeholder="مثال: علي محمد كاظم">
-            <button class="search-button" onclick="showResult()">بحث</button>
+            <label for="studentName">أدخل اسمك الثلاثي الكامل لعرض النتيجة</label>
+            <input type="text" id="studentName" class="search-input" placeholder="مثال: محمد علي حسين">
+            <button class="search-button" onclick="searchStudent()">
+                <i class="fas fa-search"></i>
+                <span>عرض النتيجة</span>
+            </button>
         </div>
 
         <div id="result-container">
-            <div class="result-card result-pass" id="result-example-pass" style="display:none;">
-                <div class="student-name" id="result-name-pass">اسم الطالب الثلاثي</div>
-                <h2>ناجح</h2>
-                <p>ألف مبروك! نتمنى لك المزيد من التفوق والنجاح.</p>
-                </div>
+            
+            <div class="result-card result-pass" id="result-card-pass" style="display: none;">
+                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                <div class="student-name" id="result-name-pass"></div>
+                <div class="grade-label">النتيجة النهائية</div>
+                <div class="student-grade" id="result-grade-pass"></div>
+                <p class="result-message">ألف مبروك! نتمنى لك مستقبلاً باهراً.</p>
+            </div>
 
-            <div class="result-card result-fail" id="result-example-fail" style="display:none;">
-                <div class="student-name" id="result-name-fail">اسم الطالب الثلاثي</div>
-                <h2>راسب</h2>
-                <p>حظاً أوفر في المرة القادمة. نثق بقدرتك على التعويض والنجاح.</p>
-                </div>
+            <div class="result-card result-fail" id="result-card-fail" style="display: none;">
+                <div class="icon"><i class="fas fa-times-circle"></i></div>
+                <div class="student-name" id="result-name-fail"></div>
+                <div class="grade-label">النتيجة النهائية</div>
+                <div class="student-grade" id="result-grade-fail"></div>
+                <p class="result-message">حظاً أوفر في المرة القادمة. نثق بقدرتك على النجاح.</p>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // ملاحظة: هذا الكود فقط لإظهار مثال، ليس بحث حقيقي
-        // المبرمج سيحذف هذا الكود ويضع كود البحث الفعلي
-        function showResult() {
-            // هذا مجرد مثال للتوضيح (يجب ربطه بقاعدة بيانات حقيقية)
-            // سنجعلها تظهر نتيجتين بالتبادل للتوضيح
-            
-            // إخفاء كلاهما أولاً
-            document.getElementById('result-example-pass').style.display = 'none';
-            document.getElementById('result-example-fail').style.display = 'none';
+        // -----------------------------------------------------------------
+        // ملاحظة أستاذ كرار: 
+        // هذا مجرد "مثال" لترى التصميم. المبرمج يجب أن يربط هذا الكود
+        // بـ "قاعدة بيانات" حقيقية (مثل ملف Excel للـ 150 طالب).
+        // -----------------------------------------------------------------
 
+        // (مثال) قاعدة بيانات وهمية للتجربة فقط
+        const dummyDatabase = {
+            "علي محمد كاظم": { grade: 77, status: "ناجح" },
+            "فاطمة جبار حسن": { grade: 92, status: "ناجح" },
+            "زيدون أحمد علي": { grade: 33, status: "راسب" },
+            "نور الهدى باسم": { grade: 49, status: "راسب" }
+        };
+
+        function searchStudent() {
             var nameInput = document.getElementById('studentName').value;
             if (!nameInput) {
-                alert('الرجاء إدخال الاسم الثلاثي');
+                alert('الرجاء إدخال الاسم الثلاثي أولاً');
                 return;
             }
 
-            // إظهار حاوية النتائج
-            document.getElementById('result-container').style.display = 'block';
-
-            // منطق وهمي (للتجربة فقط)
-            // إذا كان الاسم يحتوي على "ناجح" أظهر نجاح، غير ذلك أظهر رسوب
-            if (nameInput.includes('ناجح')) {
-                document.getElementById('result-name-pass').innerText = nameInput;
-                document.getElementById('result-example-pass').style.display = 'block';
-            } else {
-                document.getElementById('result-name-fail').innerText = nameInput;
-                document.getElementById('result-example-fail').style.display = 'block';
+            // (هذا الكود للتجربة فقط)
+            // المبرمج سيستبدل هذا بجلب البيانات من السيرفر
+            var studentData = dummyDatabase[nameInput];
+            
+            // (للتجربة) إذا لم يجد الاسم، سيعطي نتيجة وهمية
+            if (!studentData) {
+                // للتجربة: إذا كتبت "ناجح" يعطيك 77، إذا كتبت "راسب" يعطيك 33
+                if (nameInput.includes('ناجح')) {
+                    studentData = { grade: 77, status: "ناجح" };
+                } else if (nameInput.includes('راسب')) {
+                    studentData = { grade: 33, status: "راسب" };
+                } else {
+                    // إذا كتب أي اسم آخر غير موجود
+                    alert("لم يتم العثور على الاسم. (هذه نسخة تجريبية)");
+                    return;
+                }
             }
+
+
+            // --- هذا هو الكود الفعلي لإظهار البطاقة ---
+            
+            var container = document.getElementById('result-container');
+            var cardPass = document.getElementById('result-card-pass');
+            var cardFail = document.getElementById('result-card-fail');
+
+            // إخفاء البطاقات أولاً لإعادة تشغيل الحركة
+            cardPass.style.display = 'none';
+            cardFail.style.display = 'none';
+            container.classList.remove('show');
+
+            var grade = studentData.grade;
+
+            // التحقق من الدرجة لتحديد أي بطاقة ستظهر
+            if (grade >= 50) {
+                // إظهار بطاقة النجاح
+                document.getElementById('result-name-pass').innerText = nameInput;
+                document.getElementById('result-grade-pass').innerText = grade;
+                cardPass.style.display = 'block';
+            } else {
+                // إظهار بطاقة الرسوب
+                document.getElementById('result-name-fail').innerText = nameInput;
+                document.getElementById('result-grade-fail').innerText = grade;
+                cardFail.style.display = 'block';
+            }
+
+            // إظهار الحاوية مع تفعيل الحركة
+            setTimeout(function() {
+                container.classList.add('show');
+            }, 10);
         }
     </script>
 
