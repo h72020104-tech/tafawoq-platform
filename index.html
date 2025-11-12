@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الواجهة المريحة النيومورفيزم - تحاضير يومية</title>
+    <title>الواجهة الكونية المندمجة (Cosmic Fusion UI)</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* الأنماط العامة والخلفية المريحة */
+        /* 1. تأثير الحركة الخلفية الكونية */
+        @keyframes cosmic-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* الأنماط العامة والهيكلة */
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 30px 15px; 
+            padding: 20px 0; 
             direction: rtl; 
             text-align: right;
             line-height: 1.7;
-            /* لون خلفية دافئ ومحايد (أساس النيومورفيزم) */
-            background-color: #e0e5ec; 
-            min-height: 100vh; 
-            color: #3f4a56;
+            /* خلفية متدرجة عميقة ومتحركة */
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+            background-size: 400% 400%;
+            animation: cosmic-flow 20s ease infinite; /* تطبيق الحركة */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0f7fa; /* لون النص الرئيسي فاتح */
+            overflow-x: hidden;
         }
 
-        /* دالة النيومورفيزم */
-        .neumorphism-shadow {
-            /* الظل العلوي (فاتح) والظل السفلي (غامق) لإحساس العمق */
-            box-shadow: 8px 8px 16px #a3b1c6, 
-                        -8px -8px 16px #ffffff;
-            transition: all 0.2s ease-in-out;
-        }
-        
-        .neumorphism-shadow:active {
-            box-shadow: inset 5px 5px 10px #a3b1c6, 
-                        inset -5px -5px 10px #ffffff; /* تأثير الضغط */
-        }
-        
-        /* حاوية التصميم الرئيسية */
+        /* 2. حاوية التصميم الزجاجية الرئيسية */
         .container {
-            width: 100%; 
-            max-width: 650px; 
+            width: 90%; 
+            max-width: 700px; 
             margin: 0 auto;
-            padding: 25px;
+            padding: 30px;
             border-radius: 25px;
-            background-color: #e0e5ec; 
-            /* تطبيق ظل نيومورفي قوي على الحاوية الأم */
-            box-shadow: 12px 12px 24px #a3b1c6, 
-                        -12px -12px 24px #ffffff; 
+            /* تأثير الزجاج القوي */
+            background: rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ظل وعمق */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2); /* إطار ضوئي زجاجي */
+            z-index: 10;
         }
 
         /* العنوان والتاريخ */
@@ -55,22 +58,21 @@
         }
         
         .main-header h1 {
-            font-size: 2.2em; 
-            font-weight: 700;
+            font-size: 2.5em; 
+            font-weight: 900;
             margin: 0 0 5px 0;
-            color: #1a237e;
-            text-shadow: 1px 1px 1px #ffffff; /* ظل خفيف على النص */
+            color: #80deea; /* لون براق */
+            text-shadow: 0 0 10px rgba(0, 220, 255, 0.7); /* توهج */
         }
 
         .date {
-            font-size: 1em;
-            color: #5d6d7e;
-            padding: 8px 15px;
-            border-radius: 18px;
-            /* نيومورفيزم بسيط للتاريخ */
-            background-color: #e0e5ec;
-            box-shadow: 3px 3px 6px #a3b1c6, -3px -3px 6px #ffffff;
+            font-size: 1.1em;
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: #e0f7fa;
+            background: rgba(255, 255, 255, 0.1);
             display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .sections-wrapper {
@@ -79,88 +81,76 @@
             margin-top: 35px;
         }
         
-        /* بطاقة القسم */
+        /* 3. بطاقة القسم الزجاجية */
         .section-card {
-            border-radius: 20px;
-            background-color: #e0e5ec; 
-            /* تطبيق ظل النيومورفيزم */
-            box-shadow: 6px 6px 12px #a3b1c6, 
-                        -6px -6px 12px #ffffff;
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* تأثير النبض (Pulsing Hover Effect) */
+        .section-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 222, 234, 0.5); /* توهج عند المرور */
         }
 
         /* عنوان الشعبة (القابل للنقر) */
         .section-header {
-            padding: 18px 20px;
+            padding: 20px 25px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            border-radius: 20px 20px 0 0; /* شكل مدور من الأعلى */
+            color: white;
+            font-weight: 700;
+            font-size: 1.2em;
         }
         
-        .section-header h2 {
-            margin: 0;
-            font-size: 1.15em;
-        }
-
         /* محتوى التحاضير */
         .section-content {
-            padding: 15px 20px 20px 20px;
-            background-color: #f5f7f9; /* خلفية أفتح قليلاً للمحتوى */
+            padding: 20px 25px;
+            background-color: #f5f7f9; /* خلفية بيضاء واضحة للمحتوى المقروء */
             color: #3f4a56;
-            border-top: 1px solid rgba(255, 255, 255, 0.5); /* فاصل ناعم */
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             overflow: hidden; 
             max-height: 0;
             opacity: 0;
-            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; 
+            transition: max-height 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease; /* حركة أسرع وأكثر سلاسة */
         }
 
         .section-content.show {
-            max-height: 500px; 
+            max-height: 600px; 
             opacity: 1;
         }
-        
-        /* أيقونة الفتح/الإغلاق */
-        .toggle-icon {
-            font-size: 1.4em;
-            transition: transform 0.3s;
-        }
-        
-        .open .toggle-icon {
-            transform: rotate(90deg);
-        }
 
-        /* تمييز شعبة د (الدافئ) */
+        /* تمييز شعبة د (الطاقة) */
         .section-d .section-header {
-            background-color: #ffb74d; /* برتقالي دافئ */
-            color: #6d4c41; /* بني غامق */
+            background: linear-gradient(90deg, #ff80ab, #ff4081); /* وردي متوهج */
         }
         
-        /* تمييز شعبة ج (الهادئ) */
+        /* تمييز شعبة ج (الذكاء) */
         .section-c .section-header {
-            background-color: #a5d6a7; /* أخضر هادئ */
-            color: #2e7d32; /* أخضر غامق */
+            background: linear-gradient(90deg, #82b1ff, #448aff); /* أزرق كهربائي */
         }
         
-        /* تنسيق اسم المسؤول */
+        /* تنسيق اسم المسؤول (مميز جداً) */
         .responsible-person {
             font-weight: 700;
             color: #1a237e; 
-            margin: 10px 0 15px 0;
+            margin: 15px 0 20px 0;
             padding: 10px;
-            background-color: #f1f4f8; /* خلفية ناعمة */
-            border-radius: 15px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
             display: block;
-            font-size: 0.95em;
-            /* ظل داخلي ناعم */
-            box-shadow: inset 2px 2px 4px #a3b1c6, 
-                        inset -2px -2px 4px #ffffff;
+            font-size: 1em;
+            border-left: 5px solid #448aff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* قائمة التحاضير */
+        /* قائمة التحاضير (مركزة) */
         ul {
             list-style: none;
             padding-right: 0;
@@ -168,44 +158,33 @@
         }
 
         li {
-            margin-bottom: 10px;
-            font-size: 1em;
+            margin-bottom: 12px;
+            font-size: 1.05em;
             padding-right: 30px;
             position: relative;
-            background-color: #e0e5ec;
-            border-radius: 8px;
-            padding: 10px 20px 10px 10px;
-            margin-bottom: 8px;
-            /* تطبيق ظل خفيف جداً على كل عنصر قائمة */
-            box-shadow: 2px 2px 4px #a3b1c6, -2px -2px 4px #ffffff;
+            /* خط فاصل سفلي أنيق */
+            border-bottom: 1px dashed #cfd8dc;
+            padding-bottom: 8px;
         }
         
         li::before {
-            content: "✅";
+            content: "🚀"; /* أيقونة صاروخ للتحفيز */
             position: absolute;
-            right: 5px;
+            right: 0;
             font-weight: bold;
-            color: #388e3c;
+            color: #ff4081;
         }
         
         .note {
             margin-top: 40px;
             padding: 20px;
-            background-color: #e0e5ec;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            font-size: 0.95em;
-            font-weight: 600;
-            color: #d32f2f; /* لون تحذير بارز */
-            /* ظل بارز للملاحظة */
-            box-shadow: 8px 8px 16px #a3b1c6, 
-                        -8px -8px 16px #ffffff;
-        }
-
-        /* استجابة الشاشات (Mobile First) */
-        @media (min-width: 768px) {
-            .container {
-                padding: 40px;
-            }
+            font-size: 1em;
+            font-weight: 700;
+            color: #ffcdd2; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -214,7 +193,7 @@
     <div class="container">
         
         <div class="main-header">
-            <h1>🌸 لوحة التحاضير المريحة 🌸</h1>
+            <h1>🌌 لوحة تحكم Cosmic Fusion UI 🌌</h1>
             <div class="date">
                 🗓️ تاريخ التبليغ: **الأربعاء 20 نوفمبر 2025**
             </div>
@@ -223,34 +202,34 @@
         <div class="sections-wrapper">
             
             <div class="section-card section-d">
-                <div class="section-header neumorphism-shadow" onclick="toggleContent('content-d')">
-                    <h2>شعبة (د) - انقر لعرض التفاصيل 🧡</h2>
+                <div class="section-header" onclick="toggleContent('content-d')">
+                    <h2>شعبة (د) - انقر للكشف عن المهمة 💖</h2>
                     <span class="toggle-icon">▶</span>
                 </div>
                 
                 <div class="section-content" id="content-d">
                     <p class="responsible-person">✨ المسؤول عن التبليغ: الأستاذ **محمد علي**</p>
-                    <p>**📋 التحاضير والمهمات المطلوبة:**</p>
+                    <p>**📋 المطلوب (أهداف المرحلة):**</p>
                     <ul>
-                        <li>**رياضيات متقدمة:** تحضير الفصل الثالث: **المعادلات التفاضلية** (من ص 45 إلى 55).</li>
-                        <li>**الواجب:** حل التمارين 3 و 5 (تأكد من تطبيق تأثير النيومورفيزم على هذه القائمة).</li>
-                        <li>**مراجعة:** مراجعة الملاحظات الهامة بخصوص نظرية **التكامل غير المحدد**.</li>
+                        <li>**الرياضيات المتقدمة:** تحضير الفصل الثالث: **المعادلات التفاضلية** (مستوى الإنجاز: 100%).</li>
+                        <li>**الواجب:** حل التمارين 3 و 5 (موعد التسليم: فوري).</li>
+                        <li>**التدقيق:** مراجعة الملاحظات الهامة بخصوص نظرية **التكامل غير المحدد**.</li>
                     </ul>
                 </div>
             </div>
             
             <div class="section-card section-c">
-                <div class="section-header neumorphism-shadow" onclick="toggleContent('content-c')">
-                    <h2>شعبة (ج) - اضغط للإخفاء/الإظهار 💚</h2>
+                <div class="section-header" onclick="toggleContent('content-c')">
+                    <h2>شعبة (ج) - اضغط للإخفاء/الإظهار 💙</h2>
                     <span class="toggle-icon">▼</span>
                 </div>
                 
                 <div class="section-content show" id="content-c">
                     <p class="responsible-person">✨ **المسؤول:** مصطفى محسن جبر</p>
-                    <p>**📋 التحاضير والمهمات المطلوبة:**</p>
+                    <p>**📋 المطلوب (أهداف المرحلة):**</p>
                     <ul>
-                        <li>**الجبر الخطي:** تحضير الفصل الثاني: **مقدمة في الجبر الخطي** (الدرس 4 و 5).</li>
-                        <li>**المهام:** إعداد ملخص للمفاهيم الأساسية للمصفوفات المتماثلة (ملخص من صفحة واحدة).</li>
+                        <li>**الجبر الخطي:** تحضير الفصل الثاني: **مقدمة في الجبر الخطي** (الدروس المحددة).</li>
+                        <li>**المهام:** إعداد ملخص للمفاهيم الأساسية للمصفوفات المتماثلة (ملخص تنفيذي).</li>
                         <li>**التسليم:** مراجعة الواجب البيتي **القديم** للتصحيح الذاتي.</li>
                     </ul>
                 </div>
@@ -258,7 +237,7 @@
         </div>
         
         <div class="note">
-            **❌ ملاحظة هامة جداً:** الإهمال في التحضير سيؤدي إلى خصم درجات السعي اليومي. يرجى التركيز على النقاط المحددة.
+            **🚨 أمر إلزامي:** يُمنع التغيب عن التحضير المحدد. هذا التصميم ليس مجرد جمال، بل هو لوحة مهام يجب إنجازها. التوفيق للجميع!
         </div>
 
     </div>
@@ -286,10 +265,18 @@
             const contentD = document.getElementById('content-d');
             const headerD = contentD.previousElementSibling;
             
-            // تأكد أن شعبة د مخفية عند البداية
+            // شعبة د تبدأ مغلقة
             if (contentD) {
                  contentD.classList.remove('show');
                  headerD.querySelector('.toggle-icon').textContent = "▶";
+            }
+            
+            // شعبة ج تبدأ مفتوحة (للتأكد من الحالة الافتراضية)
+            const contentC = document.getElementById('content-c');
+            const headerC = contentC.previousElementSibling;
+            if (contentC) {
+                 contentC.classList.add('show');
+                 headerC.querySelector('.toggle-icon').textContent = "▼";
             }
         });
     </script>
