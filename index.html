@@ -3,152 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تبليغات التحاضير اليومية</title>
+    <title>لوحة تحكم التحاضير اليومية - تصميم احترافي</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* الأنماط العامة للهيكلة */
+        /* الأنماط العامة والهيكلة */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Cairo', sans-serif; /* استخدام الخط الجديد */
+            background-color: #eef2f7; /* خلفية فاتحة وناعمة */
             margin: 0;
-            padding: 20px;
+            padding: 30px;
             direction: rtl; 
             text-align: right;
+            line-height: 1.6;
         }
 
+        /* حاوية التصميم الرئيسية (البطاقة الأم) */
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15); /* ظل قوي ومميز */
         }
 
-        h1 {
+        /* العنوان الرئيسي */
+        .main-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .main-header h1 {
             color: #1a237e;
-            text-align: center;
-            border-bottom: 3px solid #1a237e;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
         }
 
+        /* تاريخ التبليغ */
         .date {
-            text-align: center;
-            font-size: 1.1em;
-            color: #607d8b;
-            margin-bottom: 20px;
-            padding: 8px;
-            background-color: #e3f2fd;
-            border-radius: 5px;
+            font-size: 1.2em;
+            color: #546e7a;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(to left, #bbdefb, #e3f2fd); /* تدرج لوني */
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* حاوية الشعبتين - تستخدم Flexbox لوضع البطاقات جنباً إلى جنب على الشاشات الكبيرة */
+        .sections-wrapper {
+            display: flex;
+            gap: 30px; /* مسافة بين البطاقات */
+            flex-wrap: wrap; /* للسماح للبطاقات بالنزول على سطر جديد في الجوال */
+            margin-top: 40px;
+        }
+        
+        /* بطاقة القسم (الشعبة) */
+        .section-card {
+            flex: 1 1 45%; /* تأخذ كل بطاقة حوالي 45% من العرض */
+            min-width: 300px; /* للتحكم في العرض على شاشات الجوال */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease-out;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px); /* تأثير رفع البطاقة عند المرور عليها */
         }
 
-        /* بطاقة القسم */
-        .section-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
 
         /* عنوان الشعبة (الذي سيتم النقر عليه) */
         .section-header {
-            padding: 20px;
-            cursor: pointer; 
+            padding: 20px 25px;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between; 
+            justify-content: space-between;
             align-items: center;
-            border-radius: 8px 8px 0 0; 
+            color: white;
+            font-size: 1.3em;
+            font-weight: 700;
         }
         
         .section-header h2 {
             margin: 0;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
 
-        /* محتوى التحاضير (الذي سيتم إخفاؤه/إظهاره) */
+        /* محتوى التحاضير */
         .section-content {
-            padding: 0 20px 20px 20px;
+            padding: 20px 25px;
+            background-color: #fafafa;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
             overflow: hidden; 
+            transition: all 0.5s ease-in-out; 
+            border-top: 1px dashed #cfd8dc;
         }
         
         /* أيقونة الفتح/الإغلاق */
         .toggle-icon {
-            font-size: 1.2em;
+            font-size: 1.5em;
             transition: transform 0.3s;
         }
         
+        /* تدوير الأيقونة عند الفتح */
         .open .toggle-icon {
             transform: rotate(90deg);
         }
 
 
-        /* تمييز شعبة د */
+        /* تمييز شعبة د (أورانج) */
         .section-d .section-header {
-            background-color: #ff9800; 
-            color: white;
-            border-bottom: 1px solid #e65100;
+            background: linear-gradient(to right, #ff9800, #ffb74d); 
         }
         
         .section-d .section-content {
-            background-color: #fffde7;
-            border-radius: 0 0 8px 8px;
             border-left: 5px solid #ff9800;
         }
 
 
-        /* تمييز شعبة ج */
+        /* تمييز شعبة ج (أخضر) */
         .section-c .section-header {
-            background-color: #4caf50; 
-            color: white;
-            border-bottom: 1px solid #2e7d32;
+            background: linear-gradient(to right, #4caf50, #81c784); 
         }
         
         .section-c .section-content {
-            background-color: #e8f5e9;
-            border-radius: 0 0 8px 8px;
             border-left: 5px solid #4caf50;
         }
         
         /* تنسيق اسم المسؤول */
         .section-content .responsible-person {
             font-weight: bold;
-            color: #1b5e20; /* أخضر غامق */
-            margin-top: 10px;
-            margin-bottom: 15px;
-            padding: 5px 10px;
-            background-color: #c8e6c9; /* خلفية خفيفة */
+            color: #1b5e20; 
+            margin-top: 5px;
+            margin-bottom: 20px;
+            padding: 8px 12px;
+            background-color: #e8f5e9; 
+            border: 1px solid #c8e6c9;
             display: inline-block;
-            border-radius: 4px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            font-size: 0.95em;
         }
 
-        /* قائمة التحاضير */
+        /* قائمة التحاضير (أكثر أناقة) */
         ul {
-            list-style-type: none;
+            list-style: none;
             padding-right: 0;
-            padding-top: 5px; /* تم تقليل المسافة بعد إضافة اسم المسؤول */
+            margin-top: 15px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 15px;
         }
 
         li {
-            margin-bottom: 10px;
-            font-size: 1.05em;
+            margin-bottom: 12px;
+            font-size: 1.1em;
             color: #333;
-            line-height: 1.6;
+            padding-right: 25px;
+            position: relative;
         }
         
         li::before {
-            content: "📚";
+            content: "✅"; /* تغيير الأيقونة */
             margin-left: 10px;
+            position: absolute;
+            right: 0;
             font-weight: bold;
             color: #1a237e;
         }
         
+        /* ملاحظة مهمة */
         .note {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #ffe0b2;
-            border-right: 5px solid #ff9800;
-            border-radius: 5px;
-            font-size: 0.95em;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff3e0;
+            border-right: 8px solid #ff9800;
+            border-radius: 10px;
+            font-size: 1em;
             color: #3e2723;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.1);
+        }
+        
+        /* استجابة التصميم للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .sections-wrapper {
+                flex-direction: column; /* البطاقات تحت بعض في الجوال */
+            }
+            .section-card {
+                min-width: 100%;
+            }
+            .container {
+                padding: 20px;
+            }
+            .main-header h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -156,47 +213,54 @@
     
     <div class="container">
         
-        <h1>🔔 تبليغات التحاضير اليومية 🔔</h1>
-        <div class="date">
-            تاريخ التبليغ: **الأربعاء 20 نوفمبر 2025**
-        </div>
-        
-        <div class="section-card section-d">
-            <div class="section-header" onclick="toggleContent('content-d')">
-                <h2>شعبة (د) - انقر هنا لعرض التحاضير 🟠</h2>
-                <span class="toggle-icon">▶</span>
-            </div>
-            
-            <div class="section-content" id="content-d" style="display: none;">
-                <p>**المطلوب تحضيره لهذا اليوم:**</p>
-                <ul>
-                    <li>تحضير الفصل الثالث: **المعادلات التفاضلية** (من صفحة 45 إلى 55).</li>
-                    <li>حل التمارين رقم 3 و 5 من نهاية الفصل.</li>
-                    <li>مراجعة الملاحظات الهامة بخصوص نظرية **التكامل غير المحدد**.</li>
-                </ul>
+        <div class="main-header">
+            <h1>🏛️ لوحة تحكم التحاضير اليومية </h1>
+            <div class="date">
+                🗓️ تاريخ التبليغ: **الأربعاء 20 نوفمبر 2025**
             </div>
         </div>
         
-        <div class="section-card section-c">
+        <div class="sections-wrapper">
             
-            <div class="section-header" onclick="toggleContent('content-c')">
-                <h2>شعبة (ج) - اضغط للإخفاء/الإظهار 🟢</h2>
-                <span class="toggle-icon">▼</span>
+            <div class="section-card section-d">
+                
+                <div class="section-header" onclick="toggleContent('content-d')">
+                    <h2>شعبة (د) - انقر لعرض التفاصيل 🟠</h2>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                
+                <div class="section-content" id="content-d" style="display: none;">
+                    <p class="responsible-person">✨ المسؤول عن التبليغ: الأستاذ **محمد علي**</p>
+                    <p>**📋 التحاضير والمهمات المطلوبة لهذا اليوم:**</p>
+                    <ul>
+                        <li>**رياضيات متقدمة:** تحضير الفصل الثالث: **المعادلات التفاضلية** (من صفحة 45 إلى 55).</li>
+                        <li>**الواجب:** حل التمارين رقم 3 و 5 من نهاية الفصل، وتقديم الحل قبل نهاية اليوم.</li>
+                        <li>**مراجعة:** مراجعة الملاحظات الهامة بخصوص نظرية **التكامل غير المحدد** (مهم جداً).</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="section-content open" id="content-c">
-                <p class="responsible-person">✨ **المسؤول:** مصطفى محسن جبر</p>
-                <p>**المطلوب تحضيره لهذا اليوم:**</p>
-                <ul>
-                    <li>تحضير الفصل الثاني: **مقدمة في الجبر الخطي** (الدرس 4 و 5).</li>
-                    <li>إعداد ملخص للمفاهيم الأساسية للمصفوفات المتماثلة.</li>
-                    <li>حل الواجب البيتي **القديم** الذي تم تسليمه الأسبوع الماضي.</li>
-                </ul>
+            <div class="section-card section-c">
+                
+                <div class="section-header" onclick="toggleContent('content-c')">
+                    <h2>شعبة (ج) - اضغط للإخفاء/الإظهار 🟢</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                
+                <div class="section-content open" id="content-c">
+                    <p class="responsible-person">✨ **المسؤول:** مصطفى محسن جبر</p>
+                    <p>**📋 التحاضير والمهمات المطلوبة لهذا اليوم:**</p>
+                    <ul>
+                        <li>**الجبر الخطي:** تحضير الفصل الثاني: **مقدمة في الجبر الخطي** (الدرس 4 و 5).</li>
+                        <li>**المهام:** إعداد ملخص للمفاهيم الأساسية للمصفوفات المتماثلة (ملخص من صفحة واحدة).</li>
+                        <li>**التسليم:** مراجعة الواجب البيتي **القديم** الذي تم تسليمه الأسبوع الماضي للتصحيح الذاتي.</li>
+                    </ul>
+                </div>
             </div>
         </div>
         
         <div class="note">
-            **ملاحظة هامة للجميع:** يرجى الالتزام بالتحضيرات لضمان سير العملية التعليمية. سيتم طرح أسئلة عشوائية في بداية المحاضرة.
+            **⚠️ تنبيه للطلاب:** هذا التبليغ هو المرجع الرسمي للتحضير اليومي. يرجى التأكد من الضغط على كل شعبة والاطلاع على جميع النقاط بتركيز عالٍ.
         </div>
 
     </div>
@@ -206,24 +270,34 @@
             const content = document.getElementById(contentId);
             const header = content.previousElementSibling; 
             
-            if (content.style.display === "none") {
-                content.style.display = "block"; 
-                header.querySelector('.toggle-icon').textContent = "▼"; 
+            // تحقق من الـ display الحالي
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block"; // أظهر المحتوى
+                header.querySelector('.toggle-icon').textContent = "▼"; // غيّر الأيقونة
                 header.classList.add('open');
             } else {
-                content.style.display = "none"; 
-                header.querySelector('.toggle-icon').textContent = "▶"; 
+                content.style.display = "none"; // اخفِ المحتوى
+                header.querySelector('.toggle-icon').textContent = "▶"; // غيّر الأيقونة
                 header.classList.remove('open');
             }
         }
         
+        // إعداد الحالة الافتراضية عند تحميل الصفحة 
         document.addEventListener('DOMContentLoaded', (event) => {
+            // شعبة ج (content-c) تبدأ مفتوحة
             const contentC = document.getElementById('content-c');
-            if(contentC) {
+            if (contentC) {
                 const headerC = contentC.previousElementSibling;
+                // تأكد من أن الأيقونة صحيحة إذا لم نستخدم style="display: none;"
                 if (contentC.style.display !== "none") {
                     headerC.querySelector('.toggle-icon').textContent = "▼"; 
                 }
+            }
+            
+            // شعبة د (content-d) تبدأ مغلقة
+            const contentD = document.getElementById('content-d');
+            if (contentD) {
+                 contentD.style.display = "none"; // تأكد من إخفائه عند البداية
             }
         });
     </script>
