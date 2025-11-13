@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الأستاذ مصطفى محسن</title>
+    <title>منظم الأستاذ مصطفى محسن</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
     <style>
         /* CSS (التصميم الماسي 3D) */
-        /* لم يتم تغيير هذا القسم عن الرد السابق */
         /* ------------------------------------- */
 
         /* إعدادات عامة وتطبيق الخطوط */
@@ -318,6 +317,7 @@
             color: #ff4d4d;
         }
 
+        /* تخطيط الجدول على الشاشات الكبيرة (الافتراضي) */
         .grades-grid {
             display: grid;
             grid-template-columns: 1.5fr repeat(5, 1fr);
@@ -365,6 +365,10 @@
         .subject-name {
             text-align: right; 
             font-weight: 600;
+            grid-column: 1 / 2; /* تأكيد أن اسم المادة يأخذ العمود الأول */
+        }
+        .grades-grid input {
+            border-radius: 0;
         }
 
         #calculate-grades-btn {
@@ -486,11 +490,86 @@
         .grades-grid .subject-row:nth-child(even) .subject-name {
             background-color: #253042;
         }
-        .grades-grid .subject-name {
-            grid-column: 1 / 2;
-        }
-        .grades-grid input {
-            border-radius: 0;
+
+        /* ========================================================= */
+        /* قواعد الاستجابة (Responsive Media Query) - هذا هو الحل */
+        /* ========================================================= */
+        @media (max-width: 768px) {
+            
+            /* تصفير الـ 3D لتبدو أفضل على الموبايل */
+            .container {
+                transform: none; 
+                border-radius: 0;
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            /* إخفاء العناوين على شاشة صغيرة */
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header p {
+                display: none;
+            }
+            .header-image {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .tab-btn {
+                font-size: 1rem;
+                padding: 15px 10px;
+            }
+
+            /* تعديل شبكة الدرجات لتصبح عمودين فقط (المادة/الامتحان والقيمة) */
+            .grades-grid {
+                display: block; /* نغيرها من Grid إلى Block لإلغاء التخطيط الشبكي */
+                box-shadow: none; 
+                border-radius: 0;
+            }
+            
+            /* إخفاء عناوين الأعمدة القديمة */
+            .grades-grid .grid-header {
+                display: none; 
+            }
+            
+            /* جعل الإدخالات تأخذ عرض الشاشة بالكامل */
+            .grade-input, .subject-name {
+                display: block;
+                text-align: right;
+                font-size: 1.1rem;
+                padding: 15px 10px;
+                border-bottom: 1px solid rgba(70, 130, 180, 0.2);
+            }
+            
+            /* إضافة عنوان الامتحان قبل كل حقل إدخال للقيمة */
+            .grade-input {
+                padding-right: 20px; 
+                border-right: 5px solid #28a745; 
+                background: #253042;
+            }
+
+            /* إظهار اسم الامتحان (الشهر الأول، نصف السنة...) كعنوان داخلي */
+            .grade-input[data-exam="m1"]::before { content: " | درجة الشهر الأول:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
+            .grade-input[data-exam="m2"]::before { content: " | درجة الشهر الثاني:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
+            .grade-input[data-exam="mid"]::before { content: " | درجة نصف السنة:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
+            .grade-input[data-exam="c2m1"]::before { content: " | درجة كورس 2 (ش1):"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
+            .grade-input[data-exam="c2m2"]::before { content: " | درجة كورس 2 (ش2):"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
+
+            /* تمييز اسم المادة بفصل واضح */
+            .subject-name {
+                background: #101824;
+                border-right: 5px solid #FF6F61;
+                margin-top: 15px;
+                font-size: 1.2rem;
+                padding-left: 10px;
+            }
+            
+            /* تعديل عرض نتائج السعي ليظهر في عمود واحد */
+             #subjects-saii-results {
+                grid-template-columns: 1fr;
+             }
         }
     </style>
 </head>
@@ -498,9 +577,9 @@
 
     <div class="container">
         <header>
-            <img src="https://l.top4top.io/p_36049l1ro1.jpg" alt="https://l.top4top.io/p_36049l1ro1.jpg" class="header-image left-img">
+            <img src="image-left.png" alt="https://l.top4top.io/p_3604wsbef1.jpg" class="header-image left-img">
             <h1> الأستاذ مصطفى محسن</h1>
-            <img src="https://j.top4top.io/p_3604zwkjf1.jpg" alt="https://j.top4top.io/p_3604zwkjf1.jpg" class="header-image right-img">
+            <img src="image-right.png" alt="https://e.top4top.io/p_3604atdb31.jpg" class="header-image right-img">
             <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
         </header>
 
@@ -745,11 +824,11 @@
 
                     // حساب السعي للكورس الأول: (شهر 1 + شهر 2 + نصف سنة) / 3
                     const s1Sum = s1Grades.reduce((a, b) => a + b, 0);
-                    const saiiKorsaAwal = s1Grades.length >= 3 ? (s1Sum / 3).toFixed(2) : '--';
+                    const saiiKorsaAwal = s1Grades.length > 0 ? (s1Sum / 3).toFixed(2) : '--';
                     
                     // حساب السعي للكورس الثاني: (شهر 1 + شهر 2) / 2
                     const s2Sum = s2Grades.reduce((a, b) => a + b, 0);
-                    const saiiKorsaThani = s2Grades.length >= 2 ? (s2Sum / 2).toFixed(2) : '--';
+                    const saiiKorsaThani = s2Grades.length > 0 ? (s2Sum / 2).toFixed(2) : '--';
                     
                     let finalSaii = '--';
                     let saiiCount = 0;
@@ -804,4 +883,3 @@
     </script>
 </body>
 </html>
-
