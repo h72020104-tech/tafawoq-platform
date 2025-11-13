@@ -148,28 +148,12 @@
             text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
         }
         
-        /* هذا هو الـ Wrapper الجديد لإضافة شريط التمرير الأفقي على الموبايل */
-        .horizontal-scroll-wrapper {
-            overflow-x: auto;
-            margin-bottom: 20px; 
-            padding-bottom: 10px; /* مساحة لشريط التمرير */
-        }
-        /* إخفاء شريط التمرير الأفقي في Chrome/Safari/Edge للحصول على مظهر أنظف */
-        .horizontal-scroll-wrapper::-webkit-scrollbar {
-            height: 5px;
-        }
-        .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
-            background: #00BFFF;
-            border-radius: 5px;
-        }
-
-        /* تخطيط الجدول (Laptop Look) */
+        /* تخطيط الجدول (Laptop Look - Default for large screens) */
         .grades-grid {
-            /* تحديد عرض ثابت يجعل الجدول يتجاوز عرض شاشة الموبايل */
-            width: 700px; 
             display: grid;
             grid-template-columns: 1.5fr repeat(5, 1fr);
             gap: 12px;
+            margin-bottom: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             overflow: hidden; 
@@ -219,8 +203,7 @@
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
-        /* بقية الـ CSS لم تتغير (المهام، النتائج) */
+        
         #grades-results {
             background: linear-gradient(145deg, #1e283a, #1a1a2e);
             border: 1px dashed rgba(70, 130, 180, 0.3);
@@ -239,6 +222,7 @@
 
         /* ========================================================= */
         /* قواعد التعديل للموبايل (Mobile Specific Adjustments) */
+        /* التعديلات لـ: ظهور جميع الأعمدة بدون تمرير أفقي */
         /* ========================================================= */
         @media (max-width: 768px) {
             
@@ -273,35 +257,54 @@
                 display: none; 
             }
             .tab-content {
-                padding: 15px;
+                padding: 10px; /* تقليل البادينج */
             }
             h2 {
                 font-size: 1.5rem;
             }
+            
+            .tab-btn {
+                font-size: 0.9rem; /* تصغير نص الأزرار */
+                padding: 10px 5px;
+            }
+            
+            /* ------------------------------------------- */
+            /* الضغط الهائل لجدول الدرجات - Solution for 6 columns */
+            .grades-grid {
+                /* جعل الأعمدة مرنة للانكماش */
+                grid-template-columns: 1.2fr repeat(5, 0.8fr); 
+                gap: 2px; /* تقليل الفراغ بين الأعمدة */
+                margin-bottom: 15px;
+            }
 
-            /* إجبار الجدول على التمرير الأفقي وعدم تجاوز عرض الصفحة */
-            .horizontal-scroll-wrapper {
-                margin-left: -15px; /* تعويض البادينج ليظهر شريط التمرير بشكل سليم */
-                margin-right: -15px;
-                padding-left: 15px;
-                padding-right: 15px;
-                /* التأثير الأساسي هنا: */
-                overflow-x: scroll; 
-            }
-            
-            /* تضييق عرض حقول الإدخال لتتناسب مع الـ 700px الإجمالي بشكل أفضل */
-            .grade-input, .subject-name {
-                 font-size: 0.9rem;
-                 padding: 8px 5px;
-            }
+            /* تصغير رؤوس الأعمدة */
             .grid-header {
-                 font-size: 0.85rem;
-                 padding: 10px 5px;
+                font-size: 0.6rem; 
+                padding: 5px 2px;
+                white-space: nowrap; /* منع النص من الالتفاف */
+            }
+
+            /* تصغير حقول الإدخال */
+            .grade-input, .subject-name {
+                 font-size: 0.65rem; /* حجم خط صغير جداً */
+                 padding: 5px 1px;
+                 min-width: 0;
             }
             
-            /* تجميع نتائج السعي في عمود واحد */
+            .subject-name {
+                 text-align: right; 
+            }
+
+            /* تصغير نتائج السعي */
              #subjects-saii-results {
                 grid-template-columns: 1fr;
+                gap: 10px;
+             }
+             .saii-subject-box h4 {
+                 font-size: 1.1rem;
+             }
+             .saii-subject-box p {
+                 font-size: 0.9rem;
              }
         }
     </style>
@@ -310,9 +313,9 @@
 
     <div class="container">
         <header>
-            <img src="image-left.png" alt="شعار المشروع" class="header-image left-img">
+            <img src="image-left.png" alt="https://i.top4top.io/p_36047ibrl1.jpg" class="header-image left-img">
             <h1>منظم الأستاذ مصطفى محسن</h1>
-            <img src="image-right.png" alt="صورتك الشخصية" class="header-image right-img">
+            <img src="image-right.png" alt="https://j.top4top.io/p_360479fu52.jpg" class="header-image right-img">
             <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
         </header>
 
@@ -336,58 +339,58 @@
             <div id="tab-grades" class="tab-pane">
                 <h2>حساب السعي والمعدل السنوي</h2>
                 
-                <div class="horizontal-scroll-wrapper">
-                    <div class="grades-grid">
-                        <div class="grid-header">المادة</div>
-                        <div class="grid-header">شهر أول</div>
-                        <div class="grid-header">شهر ثاني</div>
-                        <div class="grid-header">نصف السنة</div>
-                        <div class="grid-header">كورس 2 (ش1)</div>
-                        <div class="grid-header">كورس 2 (ش2)</div>
-                        
-                        <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="0">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="0">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="0">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0">
+                <div class="grades-grid">
+                    <div class="grid-header">المادة</div>
+                    <div class="grid-header">شهر أول</div>
+                    <div class="grid-header">شهر ثاني</div>
+                    <div class="grid-header">نصف السنة</div>
+                    <div class="grid-header">كورس 2 (ش1)</div>
+                    <div class="grid-header">كورس 2 (ش2)</div>
+                    
+                    <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0">
 
-                        <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="1">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="1">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="1">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1">
-                        
-                        <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="2">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="2">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="2">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2">
+                    <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1">
 
-                        <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="3">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="3">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="3">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3">
-                        
-                        <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="4">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="4">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="4">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4">
+                    <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2">
 
-                        <input type="text" class="subject-name" placeholder="اسم المادة 6" value="اللغة الإنجليزية">
-                        <input type="number" class="grade-input" data-exam="m1" data-subject-index="5">
-                        <input type="number" class="grade-input" data-exam="m2" data-subject-index="5">
-                        <input type="number" class="grade-input" data-exam="mid" data-subject-index="5">
-                        <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5">
-                        <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5">
-                        </div>
-                </div>
+                    <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3">
+
+                    <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4">
+
+                    <input type="text" class="subject-name" placeholder="اسم المادة 6" value="اللغة الإنجليزية">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5">
+                    </div>
+                
+
                 <button id="calculate-grades-btn">احسب السعي والمعدلات</button>
 
                 <div id="grades-results">
@@ -401,7 +404,6 @@
             </div>
 
         </div> </div> <script>
-        // ... (Javascript section is identical to the previous version and is not repeated for brevity) ...
         document.addEventListener('DOMContentLoaded', () => {
 
             // ==================== منطق التابات (Tabs) ====================
