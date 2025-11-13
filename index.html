@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> الأستاذ مصطفى محسن</title>
+    <title>منظم الأستاذ مصطفى محسن</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
@@ -217,12 +217,71 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
-        /* ... (بقية أنماط الـ Task و Saii) ... */
-
+        .saii-subject-box {
+            background: #2a3a50;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #00BFFF;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .saii-subject-box h4 {
+            font-family: 'Cairo', sans-serif;
+            color: #87CEEB;
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+        .saii-subject-box p {
+            margin: 5px 0;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .saii-subject-box span {
+            font-weight: 700;
+            color: #E0FFFF;
+        }
+        .final-saii-span {
+            color: #FFD700 !important; 
+            font-size: 1.1rem;
+        }
+        #result-final {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF6F61;
+        }
+        #result-final span {
+            color: #7FFF00;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-right: 10px;
+            text-shadow: 0 0 10px rgba(127, 255, 0, 0.5);
+        }
+        .task-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: color 0.2s;
+        }
+        .complete-btn { color: #00BFFF; }
+        .complete-btn:hover { color: #7FFF00; }
+        .delete-btn { color: #FF6347; }
+        .delete-btn:hover { color: #8B0000; }
+        #task-list li.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+            background: #1a202c;
+        }
+        /* -------------------------------------------------------------------------------------------------- */
 
         /* ========================================================= */
         /* قواعد التعديل للموبايل (Mobile Specific Adjustments) */
-        /* التعديلات لـ: ظهور جميع الأعمدة بدون تمرير أفقي */
+        /* التعديلات لـ: ظهور جميع الأعمدة بدون تمرير أفقي (بأقصى ضغط) */
         /* ========================================================= */
         @media (max-width: 768px) {
             
@@ -313,9 +372,9 @@
 
     <div class="container">
         <header>
-            <img src="https://i.top4top.io/p_36047ibrl1.jpg" alt="https://i.top4top.io/p_36047ibrl1.jpg" class="header-image left-img">
-            <h1> الأستاذ مصطفى محسن</h1>
-            <img src="https://j.top4top.io/p_360479fu52.jpg" alt="https://j.top4top.io/p_360479fu52.jpg" class="header-image right-img">
+            <img src="https://c.top4top.io/p_3604mmjun1.jpg" alt="شعار المشروع" class="header-image left-img">
+            <h1>الأستاذ مصطفى محسن</h1>
+            <img src="https://d.top4top.io/p_3604kzdsz2.jpg" alt="صورتك الشخصية" class="header-image right-img">
             <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
         </header>
 
@@ -556,46 +615,76 @@
                     const subjectName = subjectNames[i].value || `المادة ${i + 1}`;
                     const subjectInputs = Array.from(document.querySelectorAll(`[data-subject-index="${i}"]`));
                     
-                    const s1Grades = subjectInputs.slice(0, 3).map(input => parseFloat(input.value)).filter(v => !isNaN(v));
-                    const s2Grades = subjectInputs.slice(3, 5).map(input => parseFloat(input.value)).filter(v => !isNaN(v));
+                    // Grades mapping based on position in the array (0 to 4)
+                    const m1 = parseFloat(subjectInputs[0].value); // شهر أول
+                    const m2 = parseFloat(subjectInputs[1].value); // شهر ثاني
+                    const midterm = parseFloat(subjectInputs[2].value); // نصف السنة
+                    const c2m1 = parseFloat(subjectInputs[3].value); // كورس 2 (ش1)
+                    const c2m2 = parseFloat(subjectInputs[4].value); // كورس 2 (ش2)
 
-                    // حساب السعي للكورس الأول: (شهر 1 + شهر 2 + نصف سنة) / 3
-                    const s1Sum = s1Grades.reduce((a, b) => a + b, 0);
-                    const saiiKorsaAwal = s1Grades.length > 0 ? (s1Sum / 3).toFixed(2) : '--';
                     
-                    // حساب السعي للكورس الثاني: (شهر 1 + شهر 2) / 2
-                    const s2Sum = s2Grades.reduce((a, b) => a + b, 0);
-                    const saiiKorsaThani = s2Grades.length > 0 ? (s2Sum / 2).toFixed(2) : '--';
+                    // 1. حساب معدل الكورس الأول: (شهر 1 + شهر 2) / 2
+                    let avgKorsaAwal = '--';
+                    if (!isNaN(m1) && !isNaN(m2)) {
+                        avgKorsaAwal = ((m1 + m2) / 2).toFixed(2);
+                    } else if (!isNaN(m1) || !isNaN(m2)) {
+                        // إذا تم إدخال درجة واحدة فقط، يتم اعتبارها معدل الكورس الأول
+                        avgKorsaAwal = (!isNaN(m1) ? m1 : m2).toFixed(2);
+                    }
                     
+                    // 2. حساب معدل الكورس الثاني: (كورس 2 ش1 + كورس 2 ش2) / 2
+                    let avgKorsaThani = '--';
+                    if (!isNaN(c2m1) && !isNaN(c2m2)) {
+                        avgKorsaThani = ((c2m1 + c2m2) / 2).toFixed(2);
+                    } else if (!isNaN(c2m1) || !isNaN(c2m2)) {
+                        // إذا تم إدخال درجة واحدة فقط، يتم اعتبارها معدل الكورس الثاني
+                        avgKorsaThani = (!isNaN(c2m1) ? c2m1 : c2m2).toFixed(2);
+                    }
+                    
+                    // 3. حساب السعي السنوي النهائي: (كورس 1 + نصف السنة + كورس 2) / 3 (أو أقل)
+                    let finalSaiiSum = 0;
+                    let finalSaiiCount = 0;
+
+                    // إضافة معدل الكورس الأول (شهرين)
+                    if (avgKorsaAwal !== '--') {
+                        finalSaiiSum += parseFloat(avgKorsaAwal);
+                        finalSaiiCount++;
+                    }
+                    
+                    // إضافة نصف السنة (مباشرة)
+                    if (!isNaN(midterm)) {
+                        finalSaiiSum += midterm;
+                        finalSaiiCount++;
+                    }
+
+                    // إضافة معدل الكورس الثاني (شهرين)
+                    if (avgKorsaThani !== '--') {
+                        finalSaiiSum += parseFloat(avgKorsaThani);
+                        finalSaiiCount++;
+                    }
+
                     let finalSaii = '--';
-                    let saiiCount = 0;
-                    let saiiSum = 0;
-
-                    // حساب السعي السنوي للمادة: (سعي الكورس الأول + سعي الكورس الثاني) / 2
-                    if (saiiKorsaAwal !== '--') {
-                        saiiSum += parseFloat(saiiKorsaAwal);
-                        saiiCount++;
-                    }
-                    if (saiiKorsaThani !== '--') {
-                        saiiSum += parseFloat(saiiKorsaThani);
-                        saiiCount++;
+                    if (finalSaiiCount > 0) {
+                        finalSaii = (finalSaiiSum / finalSaiiCount).toFixed(2);
                     }
                     
-                    if (saiiCount > 0) {
-                        finalSaii = (saiiSum / saiiCount).toFixed(2);
-                    }
                     
-                    // جمع كل الدرجات لحساب المعدل العام الكلي
-                    s1Grades.forEach(grade => { totalSumOfAllExams += grade; totalCountOfAllExams++; });
-                    s2Grades.forEach(grade => { totalSumOfAllExams += grade; totalCountOfAllExams++; });
+                    // حساب المعدل العام الكلي لجميع الفترات (لإظهاره في نهاية الصفحة)
+                    [m1, m2, midterm, c2m1, c2m2].forEach(grade => {
+                        if (!isNaN(grade)) {
+                            totalSumOfAllExams += grade; 
+                            totalCountOfAllExams++; 
+                        }
+                    });
 
 
                     // إنشاء عنصر عرض السعي لهذه المادة
                     saiiResultsHTML += `
                         <div class="saii-subject-box">
                             <h4>${subjectName}</h4>
-                            <p>سعي الكورس الأول: <span>${saiiKorsaAwal}</span></p>
-                            <p>سعي الكورس الثاني: <span>${saiiKorsaThani}</span></p>
+                            <p>معدل الشهرين الأول: <span>${avgKorsaAwal}</span></p>
+                            <p>درجة نصف السنة: <span>${!isNaN(midterm) ? midterm.toFixed(2) : '--'}</span></p>
+                            <p>معدل الشهرين الثاني: <span>${avgKorsaThani}</span></p>
                             <hr style="border-style: dashed; margin: 8px 0;">
                             <p>السعي السنوي النهائي: <span class="final-saii-span">${finalSaii}</span></p>
                         </div>
@@ -620,5 +709,3 @@
     </script>
 </body>
 </html>
-
-
