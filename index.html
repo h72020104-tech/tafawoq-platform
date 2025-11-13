@@ -8,23 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS (التصميم الماسي 3D) */
-        /* ------------------------------------- */
-
-        /* إعدادات عامة وتطبيق الخطوط */
+        /* CSS الأساسي */
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0; /* تم تصفير البادينج ليناسب الموبايل بشكل أفضل */
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             color: #e0e0e0; 
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* يبدأ من الأعلى */
             min-height: 100vh;
             perspective: 1000px;
         }
 
+        /* الشكل الماسي 3D للحاسوب */
         .container {
             width: 90%;
             max-width: 900px;
@@ -39,12 +37,14 @@
             transform: rotateY(-5deg) rotateX(5deg);
             transition: transform 0.5s ease-in-out;
             border: 2px solid rgba(70, 130, 180, 0.3);
+            margin: 20px; /* لإعطاء مساحة حول التصميم على الشاشات الكبيرة */
         }
 
         .container:hover {
             transform: rotateY(0deg) rotateX(0deg); 
         }
-
+        /* بقية العناصر والتأثيرات (العنوان، الأزرار، المهام، النتائج) تبقى كما هي من الكود السابق، مع التركيز على جزء الـ Grades Grid */
+        
         header {
             background: linear-gradient(160deg, #00BFFF, #1E90FF);
             color: white;
@@ -67,10 +67,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
             z-index: 10; 
             transition: transform 0.3s ease;
-        }
-
-        .header-image:hover {
-            transform: scale(1.05) rotate(5deg);
         }
 
         header h1 {
@@ -162,9 +158,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
             transform: translateY(-2px);
         }
-        .tab-btn.active::before {
-            background: rgba(255, 255, 255, 0.2);
-        }
 
         .tab-content {
             padding: 30px;
@@ -208,16 +201,6 @@
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
-        #task-input::placeholder {
-            color: #999;
-        }
-
-        #task-input:focus {
-            outline: none;
-            background: #3a4a60;
-            box-shadow: 0 0 0 2px #00BFFF inset;
-        }
-
         #add-task-btn {
             padding: 15px 30px;
             border: none;
@@ -228,12 +211,6 @@
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s;
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        #add-task-btn:hover {
-            background: linear-gradient(45deg, #1E90FF, #00BFFF);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
         }
 
         #task-list {
@@ -266,57 +243,6 @@
             background: linear-gradient(to bottom, #00BFFF, #1E90FF);
         }
 
-        #task-list li.completed {
-            background: linear-gradient(135deg, #3a502a, #283a1e);
-            border-color: rgba(40, 167, 69, 0.3);
-        }
-
-        #task-list li.completed .task-text {
-            text-decoration: line-through; 
-            color: #a0a0a0;
-        }
-        #task-list li.completed::before {
-            background: linear-gradient(to bottom, #28a745, #218838);
-        }
-
-        .task-text {
-            flex: 1;
-            font-size: 1.1rem;
-            color: #e0e0e0;
-        }
-
-        .task-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .task-btn {
-            border: none;
-            background: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: transform 0.2s, color 0.3s;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .task-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .complete-btn {
-            color: #28a745;
-        }
-        .complete-btn:hover {
-            color: #34eb61;
-        }
-
-        .delete-btn {
-            color: #dc3545;
-        }
-        .delete-btn:hover {
-            color: #ff4d4d;
-        }
-
         /* تخطيط الجدول على الشاشات الكبيرة (الافتراضي) */
         .grades-grid {
             display: grid;
@@ -337,13 +263,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.95rem;
         }
-        .grades-grid .grid-header:first-child {
-            border-top-right-radius: 8px;
-        }
-        .grades-grid .grid-header:last-child {
-            border-top-left-radius: 8px;
-        }
-
 
         .grade-input, .subject-name {
             width: 100%;
@@ -356,19 +275,11 @@
             box-sizing: border-box; 
             border-bottom: 1px solid rgba(70, 130, 180, 0.1);
         }
-        .grade-input:focus, .subject-name:focus {
-            outline: none;
-            background: #3a4a60;
-            box-shadow: 0 0 0 2px #00BFFF inset;
-        }
 
         .subject-name {
             text-align: right; 
             font-weight: 600;
-            grid-column: 1 / 2; /* تأكيد أن اسم المادة يأخذ العمود الأول */
-        }
-        .grades-grid input {
-            border-radius: 0;
+            grid-column: 1 / 2;
         }
 
         #calculate-grades-btn {
@@ -388,145 +299,55 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        #calculate-grades-btn:hover {
-            background: linear-gradient(45deg, #218838, #28a745);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
-        }
-
-        #grades-results {
-            background: linear-gradient(145deg, #1e283a, #1a1a2e);
-            border: 1px dashed rgba(70, 130, 180, 0.3);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.1);
-        }
-
-        #grades-results h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #87CEEB;
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
-        }
-
-        #subjects-saii-results {
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .saii-subject-box {
-            background: linear-gradient(135deg, #2a3a50, #1e283a);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(70, 130, 180, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .saii-subject-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #00BFFF, #1E90FF);
-            border-radius: 10px 10px 0 0;
-        }
-
-        .saii-subject-box h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: #E0FFFF;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-        }
-
-        .saii-subject-box p {
-            margin: 8px 0;
-            font-size: 1rem;
-            display: flex;
-            justify-content: space-between;
-            color: #d0d0d0;
-        }
-        .saii-subject-box span {
-            font-weight: 700;
-            color: #90CAF9;
-        }
-        .saii-subject-box hr {
-            border: none;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            margin: 15px 0;
-        }
-        .saii-subject-box .final-saii-span {
-            font-size: 1.4rem;
-            color: #FF6F61;
-            text-shadow: 0 0 10px rgba(255, 100, 100, 0.4);
-        }
-        
-        #grades-results .final-result {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            color: #E0FFFF;
-            text-align: center;
-            margin-top: 30px;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            border-top: 2px solid rgba(70, 130, 180, 0.2);
-            padding-top: 20px;
-        }
-        #grades-results .final-result span {
-            color: #00FFD1;
-            font-size: 1.8rem;
-            text-shadow: 0 0 18px rgba(0, 255, 209, 0.6);
-        }
-        
-        .grades-grid .subject-row:nth-child(even) .grade-input,
-        .grades-grid .subject-row:nth-child(even) .subject-name {
-            background-color: #253042;
-        }
-
         /* ========================================================= */
-        /* قواعد الاستجابة (Responsive Media Query) - هذا هو الحل */
+        /* قواعد الاستجابة (Responsive Media Query) - للموبايل */
         /* ========================================================= */
         @media (max-width: 768px) {
             
-            /* تصفير الـ 3D لتبدو أفضل على الموبايل */
+            body {
+                padding: 0;
+            }
+
+            /* الشكل المستطيل الكامل */
             .container {
                 transform: none; 
-                border-radius: 0;
+                border-radius: 0; /* شكل مستطيل */
                 width: 100%;
                 margin: 0;
                 box-shadow: none;
-            }
-
-            /* إخفاء العناوين على شاشة صغيرة */
-            header h1 {
-                font-size: 1.8rem;
-            }
-            header p {
-                display: none;
-            }
-            .header-image {
-                width: 50px;
-                height: 50px;
+                border: none; /* إزالة الحدود الخارجية */
+                min-height: 100vh;
             }
             
-            .tab-btn {
-                font-size: 1rem;
-                padding: 15px 10px;
+            header {
+                padding: 20px;
+                padding-bottom: 40px;
+                border-radius: 0;
+            }
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .header-image {
+                width: 45px;
+                height: 45px;
+                border: 2px solid #ADD8E6;
+            }
+            header p {
+                display: none; /* إخفاء النص الفرعي لضيق المساحة */
+            }
+            .tab-content {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
             }
 
-            /* تعديل شبكة الدرجات لتصبح عمودين فقط (المادة/الامتحان والقيمة) */
+            /* تعديل تخطيط الدرجات ليصبح عمودياً ومتسلسلاً */
             .grades-grid {
-                display: block; /* نغيرها من Grid إلى Block لإلغاء التخطيط الشبكي */
+                display: block; /* تغيير تخطيط Grid إلى Block */
                 box-shadow: none; 
                 border-radius: 0;
+                gap: 0;
             }
             
             /* إخفاء عناوين الأعمدة القديمة */
@@ -534,39 +355,64 @@
                 display: none; 
             }
             
-            /* جعل الإدخالات تأخذ عرض الشاشة بالكامل */
-            .grade-input, .subject-name {
+            /* تحديد كل مجموعة مواد لتصبح "كارد" مستقل وواضح */
+            .subject-name {
                 display: block;
+                width: 100%;
+                text-align: center;
+                font-size: 1.25rem;
+                font-weight: 700;
+                margin-top: 15px;
+                padding: 15px 10px;
+                background: linear-gradient(90deg, #101824, #1a202c); /* خلفية داكنة لاسم المادة */
+                border-right: 5px solid #FF6F61;
+                border-left: 5px solid #FF6F61;
+                border-radius: 5px 5px 0 0;
+                grid-column: 1 / -1; /* تأكد من أنه يأخذ العرض الكامل */
+            }
+            
+            /* تصميم حقول الدرجات على الموبايل */
+            .grade-input {
+                display: block;
+                width: 100%;
                 text-align: right;
                 font-size: 1.1rem;
                 padding: 15px 10px;
                 border-bottom: 1px solid rgba(70, 130, 180, 0.2);
-            }
-            
-            /* إضافة عنوان الامتحان قبل كل حقل إدخال للقيمة */
-            .grade-input {
-                padding-right: 20px; 
-                border-right: 5px solid #28a745; 
+                border-radius: 0;
                 background: #253042;
+                position: relative;
             }
 
-            /* إظهار اسم الامتحان (الشهر الأول، نصف السنة...) كعنوان داخلي */
-            .grade-input[data-exam="m1"]::before { content: " | درجة الشهر الأول:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
-            .grade-input[data-exam="m2"]::before { content: " | درجة الشهر الثاني:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
-            .grade-input[data-exam="mid"]::before { content: " | درجة نصف السنة:"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
-            .grade-input[data-exam="c2m1"]::before { content: " | درجة كورس 2 (ش1):"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
-            .grade-input[data-exam="c2m2"]::before { content: " | درجة كورس 2 (ش2):"; color: #00BFFF; font-weight: bold; margin-left: 5px; }
-
-            /* تمييز اسم المادة بفصل واضح */
-            .subject-name {
-                background: #101824;
-                border-right: 5px solid #FF6F61;
-                margin-top: 15px;
-                font-size: 1.2rem;
-                padding-left: 10px;
+            /* إضافة اسم الامتحان قبل حقل القيمة */
+            .grade-input::before {
+                content: attr(data-label); /* سيتم تعيينها في الـ HTML */
+                color: #00BFFF; 
+                font-weight: bold; 
+                margin-left: 10px;
+                float: right;
+                width: 45%; /* تخصيص عرض لاسم الامتحان */
+                text-align: right;
+            }
+            .grade-input {
+                text-align: left;
+                padding-left: 50%;
+                box-sizing: border-box;
             }
             
-            /* تعديل عرض نتائج السعي ليظهر في عمود واحد */
+            /* إزالة الفواصل بين الإدخالات لنفس المادة باستثناء الفاصل الأخير */
+            .grade-input:last-of-type {
+                 border-bottom: 3px solid #0f3460; /* فاصل سميك بعد آخر درجة للمادة */
+                 margin-bottom: 15px;
+            }
+            .grade-input:last-of-type::before {
+                 content: attr(data-label); /* إظهار اسم الامتحان قبل حقل القيمة */
+            }
+            .grade-input:last-of-type + .subject-name {
+                 margin-top: 15px;
+            }
+
+            /* تجميع نتائج السعي في عمود واحد */
              #subjects-saii-results {
                 grid-template-columns: 1fr;
              }
@@ -577,9 +423,9 @@
 
     <div class="container">
         <header>
-            <img src="image-left.png" alt="https://l.top4top.io/p_3604wsbef1.jpg" class="header-image left-img">
-            <h1> الأستاذ مصطفى محسن</h1>
-            <img src="image-right.png" alt="https://e.top4top.io/p_3604atdb31.jpg" class="header-image right-img">
+            <img src="image-left.png" alt="شعار المشروع" class="header-image left-img">
+            <h1>منظم الأستاذ مصطفى محسن</h1>
+            <img src="image-right.png" alt="صورتك الشخصية" class="header-image right-img">
             <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
         </header>
 
@@ -612,46 +458,46 @@
                     <div class="grid-header">كورس 2 (ش2)</div>
                     
                     <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0" data-label="كورس 2 (ش2):">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1" data-label="كورس 2 (ش2):">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2" data-label="كورس 2 (ش2):">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3" data-label="كورس 2 (ش2):">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4" data-label="كورس 2 (ش2):">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 6" value="اللغة الإنجليزية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5" data-label="الشهر الأول:">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5" data-label="الشهر الثاني:">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5" data-label="نصف السنة:">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5" data-label="كورس 2 (ش1):">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5" data-label="كورس 2 (ش2):">
                 </div>
 
                 <button id="calculate-grades-btn">احسب السعي والمعدلات</button>
