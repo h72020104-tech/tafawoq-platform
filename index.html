@@ -476,22 +476,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // ==================== منطق التابات (Tabs) ====================
+            // ==================== منطق التابات (Tabs) -- *** تم الإصلاح *** ====================
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
+                    // 1. إزالة حالة التفعيل من جميع الأزرار والتبويبات
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabPanes.forEach(pane => pane.classList.remove('active'));
 
+                    // 2. تفعيل الزر والتبويبة المطابقة له
                     button.classList.add('active');
                     const tabId = button.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
                     
-                    // إيقاف مؤقت للعداد عند تغيير التبويب
+                    // 3. التحكم بالعداد عند تغيير التبويبة
                     if (tabId !== 'tab-timer') {
-                        pauseTimer();
+                        pauseTimer(); // إيقاف مؤقت للعداد عند الابتعاد عن تبويبته
                     }
                 });
             });
@@ -587,7 +589,7 @@
             const subjectNames = document.querySelectorAll('.subject-name');
             const subjectsContainer = document.getElementById('subjects-saii-results');
             
-            const GRADES_STORAGE_KEY = 'studentGrades_v3'; // تغيير المفتاح للحفاظ على البيانات النظيفة
+            const GRADES_STORAGE_KEY = 'studentGrades_v3';
             
             loadGrades();
 
@@ -731,7 +733,6 @@
             let interval = null;
             const TIMER_STORAGE_KEY = 'studyTimer';
 
-            // تحميل القيمة المحفوظة
             function loadTimer() {
                 const savedTime = localStorage.getItem(TIMER_STORAGE_KEY);
                 if (savedTime) {
@@ -788,14 +789,17 @@
             pauseBtn.addEventListener('click', pauseTimer);
             resetBtn.addEventListener('click', resetTimer);
 
+            // جعل دالة الإيقاف المؤقت عالمية للتحكم بها من منطق التبويبات
+            window.pauseTimer = pauseTimer; 
+
             // ==================== منطق مشغل اليوتيوب (YouTube Player) ====================
-            const youtubeInput = document.getElementById('youtube-link-input');
+            const youtubeInput = document.getElementById('');
             const loadYoutubeBtn = document.getElementById('load-youtube-btn');
             const youtubePlayer = document.getElementById('youtube-player');
-            const EMBED_BASE_URL = 'https://www.youtube.com/embed/';
+            const EMBED_BASE_URL = 'https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd';
 
             function extractVideoID(url) {
-                // للروابط العادية: https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd
+                // للروابط العادية: https://www.youtube.com/watch?v=VIDEO_ID
                 let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
                 if (match) {
                     return match[1];
@@ -817,7 +821,7 @@
                     youtubePlayer.src = embedUrl;
                 } else {
                     alert("الرجاء إدخال رابط يوتيوب صالح أو معرف (ID) للفيديو.");
-                    youtubePlayer.src = ""https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd;
+                    youtubePlayer.src = "";
                 }
             });
             youtubeInput.addEventListener('keypress', (e) => {
