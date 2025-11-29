@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منظم الأستاذ مصطفى محسن</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght=600;800&display=swap" rel="stylesheet">
     
     <style>
         /* CSS الأساسي */
@@ -104,9 +104,9 @@
         .tab-btn {
             flex: 1; 
             padding: 20px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-family: 'Cairo', sans-serif;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             border: none;
             background: linear-gradient(180deg, #3a4a60, #2a3a50);
@@ -153,7 +153,7 @@
             display: flex;
             margin-bottom: 20px;
         }
-        #task-input, #subject-name-input, .question-text-input, .question-link-input, .grade-input {
+        #task-input, .grade-input, #youtube-link-input {
             flex-grow: 1;
             padding: 12px;
             border: 1px solid #0f3460;
@@ -163,7 +163,7 @@
             font-size: 1rem;
             margin-left: 10px;
         }
-        #add-task-btn, #add-subject-btn, .add-q-btn, #calculate-grades-btn {
+        #add-task-btn, #calculate-grades-btn, .timer-btn, #load-youtube-btn {
             padding: 12px 20px;
             background: #1E90FF;
             color: white;
@@ -173,6 +173,11 @@
             font-weight: 700;
             transition: background 0.3s;
         }
+        #add-task-btn:hover, #calculate-grades-btn:hover, .timer-btn:hover, #load-youtube-btn:hover {
+            background: #00BFFF;
+        }
+
+        /* ستايل المهام */
         #task-list {
             list-style: none;
             padding: 0;
@@ -186,8 +191,21 @@
             background: #2a3a50;
             border-radius: 6px;
             border-right: 5px solid #00BFFF;
+            transition: background 0.3s;
         }
-        
+        #task-list li.completed {
+            background: #1a2333;
+            opacity: 0.6;
+            border-right-color: #7FFF00;
+            text-decoration: line-through;
+        }
+        .task-buttons .task-btn {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        .task-buttons .complete-btn { background: #7FFF00; }
+        .task-buttons .delete-btn { background: #8B0000; }
+
         /* ستايل حاسبة المعدل */
         .grades-grid {
             display: grid;
@@ -217,7 +235,6 @@
             text-align: center;
             box-sizing: border-box; 
             border-bottom: 1px solid rgba(70, 130, 180, 0.1);
-            margin-left: 0; /* إلغاء تداخل الهوامش */
         }
         #grades-results {
             margin-top: 30px;
@@ -228,6 +245,7 @@
         }
         #subjects-saii-results {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -236,75 +254,49 @@
             padding: 15px;
             border-radius: 8px;
             border: 1px solid #0f3460;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
-        .saii-subject-box h4 {
-            color: #7FFF00;
-            border-bottom: 1px solid rgba(127, 255, 0, 0.2);
-            padding-bottom: 5px;
-            margin-top: 0;
-        }
-        .saii-subject-box span, .final-result span {
+        .final-result span, .final-saii-span {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            color: #00FF00;
-            font-size: 1.1rem;
+            color: #FFD700;
+            font-size: 1.3rem;
             margin-right: 5px;
         }
-        .final-saii-span {
-            font-size: 1.3rem !important;
-            color: #FFD700 !important;
-        }
-        .final-result {
+
+        /* ستايل العداد (Timer) */
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
             text-align: center;
-            font-size: 1.5rem;
-            color: #E0FFFF;
-            margin-top: 20px;
+            color: #7FFF00;
+            text-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
+            margin-bottom: 30px;
+            direction: ltr; /* لعرض الأرقام من اليسار لليمين */
         }
-
-        /* ستايل بنك الأسئلة (Q-Bank) */
-        .qbank-subjects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        .timer-controls {
+            display: flex;
+            justify-content: center;
             gap: 20px;
-            margin-bottom: 20px;
         }
-        .question-text-input {
-            margin-left: 0;
-        }
-        .question-link-input {
-            font-size: 0.85rem !important;
-            color: #bbbbbb;
-            margin-left: 0;
-        }
-        .question-item {
-            display: block;
-            padding: 5px 0;
-            font-size: 0.9rem;
-            border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
-            position: relative;
-            padding-left: 30px;
-        }
-        .question-item strong {
-            display: block;
-            color: #E0FFFF;
-        }
-        .question-link {
-            color: #FFD700;
-            font-size: 0.75rem;
-            display: block;
-        }
-        .delete-q-btn {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 5px 10px;
-            background: #8B0000;
-        }
+        .timer-btn.stop { background: #FF4500; }
+        .timer-btn.stop:hover { background: #DC143C; }
 
-
-        /* قواعد التعديل للموبايل (Mobile Specific Adjustments) */
+        /* ستايل مشغل اليوتيوب */
+        #youtube-player-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            min-height: 400px;
+            background: #000;
+        }
+        #youtube-player {
+            width: 100%;
+            height: 450px; /* حجم الإطار */
+            border: none;
+        }
+        
+        /* قواعد التعديل للموبايل */
         @media (max-width: 768px) {
             .container {
                 transform: none; 
@@ -315,12 +307,9 @@
                 border: none;
                 min-height: 100vh;
             }
-            .tab-content {
-                padding: 10px;
-            }
             .tab-btn {
-                font-size: 0.8rem;
-                padding: 10px 5px;
+                font-size: 0.7rem;
+                padding: 10px 3px;
             }
             .grades-grid {
                 grid-template-columns: 1.2fr repeat(5, 0.8fr); 
@@ -329,18 +318,20 @@
             .grid-header { font-size: 0.6rem; padding: 5px 2px; }
             .grade-input, .subject-name { font-size: 0.65rem; padding: 5px 1px; }
 
-            .qbank-subjects-container {
-                grid-template-columns: 1fr;
-            }
             .task-input-container {
                 flex-direction: column;
             }
-            #task-input, #subject-name-input, #add-task-btn, #add-subject-btn {
+            #task-input, #youtube-link-input {
                 margin-left: 0;
                 margin-bottom: 10px;
             }
+            #youtube-player {
+                height: 250px;
+            }
+            .timer-display { font-size: 3rem; }
+            .timer-controls { gap: 10px; }
+            .timer-btn { padding: 8px 15px; font-size: 0.9rem; }
         }
-
     </style>
 </head>
 <body>
@@ -356,7 +347,8 @@
         <div class="tab-buttons">
             <button class="tab-btn active" data-tab="tab-tasks">📝 المهام اليومية</button>
             <button class="tab-btn" data-tab="tab-grades">💎 حاسبة المعدل والسعي</button>
-            <button class="tab-btn" data-tab="tab-qbank">📂 بنك الأسئلة</button>
+            <button class="tab-btn" data-tab="tab-timer">⏳ العداد (دراسة)</button>
+            <button class="tab-btn" data-tab="tab-music">🎵 نغمات اليوتيوب</button>
         </div>
 
         <div class="tab-content">
@@ -367,8 +359,7 @@
                     <input type="text" id="task-input" placeholder="أضف مهمة جديدة أو هدفاً (مثال: مراجعة قوانين الفيزياء)">
                     <button id="add-task-btn">إضافة المهمة</button>
                 </div>
-                <ul id="task-list">
-                    </ul>
+                <ul id="task-list"></ul>
             </div>
 
             <div id="tab-grades" class="tab-pane">
@@ -383,46 +374,46 @@
                     <div class="grid-header">كورس 2 (ش2)</div>
                     
                     <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0" min="0" max="100">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1" min="0" max="100">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2" min="0" max="100">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3" min="0" max="100">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4" min="0" max="100">
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 6" value="اللغة الإنجليزية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5">
+                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5" min="0" max="100">
+                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5" min="0" max="100">
                     </div>
                 
 
@@ -431,28 +422,54 @@
                 <div id="grades-results">
                     <div id="subjects-saii-results">
                         <h3>نتائج السعي لكل مادة:</h3>
-                        <p style="text-align: center; opacity: 0.7; grid-column: 1 / span 2;">اضغط "احسب السعي والمعدلات" لعرض النتائج هنا.</p>
+                        <p style="text-align: center; opacity: 0.7;">اضغط "احسب السعي والمعدلات" لعرض النتائج هنا.</p>
                     </div>
-                    <hr>
+                    <hr style="border-style: dashed; margin: 20px 0;">
                     <p id="result-final" class="final-result">المعدل العام الكلي لجميع الفترات: <span>--</span></p>
                 </div>
             </div>
 
-            <div id="tab-qbank" class="tab-pane">
-                <h2>📂 تنظيم أسئلة ومواضيع المواد</h2>
+            <div id="tab-timer" class="tab-pane">
+                <h2>⏳ عداد ساعات الدراسة</h2>
                 
-                <div class="qbank-subjects-container">
-                    </div>
-                
-                <div class="task-input-container" style="margin-top: 20px;">
-                    <input type="text" id="subject-name-input" placeholder="أدخل اسم مادة جديدة">
-                    <button id="add-subject-btn">إضافة مادة</button>
+                <div class="timer-display">
+                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
                 </div>
 
-                <p style="opacity: 0.7; text-align: center; margin-top: 15px; font-size: 0.9rem; color: #FFD700;">
-                    🟡 **ملاحظة هامة:** هذا المنظم لا يحفظ الصور. استخدم حقل "رابط/مكان حفظ الصورة" لتسجيل مرجع الصورة في جهازك (مثل: "صورة 5133.jpg في الاستوديو").
+                <div class="timer-controls">
+                    <button id="start-btn" class="timer-btn">تشغيل 🚀</button>
+                    <button id="pause-btn" class="timer-btn stop" disabled>إيقاف مؤقت ⏸️</button>
+                    <button id="reset-btn" class="timer-btn">إعادة تعيين 🔄</button>
+                </div>
+
+                <p style="text-align: center; margin-top: 30px; color: #87CEEB;">
+                    ملاحظة: هذا العداد يتوقف إذا أغلقت المتصفح.
                 </p>
             </div>
+
+            <div id="tab-music" class="tab-pane">
+                <h2>🎵 مشغل نغمات اليوتيوب للدراسة</h2>
+
+                <div class="task-input-container">
+                    <input type="text" id="youtube-link-input" placeholder="ألصق رابط الفيديو أو المعزوفة من يوتيوب هنا">
+                    <button id="load-youtube-btn">تشغيل 🎶</button>
+                </div>
+
+                <div id="youtube-player-container">
+                    <iframe 
+                        id="youtube-player" 
+                        src="" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        title="مشغل اليوتيوب">
+                    </iframe>
+                </div>
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+                    **نصيحة:** استخدم مقاطع ذات ضوضاء بيضاء (White Noise) أو موسيقى هادئة للدراسة.
+                </p>
+            </div>
+
 
         </div>
     </div> 
@@ -471,6 +488,11 @@
                     button.classList.add('active');
                     const tabId = button.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
+                    
+                    // إيقاف مؤقت للعداد عند تغيير التبويب
+                    if (tabId !== 'tab-timer') {
+                        pauseTimer();
+                    }
                 });
             });
 
@@ -489,11 +511,11 @@
                         completed: li.classList.contains('completed')
                     });
                 });
-                localStorage.setItem('dailyTasks', JSON.stringify(tasks));
+                localStorage.setItem('dailyTasks_v1', JSON.stringify(tasks));
             }
 
             function loadTasks() {
-                const savedTasks = JSON.parse(localStorage.getItem('dailyTasks'));
+                const savedTasks = JSON.parse(localStorage.getItem('dailyTasks_v1'));
                 if (savedTasks) {
                     savedTasks.forEach(task => {
                         createTaskElement(task.text, task.completed);
@@ -565,7 +587,7 @@
             const subjectNames = document.querySelectorAll('.subject-name');
             const subjectsContainer = document.getElementById('subjects-saii-results');
             
-            const GRADES_STORAGE_KEY = 'studentGrades_v2';
+            const GRADES_STORAGE_KEY = 'studentGrades_v3'; // تغيير المفتاح للحفاظ على البيانات النظيفة
             
             loadGrades();
 
@@ -609,49 +631,47 @@
                     const subjectName = subjectNames[i].value || `المادة ${i + 1}`;
                     const subjectInputs = Array.from(document.querySelectorAll(`[data-subject-index="${i}"]`));
                     
-                    // Grades mapping based on position in the array (0 to 4)
-                    const m1 = parseFloat(subjectInputs[0].value); // شهر أول
-                    const m2 = parseFloat(subjectInputs[1].value); // شهر ثاني
-                    const midterm = parseFloat(subjectInputs[2].value); // نصف السنة
-                    const c2m1 = parseFloat(subjectInputs[3].value); // كورس 2 (ش1)
-                    const c2m2 = parseFloat(subjectInputs[4].value); // كورس 2 (ش2)
+                    const m1 = parseFloat(subjectInputs[0].value); 
+                    const m2 = parseFloat(subjectInputs[1].value); 
+                    const midterm = parseFloat(subjectInputs[2].value); 
+                    const c2m1 = parseFloat(subjectInputs[3].value); 
+                    const c2m2 = parseFloat(subjectInputs[4].value); 
 
                     
                     // 1. حساب معدل الكورس الأول: (شهر 1 + شهر 2) / 2
                     let avgKorsaAwal = '--';
-                    if (!isNaN(m1) && !isNaN(m2)) {
-                        avgKorsaAwal = ((m1 + m2) / 2).toFixed(2);
-                    } else if (!isNaN(m1) || !isNaN(m2)) {
-                        // إذا تم إدخال درجة واحدة فقط، يتم اعتبارها معدل الكورس الأول
-                        avgKorsaAwal = (!isNaN(m1) ? m1 : m2).toFixed(2);
+                    let korsaAwalCount = 0;
+                    let korsaAwalSum = 0;
+                    if (!isNaN(m1)) { korsaAwalSum += m1; korsaAwalCount++; }
+                    if (!isNaN(m2)) { korsaAwalSum += m2; korsaAwalCount++; }
+                    if (korsaAwalCount > 0) {
+                        avgKorsaAwal = (korsaAwalSum / korsaAwalCount).toFixed(2);
                     }
                     
                     // 2. حساب معدل الكورس الثاني: (كورس 2 ش1 + كورس 2 ش2) / 2
                     let avgKorsaThani = '--';
-                    if (!isNaN(c2m1) && !isNaN(c2m2)) {
-                        avgKorsaThani = ((c2m1 + c2m2) / 2).toFixed(2);
-                    } else if (!isNaN(c2m1) || !isNaN(c2m2)) {
-                        // إذا تم إدخال درجة واحدة فقط، يتم اعتبارها معدل الكورس الثاني
-                        avgKorsaThani = (!isNaN(c2m1) ? c2m1 : c2m2).toFixed(2);
+                    let korsaThaniCount = 0;
+                    let korsaThaniSum = 0;
+                    if (!isNaN(c2m1)) { korsaThaniSum += c2m1; korsaThaniCount++; }
+                    if (!isNaN(c2m2)) { korsaThaniSum += c2m2; korsaThaniCount++; }
+                    if (korsaThaniCount > 0) {
+                        avgKorsaThani = (korsaThaniSum / korsaThaniCount).toFixed(2);
                     }
                     
                     // 3. حساب السعي السنوي النهائي: (كورس 1 + نصف السنة + كورس 2) / 3 (أو أقل)
                     let finalSaiiSum = 0;
                     let finalSaiiCount = 0;
 
-                    // إضافة معدل الكورس الأول (شهرين)
                     if (avgKorsaAwal !== '--') {
                         finalSaiiSum += parseFloat(avgKorsaAwal);
                         finalSaiiCount++;
                     }
                     
-                    // إضافة نصف السنة (مباشرة)
                     if (!isNaN(midterm)) {
                         finalSaiiSum += midterm;
                         finalSaiiCount++;
                     }
 
-                    // إضافة معدل الكورس الثاني (شهرين)
                     if (avgKorsaThani !== '--') {
                         finalSaiiSum += parseFloat(avgKorsaThani);
                         finalSaiiCount++;
@@ -663,7 +683,7 @@
                     }
                     
                     
-                    // حساب المعدل العام الكلي لجميع الفترات (لإظهاره في نهاية الصفحة)
+                    // حساب المعدل العام الكلي لجميع الفترات
                     [m1, m2, midterm, c2m1, c2m2].forEach(grade => {
                         if (!isNaN(grade)) {
                             totalSumOfAllExams += grade; 
@@ -676,9 +696,9 @@
                     saiiResultsHTML += `
                         <div class="saii-subject-box">
                             <h4>${subjectName}</h4>
-                            <p>معدل الشهرين الأول: <span>${avgKorsaAwal}</span></p>
+                            <p>معدل الكورس الأول: <span>${avgKorsaAwal}</span></p>
                             <p>درجة نصف السنة: <span>${!isNaN(midterm) ? midterm.toFixed(2) : '--'}</span></p>
-                            <p>معدل الشهرين الثاني: <span>${avgKorsaThani}</span></p>
+                            <p>معدل الكورس الثاني: <span>${avgKorsaThani}</span></p>
                             <hr style="border-style: dashed; margin: 8px 0;">
                             <p>السعي السنوي النهائي: <span class="final-saii-span">${finalSaii}</span></p>
                         </div>
@@ -686,8 +706,7 @@
                 }
 
                 // عرض سعي كل مادة
-                subjectsContainer.innerHTML = `<h3>نتائج السعي لكل مادة:</h3>` + saiiResultsHTML;
-                subjectsContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+                subjectsContainer.innerHTML = saiiResultsHTML;
                 
                 // حساب وعرض المعدل العام الكلي
                 const finalResultSpan = document.querySelector('#result-final span');
@@ -699,124 +718,113 @@
                 }
             });
 
+
+            // ==================== منطق عداد ساعات الدراسة (Timer) ====================
+            const hoursDisplay = document.getElementById('hours');
+            const minutesDisplay = document.getElementById('minutes');
+            const secondsDisplay = document.getElementById('seconds');
+            const startBtn = document.getElementById('start-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const resetBtn = document.getElementById('reset-btn');
             
-            // ==================== منطق بنك الأسئلة (Q-Bank) مع الحفظ ====================
-            const subjectNameInput = document.getElementById('subject-name-input');
-            const addSubjectBtn = document.getElementById('add-subject-btn');
-            const qbankContainer = document.querySelector('.qbank-subjects-container');
-            const QBANK_STORAGE_KEY = 'QuestionBankData_v3';
+            let totalSeconds = 0;
+            let interval = null;
+            const TIMER_STORAGE_KEY = 'studyTimer';
 
-            // قائمة المواد الافتراضية المطلوبة
-            const DEFAULT_SUBJECTS = [
-                "الرياضيات", "الأحياء", "الفيزياء", "الكيمياء", "اللغة العربية", "اللغة الإنجليزية"
-            ];
-
-            let subjects = []; // قائمة المواد التي سنضيفها
-
-            loadQBank();
-
-            function saveQBank() {
-                localStorage.setItem(QBANK_STORAGE_KEY, JSON.stringify(subjects));
-            }
-
-            function loadQBank() {
-                const savedQBank = JSON.parse(localStorage.getItem(QBANK_STORAGE_KEY));
-                if (savedQBank) {
-                    subjects = savedQBank;
-                } else {
-                    // إضافة المواد الافتراضية عند أول تشغيل
-                    subjects = DEFAULT_SUBJECTS.map(name => ({ name: name, questions: [] }));
-                    saveQBank();
+            // تحميل القيمة المحفوظة
+            function loadTimer() {
+                const savedTime = localStorage.getItem(TIMER_STORAGE_KEY);
+                if (savedTime) {
+                    totalSeconds = parseInt(savedTime);
+                    updateDisplay();
                 }
-                renderQBank();
+            }
+            loadTimer();
+
+            function formatTime(seconds) {
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                return [h, m, s].map(v => v < 10 ? "0" + v : v).join(':').split(':');
             }
 
-            function renderQBank() {
-                qbankContainer.innerHTML = ''; // مسح المحتوى القديم
-
-                subjects.forEach((subject, subjectIndex) => {
-                    const subjectBox = document.createElement('div');
-                    subjectBox.className = 'saii-subject-box';
-
-                    let questionsHtml = subject.questions.map((q, qIndex) => `
-                        <li data-q-index="${qIndex}" class="question-item">
-                            <strong>${q.text}</strong>
-                            <span class="question-link">مرجع الصورة: ${q.link}</span>
-                            <button class="task-btn delete-q-btn" data-subject-index="${subjectIndex}" data-q-index="${qIndex}">✗</button>
-                        </li>
-                    `).join('');
-
-                    subjectBox.innerHTML = `
-                        <h4>${subject.name}</h4>
-                        
-                        <ul class="question-list" style="list-style-type: none; padding: 0;">${questionsHtml}</ul>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 10px;">
-                            <input type="text" class="question-text-input" placeholder="اكتب وصف السؤال هنا (مثلاً: أسئلة الوحدة 1)">
-                            <input type="text" class="question-link-input" placeholder="رابط/مكان حفظ الصورة (مثلاً: صورة 5133.jpg في الاستوديو)">
-                            <button class="add-q-btn" data-subject-index="${subjectIndex}">+ إضافة سؤال</button>
-                        </div>
-                    `;
-                    qbankContainer.appendChild(subjectBox);
-                });
-
-                // إعادة ربط أحداث الإضافة والحذف بعد إعادة الرسم
-                bindQBankEvents();
+            function updateDisplay() {
+                const [h, m, s] = formatTime(totalSeconds);
+                hoursDisplay.textContent = h;
+                minutesDisplay.textContent = m;
+                secondsDisplay.textContent = s;
             }
 
-            function bindQBankEvents() {
-                // 1. إضافة السؤال
-                document.querySelectorAll('.add-q-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const subjectIndex = e.target.getAttribute('data-subject-index');
-                        const container = e.target.parentNode;
-                        const textInput = container.querySelector('.question-text-input');
-                        const linkInput = container.querySelector('.question-link-input');
-
-                        const questionText = textInput.value.trim();
-                        const questionLink = linkInput.value.trim() || 'لا يوجد رابط/مرجع محدد';
-
-                        if (questionText) {
-                            subjects[subjectIndex].questions.push({
-                                text: questionText,
-                                link: questionLink
-                            });
-                            saveQBank();
-                            renderQBank();
-                        } else {
-                            alert("اكتب وصف السؤال أولاً!");
-                        }
-                    });
-                });
-
-                // 2. حذف السؤال
-                document.querySelectorAll('.delete-q-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const subjectIndex = parseInt(e.target.getAttribute('data-subject-index'));
-                        const qIndex = parseInt(e.target.getAttribute('data-q-index'));
-
-                        subjects[subjectIndex].questions.splice(qIndex, 1);
-                        saveQBank();
-                        renderQBank();
-                    });
-                });
+            function startTimer() {
+                if (interval !== null) return;
+                
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+                
+                interval = setInterval(() => {
+                    totalSeconds++;
+                    updateDisplay();
+                    localStorage.setItem(TIMER_STORAGE_KEY, totalSeconds);
+                }, 1000);
             }
 
-            // 3. إضافة مادة جديدة
-            addSubjectBtn.addEventListener('click', () => {
-                const name = subjectNameInput.value.trim();
-                if (name && !subjects.some(s => s.name === name)) {
-                    subjects.push({ name: name, questions: [] });
-                    saveQBank();
-                    renderQBank();
-                    subjectNameInput.value = '';
-                } else if (name) {
-                    alert("هذه المادة موجودة بالفعل.");
+            function pauseTimer() {
+                if (interval === null) return;
+                
+                clearInterval(interval);
+                interval = null;
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+            }
+
+            function resetTimer() {
+                pauseTimer();
+                totalSeconds = 0;
+                localStorage.setItem(TIMER_STORAGE_KEY, 0);
+                updateDisplay();
+            }
+
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+
+            // ==================== منطق مشغل اليوتيوب (YouTube Player) ====================
+            const youtubeInput = document.getElementById('youtube-link-input');
+            const loadYoutubeBtn = document.getElementById('load-youtube-btn');
+            const youtubePlayer = document.getElementById('youtube-player');
+            const EMBED_BASE_URL = 'https://www.youtube.com/embed/';
+
+            function extractVideoID(url) {
+                // للروابط العادية: https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd
+                let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+                if (match) {
+                    return match[1];
+                }
+                // إذا كان إدخالاً مباشراً لـ ID
+                if (url.length === 11) {
+                    return url;
+                }
+                return null;
+            }
+
+            loadYoutubeBtn.addEventListener('click', () => {
+                const link = youtubeInput.value.trim();
+                const videoId = extractVideoID(link);
+
+                if (videoId) {
+                    // ?autoplay=1 لتشغيل الفيديو تلقائياً و &rel=0 لمنع الاقتراحات العشوائية
+                    const embedUrl = `${EMBED_BASE_URL}${videoId}?autoplay=1&rel=0`;
+                    youtubePlayer.src = embedUrl;
                 } else {
-                    alert("أدخل اسم المادة.");
+                    alert("الرجاء إدخال رابط يوتيوب صالح أو معرف (ID) للفيديو.");
+                    youtubePlayer.src = ""https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd;
                 }
             });
-
+            youtubeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    loadYoutubeBtn.click();
+                }
+            });
 
         });
     </script>
