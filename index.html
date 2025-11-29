@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منظم الأستاذ مصطفى محسن</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght=600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS الأساسي */
+        /* CSS الأساسي... (الجزء هنا لم يتغير) */
+        /* ... */
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
@@ -451,7 +452,7 @@
                 <h2>🎵 مشغل نغمات اليوتيوب للدراسة</h2>
 
                 <div class="task-input-container">
-                    <input type="text" id="youtube-link-input" placeholder="ألصق رابط الفيديو أو المعزوفة من يوتيوب هنا">
+                    <input type="text" id="youtube-link-input" value="https://youtu.be/9Yf8j-vX1Y4" placeholder="ألصق رابط الفيديو أو المعزوفة من يوتيوب هنا">
                     <button id="load-youtube-btn">تشغيل 🎶</button>
                 </div>
 
@@ -476,7 +477,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // ==================== منطق التابات (Tabs) -- *** تم الإصلاح *** ====================
+            // ==================== منطق التابات (Tabs) ====================
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
 
@@ -793,10 +794,10 @@
             window.pauseTimer = pauseTimer; 
 
             // ==================== منطق مشغل اليوتيوب (YouTube Player) ====================
-            const youtubeInput = document.getElementById('');
+            const youtubeInput = document.getElementById('youtube-link-input');
             const loadYoutubeBtn = document.getElementById('load-youtube-btn');
             const youtubePlayer = document.getElementById('youtube-player');
-            const EMBED_BASE_URL = 'https://youtu.be/9Yf8j-vX1Y4?si=vog6jB3Th4H4iQdd';
+            const EMBED_BASE_URL = 'https://www.youtube.com/embed/';
 
             function extractVideoID(url) {
                 // للروابط العادية: https://www.youtube.com/watch?v=VIDEO_ID
