@@ -8,149 +8,157 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary-color: #00d2ff;
-            --secondary-color: #3a7bd5;
-            --accent-color: #ff0055;
-            --bg-dark: #0f0c29;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 0;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-            color: #ffffff;
-            min-height: 100vh;
+            padding: 0; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #e0e0e0; 
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            overflow-x: hidden;
+            align-items: flex-start; 
+            min-height: 100vh;
+            perspective: 1000px;
         }
 
-        .main-wrapper {
-            width: 100%;
-            max-width: 1000px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            animation: fadeIn 1s ease-out;
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: linear-gradient(145deg, #2a3a50, #16213e);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 20px 20px 60px #0b111d, -20px -20px 60px #253145;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Glassmorphism Card Style */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        h1, h2 {
+        h1 {
             text-align: center;
-            margin-top: 0;
-            background: linear-gradient(to right, #fff, var(--primary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #4cc9f0;
+            text-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
         }
 
-        /* Calculator Styles */
-        .calc-grid {
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #f72585;
+            border-bottom: 2px solid #f72585;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        .calculator-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
         }
 
-        .input-group {
+        .input-item {
             display: flex;
             flex-direction: column;
-            gap: 8px;
         }
 
         label {
-            font-size: 0.9rem;
-            color: var(--primary-color);
+            margin-bottom: 8px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         input {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
             padding: 12px;
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-            transition: 0.3s;
-            text-align: center;
+            border-radius: 10px;
+            border: none;
+            background: #1b263b;
+            color: white;
+            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+            border-bottom: 2px solid #4cc9f0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .btn-calculate {
-            width: 100%;
+        .calc-btn {
+            grid-column: 1 / -1;
             padding: 15px;
+            margin-top: 10px;
             border: none;
-            border-radius: 15px;
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            border-radius: 12px;
+            background: linear-gradient(90deg, #4361ee, #4cc9f0);
             color: white;
-            font-weight: 700;
+            font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
-        .btn-calculate:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+        .calc-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 20px rgba(76, 201, 240, 0.4);
         }
 
-        .result-display {
-            margin-top: 25px;
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
             text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: none;
+            background: rgba(76, 201, 240, 0.1);
+            border: 1px solid #4cc9f0;
         }
 
-        .result-value {
-            font-size: 2.5rem;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-color);
-            display: block;
-            margin: 10px 0;
+        .youtube-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        /* YouTube Section */
+        .yt-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .yt-input-group input {
+            flex: 1;
+        }
+
+        .yt-btn {
+            padding: 0 20px;
+            border: none;
+            border-radius: 10px;
+            background: #ff0000;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 15px;
-            margin-top: 20px;
             background: #000;
         }
 
@@ -163,139 +171,117 @@
             border: none;
         }
 
-        .yt-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .yt-input {
-            flex: 1;
-        }
-
-        .btn-load {
-            padding: 0 20px;
-            background: #ff0000;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            cursor: pointer;
-        }
-
         @media (max-width: 600px) {
-            .calc-grid {
+            .calculator-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <header class="glass-card">
-            <h1>منظم الأستاذ مصطفى محسن</h1>
-        </header>
+    <div class="container">
+        <h1>منظم الأستاذ مصطفى محسن</h1>
 
-        <section class="glass-card">
+        <div class="section">
             <h2>حاسبة السعي السنوي</h2>
-            <div class="calc-grid">
-                <div class="input-group">
-                    <label>التربية الإسلامية</label>
-                    <input type="number" id="islamic" placeholder="0" min="0" max="100">
+            <div class="calculator-grid">
+                <div class="input-item">
+                    <label for="islamic">الإسلامية</label>
+                    <input type="number" id="islamic" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>اللغة العربية</label>
-                    <input type="number" id="arabic" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="arabic">اللغة العربية</label>
+                    <input type="number" id="arabic" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>اللغة الإنجليزية</label>
-                    <input type="number" id="english" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="english">اللغة الإنجليزية</label>
+                    <input type="number" id="english" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>الرياضيات</label>
-                    <input type="number" id="math" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="math">الرياضيات</label>
+                    <input type="number" id="math" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>الكيمياء</label>
-                    <input type="number" id="chemistry" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="chem">الكيمياء</label>
+                    <input type="number" id="chem" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>الفيزياء</label>
-                    <input type="number" id="physics" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="physics">الفيزياء</label>
+                    <input type="number" id="physics" placeholder="0">
                 </div>
-                <div class="input-group">
-                    <label>الأحياء</label>
-                    <input type="number" id="biology" placeholder="0" min="0" max="100">
+                <div class="input-item">
+                    <label for="bio">الأحياء</label>
+                    <input type="number" id="bio" placeholder="0">
                 </div>
+                
+                <button class="calc-btn" id="calculate-btn">احسب المعدل</button>
             </div>
-            
-            <button class="btn-calculate" onclick="calculateAverage()">احسب المعدل</button>
+            <div id="result-box" class="result"></div>
+        </div>
 
-            <div class="result-display" id="resultBox" style="display: none;">
-                <span>معدلك هو:</span>
-                <span class="result-value" id="averageResult">0.00</span>
-                <span id="statusText"></span>
-            </div>
-        </section>
-
-        <section class="glass-card">
+        <div class="section">
             <h2>مشغل المحاضرات</h2>
-            <div class="yt-controls">
-                <input type="text" id="ytUrl" class="yt-input" placeholder="ضع رابط المحاضرة هنا...">
-                <button class="btn-load" onclick="loadVideo()">تشغيل</button>
+            <div class="youtube-section">
+                <div class="yt-input-group">
+                    <input type="text" id="youtube-link" placeholder="ضع رابط محاضرة اليوتيوب هنا...">
+                    <button class="yt-btn" id="load-youtube">تشغيل</button>
+                </div>
+                <div class="video-container">
+                    <iframe id="youtube-player" src="" allowfullscreen></iframe>
+                </div>
             </div>
-            <div class="video-container">
-                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
-            </div>
-        </section>
+        </div>
     </div>
 
     <script>
-        function calculateAverage() {
-            // جلب القيم مع إضافة الإسلامية
+        // منطق الحاسبة
+        const calcBtn = document.getElementById('calculate-btn');
+        const resultBox = document.getElementById('result-box');
+
+        calcBtn.addEventListener('click', () => {
             const islamic = parseFloat(document.getElementById('islamic').value) || 0;
             const arabic = parseFloat(document.getElementById('arabic').value) || 0;
             const english = parseFloat(document.getElementById('english').value) || 0;
             const math = parseFloat(document.getElementById('math').value) || 0;
-            const chemistry = parseFloat(document.getElementById('chemistry').value) || 0;
+            const chem = parseFloat(document.getElementById('chem').value) || 0;
             const physics = parseFloat(document.getElementById('physics').value) || 0;
-            const biology = parseFloat(document.getElementById('biology').value) || 0;
+            const bio = parseFloat(document.getElementById('bio').value) || 0;
 
-            // حساب المجموع (7 مواد)
-            const total = islamic + arabic + english + math + chemistry + physics + biology;
-            const average = total / 7;
-
-            const resultBox = document.getElementById('resultBox');
-            const averageResult = document.getElementById('averageResult');
-            const statusText = document.getElementById('statusText');
+            const total = islamic + arabic + english + math + chem + physics + bio;
+            const avg = total / 7; // القسمة على 7 مواد
 
             resultBox.style.display = 'block';
-            averageResult.innerText = average.toFixed(2);
-
-            if(average >= 50) {
-                statusText.innerText = "ناجح - استمر في التقدم!";
-                statusText.style.color = "#00ff88";
+            resultBox.innerHTML = `معدلك السعوي هو: ${avg.toFixed(2)}`;
+            
+            if (avg >= 50) {
+                resultBox.style.borderColor = "#4cc9f0";
+                resultBox.style.color = "#4cc9f0";
             } else {
-                statusText.innerText = "راسب - يمكنك التعويض في الدور الثاني";
-                statusText.style.color = "#ff4444";
+                resultBox.style.borderColor = "#f72585";
+                resultBox.style.color = "#f72585";
             }
-        }
+        });
 
-        function loadVideo() {
-            const url = document.getElementById('ytUrl').value;
-            const videoId = extractVideoID(url);
-            if(videoId) {
-                document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else {
-                alert("يرجى إدخال رابط يوتيوب صحيح");
-            }
-        }
+        // منطق اليوتيوب
+        const youtubeInput = document.getElementById('youtube-link');
+        const loadYoutubeBtn = document.getElementById('load-youtube');
+        const youtubePlayer = document.getElementById('youtube-player');
 
         function extractVideoID(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
+            let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+            return (match) ? match[1] : (url.length === 11 ? url : null);
         }
+
+        loadYoutubeBtn.addEventListener('click', () => {
+            const videoId = extractVideoID(youtubeInput.value.trim());
+            if (videoId) {
+                youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else {
+                alert("الرجاء إدخال رابط يوتيوب صحيح");
+            }
+        });
     </script>
 </body>
 </html>
