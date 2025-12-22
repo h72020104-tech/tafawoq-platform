@@ -8,830 +8,294 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS الأساسي... (الجزء هنا لم يتغير) */
-        /* ... */
+        :root {
+            --primary-color: #00d2ff;
+            --secondary-color: #3a7bd5;
+            --accent-color: #ff0055;
+            --bg-dark: #0f0c29;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            padding: 0; 
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #e0e0e0; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            min-height: 100vh;
-            perspective: 1000px;
-        }
-
-        /* الشكل الماسي 3D للحاسوب */
-        .container {
-            width: 90%;
-            max-width: 900px;
-            background: linear-gradient(145deg, #2a3a50, #1e283a); 
-            border-radius: 18px; 
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-                0 0 0 2px rgba(0, 0, 0, 0.2) inset,
-                0 0 100px rgba(0, 255, 255, 0.1) inset;
-            overflow: hidden; 
-            transform: rotateY(-5deg) rotateX(5deg);
-            transition: transform 0.5s ease-in-out;
-            border: 2px solid rgba(70, 130, 180, 0.3);
-            margin: 20px; 
-        }
-
-        .container:hover {
-            transform: rotateY(0deg) rotateX(0deg); 
-        }
-        
-        header {
-            background: linear-gradient(160deg, #00BFFF, #1E90FF);
-            color: white;
-            padding: 30px 40px;
-            display: flex; 
-            align-items: center;
-            justify-content: space-between; 
-            position: relative; 
-            padding-bottom: 55px; 
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .header-image {
-            width: 70px; 
-            height: 70px;
-            object-fit: cover;
-            border-radius: 50%; 
-            border: 4px solid #ADD8E6;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            z-index: 10; 
-            transition: transform 0.3s ease;
-        }
-
-        header h1 {
-            flex-grow: 1; 
-            text-align: center;
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 2.5rem;
-            text-shadow: 
-                0 0 10px rgba(0, 255, 255, 0.6),
-                0 0 20px rgba(0, 255, 255, 0.4);
-            letter-spacing: 2px;
-            color: #E0FFFF;
-            position: relative;
-        }
-
-        header p {
-            position: absolute; 
-            width: 100%;
-            text-align: center;
-            bottom: 10px;
-            margin: 0;
-            left: 0;
-            opacity: 0.7;
-            font-size: 1.1rem;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .tab-buttons {
-            display: flex;
-            background: linear-gradient(90deg, #1f2a3c, #2a3a50);
-            border-bottom: 2px solid #0f3460;
-        }
-
-        .tab-btn {
-            flex: 1; 
-            padding: 20px;
-            font-size: 1.1rem;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            background: linear-gradient(180deg, #3a4a60, #2a3a50);
-            color: #bbbbbb;
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent; 
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2) inset;
-        }
-        
-        .tab-btn.active {
-            background: linear-gradient(180deg, #1E90FF, #00BFFF);
-            color: white;
-            border-bottom-color: #E0FFFF;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .tab-content {
-            padding: 30px;
-            background: #1e283a;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .tab-pane {
-            display: none; 
-        }
-
-        .tab-pane.active {
-            display: block; 
-        }
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: #87CEEB;
-            text-align: center;
-            margin-bottom: 25px;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
-        }
-        
-        /* ستايل حقول الإدخال والأزرار (لجميع التبويبات) */
-        .task-input-container {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        #task-input, .grade-input, #youtube-link-input {
-            flex-grow: 1;
-            padding: 12px;
-            border: 1px solid #0f3460;
-            border-radius: 6px;
-            background: #3a4a60;
-            color: #e0e0e0;
-            font-size: 1rem;
-            margin-left: 10px;
-        }
-        #add-task-btn, #calculate-grades-btn, .timer-btn, #load-youtube-btn {
-            padding: 12px 20px;
-            background: #1E90FF;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.3s;
-        }
-        #add-task-btn:hover, #calculate-grades-btn:hover, .timer-btn:hover, #load-youtube-btn:hover {
-            background: #00BFFF;
-        }
-
-        /* ستايل المهام */
-        #task-list {
-            list-style: none;
             padding: 0;
-        }
-        #task-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #2a3a50;
-            border-radius: 6px;
-            border-right: 5px solid #00BFFF;
-            transition: background 0.3s;
-        }
-        #task-list li.completed {
-            background: #1a2333;
-            opacity: 0.6;
-            border-right-color: #7FFF00;
-            text-decoration: line-through;
-        }
-        .task-buttons .task-btn {
-            padding: 5px 10px;
-            margin-right: 5px;
-        }
-        .task-buttons .complete-btn { background: #7FFF00; }
-        .task-buttons .delete-btn { background: #8B0000; }
-
-        /* ستايل حاسبة المعدل */
-        .grades-grid {
-            display: grid;
-            grid-template-columns: 1.5fr repeat(5, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            overflow: hidden; 
-        }
-        .grid-header {
-            background: linear-gradient(90deg, #3a4a60, #2a3a50);
-            padding: 12px;
-            font-weight: 700;
-            text-align: center;
-            color: #87CEEB;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.95rem;
-        }
-        .grade-input, .subject-name {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #2a3a50;
-            color: #e0e0e0;
-            font-size: 1rem;
-            text-align: center;
-            box-sizing: border-box; 
-            border-bottom: 1px solid rgba(70, 130, 180, 0.1);
-        }
-        #grades-results {
-            margin-top: 30px;
-            padding: 20px;
-            background: #2a3a50;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        }
-        #subjects-saii-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .saii-subject-box {
-            background: #1e283a;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #0f3460;
-        }
-        .final-result span, .final-saii-span {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: #FFD700;
-            font-size: 1.3rem;
-            margin-right: 5px;
-        }
-
-        /* ستايل العداد (Timer) */
-        .timer-display {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            text-align: center;
-            color: #7FFF00;
-            text-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
-            margin-bottom: 30px;
-            direction: ltr; /* لعرض الأرقام من اليسار لليمين */
-        }
-        .timer-controls {
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: #ffffff;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: flex-start;
+            overflow-x: hidden;
         }
-        .timer-btn.stop { background: #FF4500; }
-        .timer-btn.stop:hover { background: #DC143C; }
 
-        /* ستايل مشغل اليوتيوب */
-        #youtube-player-container {
-            margin-top: 20px;
-            border-radius: 10px;
+        .main-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-top: 0;
+            background: linear-gradient(to right, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Calculator Styles */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 12px;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-calculate:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+        }
+
+        .result-display {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* YouTube Section */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            min-height: 400px;
+            border-radius: 15px;
+            margin-top: 20px;
             background: #000;
         }
-        #youtube-player {
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 450px; /* حجم الإطار */
+            height: 100%;
             border: none;
         }
-        
-        /* قواعد التعديل للموبايل */
-        @media (max-width: 768px) {
-            .container {
-                transform: none; 
-                border-radius: 0; 
-                width: 100%;
-                margin: 0;
-                box-shadow: none;
-                border: none;
-                min-height: 100vh;
-            }
-            .tab-btn {
-                font-size: 0.7rem;
-                padding: 10px 3px;
-            }
-            .grades-grid {
-                grid-template-columns: 1.2fr repeat(5, 0.8fr); 
-                gap: 2px;
-            }
-            .grid-header { font-size: 0.6rem; padding: 5px 2px; }
-            .grade-input, .subject-name { font-size: 0.65rem; padding: 5px 1px; }
 
-            .task-input-container {
-                flex-direction: column;
+        .yt-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .yt-input {
+            flex: 1;
+        }
+
+        .btn-load {
+            padding: 0 20px;
+            background: #ff0000;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .calc-grid {
+                grid-template-columns: 1fr 1fr;
             }
-            #task-input, #youtube-link-input {
-                margin-left: 0;
-                margin-bottom: 10px;
-            }
-            #youtube-player {
-                height: 250px;
-            }
-            .timer-display { font-size: 3rem; }
-            .timer-controls { gap: 10px; }
-            .timer-btn { padding: 8px 15px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <img src="https://c.top4top.io/p_3604mmjun1.jpg" alt="شعار المشروع" class="header-image left-img">
-            <h1>الأستاذ مصطفى محسن</h1>
-            <img src="https://d.top4top.io/p_3604kzdsz2.jpg" alt="صورتك الشخصية" class="header-image right-img">
-            <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
+    <div class="main-wrapper">
+        <header class="glass-card">
+            <h1>منظم الأستاذ مصطفى محسن</h1>
         </header>
 
-        <div class="tab-buttons">
-            <button class="tab-btn active" data-tab="tab-tasks">📝 المهام اليومية</button>
-            <button class="tab-btn" data-tab="tab-grades">💎 حاسبة المعدل والسعي</button>
-            <button class="tab-btn" data-tab="tab-timer">⏳ العداد (دراسة)</button>
-            <button class="tab-btn" data-tab="tab-music">🎵 نغمات اليوتيوب</button>
-        </div>
-
-        <div class="tab-content">
-
-            <div id="tab-tasks" class="tab-pane active">
-                <h2>مهامي وأهدافي لليوم</h2>
-                <div class="task-input-container">
-                    <input type="text" id="task-input" placeholder="أضف مهمة جديدة أو هدفاً (مثال: مراجعة قوانين الفيزياء)">
-                    <button id="add-task-btn">إضافة المهمة</button>
+        <section class="glass-card">
+            <h2>حاسبة السعي السنوي</h2>
+            <div class="calc-grid">
+                <div class="input-group">
+                    <label>التربية الإسلامية</label>
+                    <input type="number" id="islamic" placeholder="0" min="0" max="100">
                 </div>
-                <ul id="task-list"></ul>
-            </div>
-
-            <div id="tab-grades" class="tab-pane">
-                <h2>حساب السعي والمعدل السنوي</h2>
-                
-                <div class="grades-grid">
-                    <div class="grid-header">المادة</div>
-                    <div class="grid-header">شهر أول</div>
-                    <div class="grid-header">شهر ثاني</div>
-                    <div class="grid-header">نصف السنة</div>
-                    <div class="grid-header">كورس 2 (ش1)</div>
-                    <div class="grid-header">كورس 2 (ش2)</div>
-                    
-                    <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 6" value="اللغة الإنجليزية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5" min="0" max="100">
-                    </div>
-                
-
-                <button id="calculate-grades-btn">احسب السعي والمعدلات</button>
-
-                <div id="grades-results">
-                    <div id="subjects-saii-results">
-                        <h3>نتائج السعي لكل مادة:</h3>
-                        <p style="text-align: center; opacity: 0.7;">اضغط "احسب السعي والمعدلات" لعرض النتائج هنا.</p>
-                    </div>
-                    <hr style="border-style: dashed; margin: 20px 0;">
-                    <p id="result-final" class="final-result">المعدل العام الكلي لجميع الفترات: <span>--</span></p>
+                <div class="input-group">
+                    <label>اللغة العربية</label>
+                    <input type="number" id="arabic" placeholder="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label>اللغة الإنجليزية</label>
+                    <input type="number" id="english" placeholder="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label>الرياضيات</label>
+                    <input type="number" id="math" placeholder="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label>الكيمياء</label>
+                    <input type="number" id="chemistry" placeholder="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label>الفيزياء</label>
+                    <input type="number" id="physics" placeholder="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label>الأحياء</label>
+                    <input type="number" id="biology" placeholder="0" min="0" max="100">
                 </div>
             </div>
+            
+            <button class="btn-calculate" onclick="calculateAverage()">احسب المعدل</button>
 
-            <div id="tab-timer" class="tab-pane">
-                <h2>⏳ عداد ساعات الدراسة</h2>
-                
-                <div class="timer-display">
-                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-                </div>
-
-                <div class="timer-controls">
-                    <button id="start-btn" class="timer-btn">تشغيل 🚀</button>
-                    <button id="pause-btn" class="timer-btn stop" disabled>إيقاف مؤقت ⏸️</button>
-                    <button id="reset-btn" class="timer-btn">إعادة تعيين 🔄</button>
-                </div>
-
-                <p style="text-align: center; margin-top: 30px; color: #87CEEB;">
-                    ملاحظة: هذا العداد يتوقف إذا أغلقت المتصفح.
-                </p>
+            <div class="result-display" id="resultBox" style="display: none;">
+                <span>معدلك هو:</span>
+                <span class="result-value" id="averageResult">0.00</span>
+                <span id="statusText"></span>
             </div>
+        </section>
 
-            <div id="tab-music" class="tab-pane">
-                <h2>🎵 مشغل نغمات اليوتيوب للدراسة</h2>
-
-                <div class="task-input-container">
-                    <input type="text" id="youtube-link-input" value="https://youtu.be/9Yf8j-vX1Y4" placeholder="ألصق رابط الفيديو أو المعزوفة من يوتيوب هنا">
-                    <button id="load-youtube-btn">تشغيل 🎶</button>
-                </div>
-
-                <div id="youtube-player-container">
-                    <iframe 
-                        id="youtube-player" 
-                        src="" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        title="مشغل اليوتيوب">
-                    </iframe>
-                </div>
-                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
-                    **نصيحة:** استخدم مقاطع ذات ضوضاء بيضاء (White Noise) أو موسيقى هادئة للدراسة.
-                </p>
+        <section class="glass-card">
+            <h2>مشغل المحاضرات</h2>
+            <div class="yt-controls">
+                <input type="text" id="ytUrl" class="yt-input" placeholder="ضع رابط المحاضرة هنا...">
+                <button class="btn-load" onclick="loadVideo()">تشغيل</button>
             </div>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+            </div>
+        </section>
+    </div>
 
-
-        </div>
-    </div> 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function calculateAverage() {
+            // جلب القيم مع إضافة الإسلامية
+            const islamic = parseFloat(document.getElementById('islamic').value) || 0;
+            const arabic = parseFloat(document.getElementById('arabic').value) || 0;
+            const english = parseFloat(document.getElementById('english').value) || 0;
+            const math = parseFloat(document.getElementById('math').value) || 0;
+            const chemistry = parseFloat(document.getElementById('chemistry').value) || 0;
+            const physics = parseFloat(document.getElementById('physics').value) || 0;
+            const biology = parseFloat(document.getElementById('biology').value) || 0;
 
-            // ==================== منطق التابات (Tabs) ====================
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
+            // حساب المجموع (7 مواد)
+            const total = islamic + arabic + english + math + chemistry + physics + biology;
+            const average = total / 7;
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // 1. إزالة حالة التفعيل من جميع الأزرار والتبويبات
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabPanes.forEach(pane => pane.classList.remove('active'));
+            const resultBox = document.getElementById('resultBox');
+            const averageResult = document.getElementById('averageResult');
+            const statusText = document.getElementById('statusText');
 
-                    // 2. تفعيل الزر والتبويبة المطابقة له
-                    button.classList.add('active');
-                    const tabId = button.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // 3. التحكم بالعداد عند تغيير التبويبة
-                    if (tabId !== 'tab-timer') {
-                        pauseTimer(); // إيقاف مؤقت للعداد عند الابتعاد عن تبويبته
-                    }
-                });
-            });
+            resultBox.style.display = 'block';
+            averageResult.innerText = average.toFixed(2);
 
-            // ==================== منطق قائمة المهام (To-Do List) مع الحفظ ====================
-            const taskInput = document.getElementById('task-input');
-            const addTaskBtn = document.getElementById('add-task-btn');
-            const taskList = document.getElementById('task-list');
-
-            loadTasks();
-
-            function saveTasks() {
-                const tasks = [];
-                document.querySelectorAll('#task-list li').forEach(li => {
-                    tasks.push({
-                        text: li.querySelector('.task-text').textContent,
-                        completed: li.classList.contains('completed')
-                    });
-                });
-                localStorage.setItem('dailyTasks_v1', JSON.stringify(tasks));
+            if(average >= 50) {
+                statusText.innerText = "ناجح - استمر في التقدم!";
+                statusText.style.color = "#00ff88";
+            } else {
+                statusText.innerText = "راسب - يمكنك التعويض في الدور الثاني";
+                statusText.style.color = "#ff4444";
             }
+        }
 
-            function loadTasks() {
-                const savedTasks = JSON.parse(localStorage.getItem('dailyTasks_v1'));
-                if (savedTasks) {
-                    savedTasks.forEach(task => {
-                        createTaskElement(task.text, task.completed);
-                    });
-                }
+        function loadVideo() {
+            const url = document.getElementById('ytUrl').value;
+            const videoId = extractVideoID(url);
+            if(videoId) {
+                document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else {
+                alert("يرجى إدخال رابط يوتيوب صحيح");
             }
+        }
 
-            function createTaskElement(taskText, isCompleted = false) {
-                const li = document.createElement('li');
-                if (isCompleted) {
-                    li.classList.add('completed');
-                }
-
-                const taskTextSpan = document.createElement('span');
-                taskTextSpan.className = 'task-text';
-                taskTextSpan.textContent = taskText;
-                li.appendChild(taskTextSpan);
-
-                const taskButtonsDiv = document.createElement('div');
-                taskButtonsDiv.className = 'task-buttons';
-
-                const completeBtn = document.createElement('button');
-                completeBtn.className = 'task-btn complete-btn';
-                completeBtn.innerHTML = '✓';
-                completeBtn.addEventListener('click', () => {
-                    li.classList.toggle('completed');
-                    saveTasks();
-                });
-                taskButtonsDiv.appendChild(completeBtn);
-
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'task-btn delete-btn';
-                deleteBtn.innerHTML = '✗'; 
-                deleteBtn.addEventListener('click', () => {
-                    taskList.removeChild(li);
-                    saveTasks();
-                });
-                taskButtonsDiv.appendChild(deleteBtn);
-
-                li.appendChild(taskButtonsDiv);
-                taskList.appendChild(li);
-            }
-
-            function addTask() {
-                const taskText = taskInput.value.trim(); 
-
-                if (taskText === "") {
-                    alert("يرجى كتابة نص المهمة أولاً!");
-                    return;
-                }
-                
-                createTaskElement(taskText);
-                saveTasks();
-
-                taskInput.value = "";
-            }
-
-            addTaskBtn.addEventListener('click', addTask);
-            taskInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    addTask();
-                }
-            });
-
-
-            // ==================== منطق حاسبة المعدل والسعي (مع الحفظ) ====================
-            const calculateBtn = document.getElementById('calculate-grades-btn');
-            const gradeInputs = document.querySelectorAll('.grade-input');
-            const subjectNames = document.querySelectorAll('.subject-name');
-            const subjectsContainer = document.getElementById('subjects-saii-results');
-            
-            const GRADES_STORAGE_KEY = 'studentGrades_v3';
-            
-            loadGrades();
-
-            function loadGrades() {
-                const savedGrades = JSON.parse(localStorage.getItem(GRADES_STORAGE_KEY));
-                if (savedGrades) {
-                    subjectNames.forEach((input, index) => {
-                        if (savedGrades.subjects && savedGrades.subjects[index]) {
-                             input.value = savedGrades.subjects[index];
-                        }
-                    });
-
-                    gradeInputs.forEach((input, index) => {
-                        if (savedGrades.grades && savedGrades.grades[index]) {
-                             input.value = savedGrades.grades[index];
-                        }
-                    });
-                }
-            }
-
-            function saveGrades() {
-                const gradesArray = Array.from(gradeInputs).map(input => input.value);
-                const subjectsArray = Array.from(subjectNames).map(input => input.value);
-                
-                localStorage.setItem(GRADES_STORAGE_KEY, JSON.stringify({
-                    grades: gradesArray,
-                    subjects: subjectsArray
-                }));
-            }
-
-            gradeInputs.forEach(input => input.addEventListener('input', saveGrades));
-            subjectNames.forEach(input => input.addEventListener('input', saveGrades));
-            
-            calculateBtn.addEventListener('click', () => {
-                const numSubjects = subjectNames.length;
-                let totalSumOfAllExams = 0;
-                let totalCountOfAllExams = 0;
-                let saiiResultsHTML = '';
-
-                for (let i = 0; i < numSubjects; i++) {
-                    const subjectName = subjectNames[i].value || `المادة ${i + 1}`;
-                    const subjectInputs = Array.from(document.querySelectorAll(`[data-subject-index="${i}"]`));
-                    
-                    const m1 = parseFloat(subjectInputs[0].value); 
-                    const m2 = parseFloat(subjectInputs[1].value); 
-                    const midterm = parseFloat(subjectInputs[2].value); 
-                    const c2m1 = parseFloat(subjectInputs[3].value); 
-                    const c2m2 = parseFloat(subjectInputs[4].value); 
-
-                    
-                    // 1. حساب معدل الكورس الأول: (شهر 1 + شهر 2) / 2
-                    let avgKorsaAwal = '--';
-                    let korsaAwalCount = 0;
-                    let korsaAwalSum = 0;
-                    if (!isNaN(m1)) { korsaAwalSum += m1; korsaAwalCount++; }
-                    if (!isNaN(m2)) { korsaAwalSum += m2; korsaAwalCount++; }
-                    if (korsaAwalCount > 0) {
-                        avgKorsaAwal = (korsaAwalSum / korsaAwalCount).toFixed(2);
-                    }
-                    
-                    // 2. حساب معدل الكورس الثاني: (كورس 2 ش1 + كورس 2 ش2) / 2
-                    let avgKorsaThani = '--';
-                    let korsaThaniCount = 0;
-                    let korsaThaniSum = 0;
-                    if (!isNaN(c2m1)) { korsaThaniSum += c2m1; korsaThaniCount++; }
-                    if (!isNaN(c2m2)) { korsaThaniSum += c2m2; korsaThaniCount++; }
-                    if (korsaThaniCount > 0) {
-                        avgKorsaThani = (korsaThaniSum / korsaThaniCount).toFixed(2);
-                    }
-                    
-                    // 3. حساب السعي السنوي النهائي: (كورس 1 + نصف السنة + كورس 2) / 3 (أو أقل)
-                    let finalSaiiSum = 0;
-                    let finalSaiiCount = 0;
-
-                    if (avgKorsaAwal !== '--') {
-                        finalSaiiSum += parseFloat(avgKorsaAwal);
-                        finalSaiiCount++;
-                    }
-                    
-                    if (!isNaN(midterm)) {
-                        finalSaiiSum += midterm;
-                        finalSaiiCount++;
-                    }
-
-                    if (avgKorsaThani !== '--') {
-                        finalSaiiSum += parseFloat(avgKorsaThani);
-                        finalSaiiCount++;
-                    }
-
-                    let finalSaii = '--';
-                    if (finalSaiiCount > 0) {
-                        finalSaii = (finalSaiiSum / finalSaiiCount).toFixed(2);
-                    }
-                    
-                    
-                    // حساب المعدل العام الكلي لجميع الفترات
-                    [m1, m2, midterm, c2m1, c2m2].forEach(grade => {
-                        if (!isNaN(grade)) {
-                            totalSumOfAllExams += grade; 
-                            totalCountOfAllExams++; 
-                        }
-                    });
-
-
-                    // إنشاء عنصر عرض السعي لهذه المادة
-                    saiiResultsHTML += `
-                        <div class="saii-subject-box">
-                            <h4>${subjectName}</h4>
-                            <p>معدل الكورس الأول: <span>${avgKorsaAwal}</span></p>
-                            <p>درجة نصف السنة: <span>${!isNaN(midterm) ? midterm.toFixed(2) : '--'}</span></p>
-                            <p>معدل الكورس الثاني: <span>${avgKorsaThani}</span></p>
-                            <hr style="border-style: dashed; margin: 8px 0;">
-                            <p>السعي السنوي النهائي: <span class="final-saii-span">${finalSaii}</span></p>
-                        </div>
-                    `;
-                }
-
-                // عرض سعي كل مادة
-                subjectsContainer.innerHTML = saiiResultsHTML;
-                
-                // حساب وعرض المعدل العام الكلي
-                const finalResultSpan = document.querySelector('#result-final span');
-                if (totalCountOfAllExams > 0) {
-                    const overallAvg = (totalSumOfAllExams / totalCountOfAllExams).toFixed(2);
-                    finalResultSpan.textContent = overallAvg;
-                } else {
-                    finalResultSpan.textContent = "--";
-                }
-            });
-
-
-            // ==================== منطق عداد ساعات الدراسة (Timer) ====================
-            const hoursDisplay = document.getElementById('hours');
-            const minutesDisplay = document.getElementById('minutes');
-            const secondsDisplay = document.getElementById('seconds');
-            const startBtn = document.getElementById('start-btn');
-            const pauseBtn = document.getElementById('pause-btn');
-            const resetBtn = document.getElementById('reset-btn');
-            
-            let totalSeconds = 0;
-            let interval = null;
-            const TIMER_STORAGE_KEY = 'studyTimer';
-
-            function loadTimer() {
-                const savedTime = localStorage.getItem(TIMER_STORAGE_KEY);
-                if (savedTime) {
-                    totalSeconds = parseInt(savedTime);
-                    updateDisplay();
-                }
-            }
-            loadTimer();
-
-            function formatTime(seconds) {
-                const h = Math.floor(seconds / 3600);
-                const m = Math.floor((seconds % 3600) / 60);
-                const s = seconds % 60;
-                return [h, m, s].map(v => v < 10 ? "0" + v : v).join(':').split(':');
-            }
-
-            function updateDisplay() {
-                const [h, m, s] = formatTime(totalSeconds);
-                hoursDisplay.textContent = h;
-                minutesDisplay.textContent = m;
-                secondsDisplay.textContent = s;
-            }
-
-            function startTimer() {
-                if (interval !== null) return;
-                
-                startBtn.disabled = true;
-                pauseBtn.disabled = false;
-                
-                interval = setInterval(() => {
-                    totalSeconds++;
-                    updateDisplay();
-                    localStorage.setItem(TIMER_STORAGE_KEY, totalSeconds);
-                }, 1000);
-            }
-
-            function pauseTimer() {
-                if (interval === null) return;
-                
-                clearInterval(interval);
-                interval = null;
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-            }
-
-            function resetTimer() {
-                pauseTimer();
-                totalSeconds = 0;
-                localStorage.setItem(TIMER_STORAGE_KEY, 0);
-                updateDisplay();
-            }
-
-            startBtn.addEventListener('click', startTimer);
-            pauseBtn.addEventListener('click', pauseTimer);
-            resetBtn.addEventListener('click', resetTimer);
-
-            // جعل دالة الإيقاف المؤقت عالمية للتحكم بها من منطق التبويبات
-            window.pauseTimer = pauseTimer; 
-
-            // ==================== منطق مشغل اليوتيوب (YouTube Player) ====================
-            const youtubeInput = document.getElementById('youtube-link-input');
-            const loadYoutubeBtn = document.getElementById('load-youtube-btn');
-            const youtubePlayer = document.getElementById('youtube-player');
-            const EMBED_BASE_URL = 'https://www.youtube.com/embed/';
-
-            function extractVideoID(url) {
-                // للروابط العادية: https://www.youtube.com/watch?v=VIDEO_ID
-                let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-                if (match) {
-                    return match[1];
-                }
-                // إذا كان إدخالاً مباشراً لـ ID
-                if (url.length === 11) {
-                    return url;
-                }
-                return null;
-            }
-
-            loadYoutubeBtn.addEventListener('click', () => {
-                const link = youtubeInput.value.trim();
-                const videoId = extractVideoID(link);
-
-                if (videoId) {
-                    // ?autoplay=1 لتشغيل الفيديو تلقائياً و &rel=0 لمنع الاقتراحات العشوائية
-                    const embedUrl = `${EMBED_BASE_URL}${videoId}?autoplay=1&rel=0`;
-                    youtubePlayer.src = embedUrl;
-                } else {
-                    alert("الرجاء إدخال رابط يوتيوب صالح أو معرف (ID) للفيديو.");
-                    youtubePlayer.src = "";
-                }
-            });
-            youtubeInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    loadYoutubeBtn.click();
-                }
-            });
-
-        });
+        function extractVideoID(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
     </script>
 </body>
 </html>
