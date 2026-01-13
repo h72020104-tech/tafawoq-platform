@@ -22,8 +22,8 @@
         }
 
         .container {
-            width: 90%;
-            max-width: 900px;
+            width: 95%; /* زدت العرض قليلاً لاستيعاب الأعمدة الجديدة */
+            max-width: 1000px;
             background: linear-gradient(145deg, #2a3a50, #1e283a); 
             border-radius: 18px; 
             box-shadow: 
@@ -160,6 +160,15 @@
             font-size: 1rem;
             margin-left: 10px;
         }
+        /* تنسيق خاص لخانات المعدل المحسوبة */
+        .grade-input.calculated-field {
+            background: #253347;
+            color: #7FFF00;
+            border: 1px dashed #7FFF00;
+            font-weight: bold;
+            pointer-events: none; /* لمنع الكتابة فيها */
+        }
+
         #add-task-btn, #calculate-grades-btn, .timer-btn, #load-youtube-btn {
             padding: 12px 20px;
             background: #1E90FF;
@@ -204,7 +213,8 @@
 
         .grades-grid {
             display: grid;
-            grid-template-columns: 1.5fr repeat(5, 1fr);
+            /* تم تعديل الأعمدة لإضافة خانتين جديدتين: المجموع 8 أعمدة */
+            grid-template-columns: 1.5fr repeat(7, 1fr);
             gap: 12px;
             margin-bottom: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -218,7 +228,8 @@
             text-align: center;
             color: #87CEEB;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* تصغير الخط قليلاً ليتناسب مع العدد */
+            white-space: nowrap;
         }
         .grade-input, .subject-name {
             width: 100%;
@@ -304,8 +315,10 @@
                 padding: 10px 3px;
             }
             .grades-grid {
-                grid-template-columns: 1.2fr repeat(5, 0.8fr); 
+                /* تعديل العرض للموبايل */
+                grid-template-columns: 1.2fr repeat(7, 0.8fr); 
                 gap: 2px;
+                overflow-x: auto; /* السماح بالتمرير الأفقي إذا لزم الأمر */
             }
             .grid-header { font-size: 0.6rem; padding: 5px 2px; }
             .grade-input, .subject-name { font-size: 0.65rem; padding: 5px 1px; }
@@ -359,60 +372,70 @@
                 
                 <div class="grades-grid">
                     <div class="grid-header">المادة</div>
-                    <div class="grid-header">شهر أول</div>
-                    <div class="grid-header">شهر ثاني</div>
-                    <div class="grid-header">نصف السنة</div>
-                    <div class="grid-header">كورس 2 (ش1)</div>
-                    <div class="grid-header">كورس 2 (ش2)</div>
-                    
-                    <input type="text" class="subject-name" placeholder="اسم المادة" value="الإسلامية">
+                    <div class="grid-header">شهر 1</div>
+                    <div class="grid-header">شهر 2</div>
+                    <div class="grid-header" style="color: #7FFF00;">معدل ف1</div> <div class="grid-header">نصف السنة</div>
+                    <div class="grid-header">شهر 1</div>
+                    <div class="grid-header">شهر 2</div>
+                    <div class="grid-header" style="color: #7FFF00;">معدل ك2</div> <input type="text" class="subject-name" placeholder="اسم المادة" value="الإسلامية">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="0" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-0" value="--" readonly> <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-0" value="--" readonly> <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="1" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="1" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-1" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="1" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-1" value="--" readonly>
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="2" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="2" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-2" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="2" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-2" value="--" readonly>
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="3" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="3" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-3" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="3" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-3" value="--" readonly>
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="4" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="4" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-4" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="4" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-4" value="--" readonly>
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="5" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="5" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-5" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="5" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-5" value="--" readonly>
 
                     <input type="text" class="subject-name" placeholder="اسم المادة 6" value="الاسلاميه">
                     <input type="number" class="grade-input" data-exam="m1" data-subject-index="6" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="m2" data-subject-index="6" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s1-6" value="--" readonly>
                     <input type="number" class="grade-input" data-exam="mid" data-subject-index="6" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="6" min="0" max="100">
                     <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="6" min="0" max="100">
+                    <input type="text" class="grade-input calculated-field" id="avg-s2-6" value="--" readonly>
                 </div>
                 
 
@@ -574,7 +597,7 @@
             });
 
             const calculateBtn = document.getElementById('calculate-grades-btn');
-            const gradeInputs = document.querySelectorAll('.grade-input');
+            const gradeInputs = document.querySelectorAll('.grade-input:not(.calculated-field)'); // Exclude auto fields from saving logic
             const subjectNames = document.querySelectorAll('.subject-name');
             const subjectsContainer = document.getElementById('subjects-saii-results');
             
@@ -626,6 +649,11 @@
                     const c2m1 = parseFloat(subjectInputs[3].value); 
                     const c2m2 = parseFloat(subjectInputs[4].value); 
 
+                    // عناصر العرض الجديدة
+                    const avgDisplay1 = document.getElementById(`avg-s1-${i}`);
+                    const avgDisplay2 = document.getElementById(`avg-s2-${i}`);
+
+                    // حساب معدل الفصل الأول
                     let avgKorsaAwal = '--';
                     let korsaAwalCount = 0;
                     let korsaAwalSum = 0;
@@ -634,7 +662,11 @@
                     if (korsaAwalCount > 0) {
                         avgKorsaAwal = (korsaAwalSum / korsaAwalCount).toFixed(2);
                     }
+                    // تحديث الخانة الجديدة في الجدول
+                    if(avgDisplay1) avgDisplay1.value = avgKorsaAwal;
+
                     
+                    // حساب معدل الفصل الثاني (أو الثالث كما أسميته)
                     let avgKorsaThani = '--';
                     let korsaThaniCount = 0;
                     let korsaThaniSum = 0;
@@ -643,6 +675,9 @@
                     if (korsaThaniCount > 0) {
                         avgKorsaThani = (korsaThaniSum / korsaThaniCount).toFixed(2);
                     }
+                    // تحديث الخانة الجديدة في الجدول
+                    if(avgDisplay2) avgDisplay2.value = avgKorsaThani;
+
                     
                     let finalSaiiSum = 0;
                     let finalSaiiCount = 0;
@@ -675,9 +710,9 @@
                     saiiResultsHTML += `
                         <div class="saii-subject-box">
                             <h4>${subjectName}</h4>
-                            <p>معدل الكورس الأول: <span>${avgKorsaAwal}</span></p>
+                            <p>معدل الفصل الأول: <span>${avgKorsaAwal}</span></p>
                             <p>درجة نصف السنة: <span>${!isNaN(midterm) ? midterm.toFixed(2) : '--'}</span></p>
-                            <p>معدل الكورس الثاني: <span>${avgKorsaThani}</span></p>
+                            <p>معدل الفصل الثاني (الثالث): <span>${avgKorsaThani}</span></p>
                             <hr style="border-style: dashed; margin: 8px 0;">
                             <p>السعي السنوي النهائي: <span class="final-saii-span">${finalSaii}</span></p>
                         </div>
@@ -764,30 +799,24 @@
             const youtubePlayer = document.getElementById('youtube-player');
             const EMBED_BASE_URL = 'https://www.youtube.com/embed/';
 
-            function extractVideoID(url) {
-                let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-                if (match) return match[1];
-                if (url.length === 11) return url;
-                return null;
-            }
-
             loadYoutubeBtn.addEventListener('click', () => {
-                const link = youtubeInput.value.trim();
-                const videoId = extractVideoID(link);
+                const link = youtubeInput.value;
+                let videoId = '';
+
+                // استخراج معرف الفيديو من أنواع مختلفة من الروابط
+                if (link.includes('youtu.be/')) {
+                    videoId = link.split('youtu.be/')[1].split('?')[0];
+                } else if (link.includes('youtube.com/watch?v=')) {
+                    videoId = link.split('v=')[1].split('&')[0];
+                }
+
                 if (videoId) {
-                    youtubePlayer.src = `${EMBED_BASE_URL}${videoId}?autoplay=1&rel=0`;
+                    youtubePlayer.src = `${EMBED_BASE_URL}${videoId}`;
                 } else {
-                    alert("الرجاء إدخال رابط يوتيوب صالح.");
-                    youtubePlayer.src = "";
+                    alert('الرجاء إدخال رابط يوتيوب صحيح!');
                 }
             });
-            youtubeInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') loadYoutubeBtn.click();
-            });
-
         });
     </script>
 </body>
 </html>
-
-
