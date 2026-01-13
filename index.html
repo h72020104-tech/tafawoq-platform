@@ -4,488 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منظم الأستاذ مصطفى محسن</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-    
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0; 
+            margin: 0; padding: 0;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #e0e0e0; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            min-height: 100vh;
-            perspective: 1000px;
+            color: #e0e0e0;
+            display: flex; justify-content: center; min-height: 100vh;
         }
-
         .container {
-            width: 95%; 
-            max-width: 1000px;
-            background: linear-gradient(145deg, #2a3a50, #1e283a); 
-            border-radius: 18px; 
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-                0 0 0 2px rgba(0, 0, 0, 0.2) inset,
-                0 0 100px rgba(0, 255, 255, 0.1) inset;
-            overflow: hidden; 
-            transform: rotateY(-5deg) rotateX(5deg);
-            transition: transform 0.5s ease-in-out;
+            width: 95%; max-width: 1000px;
+            background: linear-gradient(145deg, #2a3a50, #1e283a);
+            border-radius: 18px; margin: 20px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(70, 130, 180, 0.3);
-            margin: 20px; 
         }
-
-        .container:hover {
-            transform: rotateY(0deg) rotateX(0deg); 
-        }
-        
         header {
             background: linear-gradient(160deg, #00BFFF, #1E90FF);
-            color: white;
-            padding: 30px 40px;
-            display: flex; 
-            align-items: center;
-            justify-content: space-between; 
-            position: relative; 
-            padding-bottom: 55px; 
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            color: white; padding: 30px; text-align: center;
         }
-        
-        .header-image {
-            width: 70px; 
-            height: 70px;
-            object-fit: cover;
-            border-radius: 50%; 
-            border: 4px solid #ADD8E6;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            z-index: 10; 
-            transition: transform 0.3s ease;
-        }
-
-        header h1 {
-            flex-grow: 1; 
-            text-align: center;
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 2.5rem;
-            text-shadow: 
-                0 0 10px rgba(0, 255, 255, 0.6),
-                0 0 20px rgba(0, 255, 255, 0.4);
-            letter-spacing: 2px;
-            color: #E0FFFF;
-            position: relative;
-        }
-
-        header p {
-            position: absolute; 
-            width: 100%;
-            text-align: center;
-            bottom: 10px;
-            margin: 0;
-            left: 0;
-            opacity: 0.7;
-            font-size: 1.1rem;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .tab-buttons {
-            display: flex;
-            background: linear-gradient(90deg, #1f2a3c, #2a3a50);
-            border-bottom: 2px solid #0f3460;
-        }
-
+        .tab-buttons { display: flex; background: #1f2a3c; border-bottom: 2px solid #0f3460; }
         .tab-btn {
-            flex: 1; 
-            padding: 20px;
-            font-size: 1.1rem;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            background: linear-gradient(180deg, #3a4a60, #2a3a50);
-            color: #bbbbbb;
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent; 
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2) inset;
+            flex: 1; padding: 15px; cursor: pointer; border: none;
+            background: #3a4a60; color: #bbb; font-weight: 600; transition: 0.3s;
+            font-family: 'Cairo';
         }
+        .tab-btn.active { background: #1E90FF; color: white; border-bottom: 4px solid #E0FFFF; }
+        .tab-pane { display: none; padding: 30px; }
+        .tab-pane.active { display: block; }
         
-        .tab-btn.active {
-            background: linear-gradient(180deg, #1E90FF, #00BFFF);
-            color: white;
-            border-bottom-color: #E0FFFF;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .tab-content {
-            padding: 30px;
-            background: #1e283a;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .tab-pane {
-            display: none; 
-        }
-
-        .tab-pane.active {
-            display: block; 
-        }
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: #87CEEB;
-            text-align: center;
-            margin-bottom: 25px;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
-        }
-        
-        .task-input-container {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        #task-input, .grade-input, #youtube-link-input {
-            flex-grow: 1;
-            padding: 12px;
-            border: 1px solid #0f3460;
-            border-radius: 6px;
-            background: #3a4a60;
-            color: #e0e0e0;
-            font-size: 1rem;
-            margin-left: 10px;
-        }
-        /* تنسيق خاص لخانات المعدل اليدوية لتمييزها */
-        .grade-input.manual-avg {
-            background: #253347;
-            color: #7FFF00;
-            border: 1px solid #7FFF00;
-            font-weight: bold;
-        }
-
-        #add-task-btn, #calculate-grades-btn, .timer-btn, #load-youtube-btn {
-            padding: 12px 20px;
-            background: #1E90FF;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.3s;
-        }
-        #add-task-btn:hover, #calculate-grades-btn:hover, .timer-btn:hover, #load-youtube-btn:hover {
-            background: #00BFFF;
-        }
-
-        #task-list {
-            list-style: none;
-            padding: 0;
-        }
-        #task-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #2a3a50;
-            border-radius: 6px;
-            border-right: 5px solid #00BFFF;
-            transition: background 0.3s;
-        }
-        #task-list li.completed {
-            background: #1a2333;
-            opacity: 0.6;
-            border-right-color: #7FFF00;
-            text-decoration: line-through;
-        }
-        .task-buttons .task-btn {
-            padding: 5px 10px;
-            margin-right: 5px;
-        }
-        .task-buttons .complete-btn { background: #7FFF00; }
-        .task-buttons .delete-btn { background: #8B0000; }
-
+        /* تنسيق الجدول المعدل ليكون يدوي بالكامل */
         .grades-grid {
             display: grid;
             grid-template-columns: 1.5fr repeat(7, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            overflow: hidden; 
+            gap: 8px; overflow-x: auto;
         }
-        .grid-header {
-            background: linear-gradient(90deg, #3a4a60, #2a3a50);
-            padding: 12px;
-            font-weight: 700;
-            text-align: center;
-            color: #87CEEB;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.85rem; 
-            white-space: nowrap;
-        }
+        .grid-header { background: #3a4a60; padding: 10px; font-size: 0.75rem; text-align: center; color: #87CEEB; }
         .grade-input, .subject-name {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #2a3a50;
-            color: #e0e0e0;
-            font-size: 1rem;
-            text-align: center;
-            box-sizing: border-box; 
-            border-bottom: 1px solid rgba(70, 130, 180, 0.1);
+            width: 100%; padding: 10px; border: none; border-radius: 4px;
+            background: #2a3a50; color: #fff; text-align: center; box-sizing: border-box;
         }
-        #grades-results {
-            margin-top: 30px;
-            padding: 20px;
-            background: #2a3a50;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        }
-        #subjects-saii-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .saii-subject-box {
-            background: #1e283a;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #0f3460;
-        }
-        .final-result span, .final-saii-span {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: #FFD700;
-            font-size: 1.3rem;
-            margin-right: 5px;
-        }
-
-        .timer-display {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            text-align: center;
-            color: #7FFF00;
-            text-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
-            margin-bottom: 30px;
-            direction: ltr;
-        }
-        .timer-controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .timer-btn.stop { background: #FF4500; }
-        .timer-btn.stop:hover { background: #DC143C; }
-
-        #youtube-player-container {
-            margin-top: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            min-height: 400px;
-            background: #000;
-        }
-        #youtube-player {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
+        .manual-avg { background: #1a2333 !important; color: #7FFF00 !important; border: 1px solid #7FFF00 !important; }
         
-        @media (max-width: 768px) {
-            .container {
-                transform: none; 
-                border-radius: 0; 
-                width: 100%;
-                margin: 0;
-                box-shadow: none;
-                border: none;
-                min-height: 100vh;
-            }
-            .tab-btn {
-                font-size: 0.7rem;
-                padding: 10px 3px;
-            }
-            .grades-grid {
-                grid-template-columns: 1.2fr repeat(7, 0.8fr); 
-                gap: 2px;
-                overflow-x: auto; 
-            }
-            .grid-header { font-size: 0.6rem; padding: 5px 2px; }
-            .grade-input, .subject-name { font-size: 0.65rem; padding: 5px 1px; }
-
-            .task-input-container {
-                flex-direction: column;
-            }
-            #task-input, #youtube-link-input {
-                margin-left: 0;
-                margin-bottom: 10px;
-            }
-            #youtube-player {
-                height: 250px;
-            }
-            .timer-display { font-size: 3rem; }
-            .timer-controls { gap: 10px; }
-            .timer-btn { padding: 8px 15px; font-size: 0.9rem; }
+        button#calculate-grades-btn {
+            width: 100%; padding: 15px; margin-top: 20px;
+            background: #1E90FF; color: white; border: none; border-radius: 8px;
+            font-weight: bold; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <img src="https://c.top4top.io/p_3604mmjun1.jpg" alt="شعار المشروع" class="header-image left-img">
-            <h1>الأستاذ مصطفى محسن</h1>
-            <img src="https://d.top4top.io/p_3604kzdsz2.jpg" alt="صورتك الشخصية" class="header-image right-img">
-            <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>الأستاذ مصطفى محسن</h1>
+        <p>مساعدك الاحترافي للمعدلات والمهام الدراسية</p>
+    </header>
 
-        <div class="tab-buttons">
-            <button class="tab-btn active" data-tab="tab-tasks">📝 المهام اليومية</button>
-            <button class="tab-btn" data-tab="tab-grades">💎 حاسبة المعدل والسعي</button>
-            <button class="tab-btn" data-tab="tab-timer">⏳ العداد (دراسة)</button>
-            <button class="tab-btn" data-tab="tab-music">🎵 نغمات اليوتيوب</button>
+    <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="tab-tasks">📝 المهام</button>
+        <button class="tab-btn" data-tab="tab-grades">💎 خانة السعي</button>
+        <button class="tab-btn" data-tab="tab-timer">⏳ العداد</button>
+    </div>
+
+    <div id="tab-tasks" class="tab-pane active">
+        <h2>مهامي اليومية</h2>
+        <input type="text" id="task-input" placeholder="أضف مهمة هنا..." style="width:70%; padding:10px;">
+        <button id="add-task-btn" style="padding:10px;">إضافة</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <div id="tab-grades" class="tab-pane">
+        <h2>إدخال السعي والدرجات (يدوي)</h2>
+        <div class="grades-grid">
+            <div class="grid-header">المادة</div>
+            <div class="grid-header">شهر 1</div>
+            <div class="grid-header">شهر 2</div>
+            <div class="grid-header">معدل ك1</div>
+            <div class="grid-header">نصف سنة</div>
+            <div class="grid-header">شهر 1 ك2</div>
+            <div class="grid-header">شهر 2 ك2</div>
+            <div class="grid-header">السعي</div>
+
+            <input type="text" class="subject-name" value="الرياضيات">
+            <input type="number" class="grade-input">
+            <input type="number" class="grade-input">
+            <input type="number" class="grade-input manual-avg" placeholder="يدوي">
+            <input type="number" class="grade-input">
+            <input type="number" class="grade-input">
+            <input type="number" class="grade-input">
+            <input type="number" class="grade-input manual-avg" placeholder="يدوي">
         </div>
+        <button id="calculate-grades-btn">حفظ البيانات</button>
+    </div>
 
-        <div class="tab-content">
+    <div id="tab-timer" class="tab-pane">
+        <h2>⏳ عداد الدراسة</h2>
+        <div style="font-size: 3rem; text-align: center;" id="timer-display">00:00:00</div>
+    </div>
+</div>
 
-            <div id="tab-tasks" class="tab-pane active">
-                <h2>مهامي وأهدافي لليوم</h2>
-                <div class="task-input-container">
-                    <input type="text" id="task-input" placeholder="أضف مهمة جديدة أو هدفاً (مثال: مراجعة قوانين الفيزياء)">
-                    <button id="add-task-btn">إضافة المهمة</button>
-                </div>
-                <ul id="task-list"></ul>
-            </div>
+<script>
+    // كود تشغيل الأزرار (Tabs)
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
 
-            <div id="tab-grades" class="tab-pane">
-                <h2>حساب السعي والمعدل السنوي</h2>
-                
-                <div class="grades-grid">
-                    <div class="grid-header">المادة</div>
-                    <div class="grid-header">شهر 1</div>
-                    <div class="grid-header">شهر 2</div>
-                    <div class="grid-header" style="color: #7FFF00;">معدل ف1</div> 
-                    <div class="grid-header">نصف السنة</div>
-                    <div class="grid-header">شهر 1</div>
-                    <div class="grid-header">شهر 2</div>
-                    <div class="grid-header" style="color: #7FFF00;">معدل ك2</div> 
-                    
-                    <input type="text" class="subject-name" placeholder="اسم المادة" value="الإسلامية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-0" placeholder="معدل" min="0" max="100"> <input type="number" class="grade-input" data-exam="mid" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="0" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-0" placeholder="معدل" min="0" max="100"> <input type="text" class="subject-name" placeholder="اسم المادة 1" value="الرياضيات">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-1" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="1" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-1" placeholder="معدل" min="0" max="100">
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
 
-                    <input type="text" class="subject-name" placeholder="اسم المادة 2" value="الأحياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-2" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="2" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-2" placeholder="معدل" min="0" max="100">
+            button.classList.add('active');
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
 
-                    <input type="text" class="subject-name" placeholder="اسم المادة 3" value="الفيزياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-3" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="3" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-3" placeholder="معدل" min="0" max="100">
+    // كود بسيط لحفظ المهام
+    const addTaskBtn = document.getElementById('add-task-btn');
+    const taskInput = document.getElementById('task-input');
+    const taskList = document.getElementById('task-list');
 
-                    <input type="text" class="subject-name" placeholder="اسم المادة 4" value="الكيمياء">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-4" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="4" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-4" placeholder="معدل" min="0" max="100">
+    addTaskBtn.addEventListener('click', () => {
+        if(taskInput.value !== "") {
+            const li = document.createElement('li');
+            li.textContent = taskInput.value;
+            taskList.appendChild(li);
+            taskInput.value = "";
+        }
+    });
+</script>
 
-                    <input type="text" class="subject-name" placeholder="اسم المادة 5" value="اللغة العربية">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-5" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="5" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-5" placeholder="معدل" min="0" max="100">
-
-                    <input type="text" class="subject-name" placeholder="اسم المادة 6" value="الاسلاميه">
-                    <input type="number" class="grade-input" data-exam="m1" data-subject-index="6" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="m2" data-subject-index="6" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s1-6" placeholder="معدل" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="mid" data-subject-index="6" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m1" data-subject-index="6" min="0" max="100">
-                    <input type="number" class="grade-input" data-exam="c2m2" data-subject-index="6" min="0" max="100">
-                    <input type="number" class="grade-input manual-avg" id="avg-s2-6" placeholder="معدل" min="0" max="100">
-                </div>
-                
-
-                <button id="calculate-grades-btn">احسب السعي والمعدلات</button>
-
-                <div id="grades-results">
-                    <div id="subjects-saii-results">
-                        <h3>نتائج السعي لكل مادة:</h3>
-                        <p style="text-align: center; opacity: 0.7;">اضغط "احسب السعي والمعدلات" لعرض النتائج هنا.</p>
-                    </div>
-                    <hr style="border-style: dashed; margin: 20px 0;">
-                    <p id="result-final" class="final-result">المعدل العام الكلي لجميع الفترات: <span>--</span></p>
-                </div>
-            </div>
-
-            <div id="tab-timer" class="tab-pane">
-                <h2>⏳ عداد ساعات الدراسة</h2>
-                
-                <div class="timer-display">
-                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-                </div>
-
-                <div class="timer-controls">
-                    <button id="start-btn" class="timer-btn">تشغيل 🚀</button>
-                    <button id="pause-btn" class="timer-btn stop" disabled>إيقاف مؤقت ⏸️</button>
-                    <button id="reset-btn" class="timer-btn">إعادة تعيين 🔄</button>
-                </div>
-
-                <p style="text-align: center; margin-top: 30px; color: #87CEEB;">
-                    ملاحظة: هذا العداد يتوقف إذا أغلقت المتصفح.
-                </p>
-            </div>
-
-            <div id="tab-music" class="tab-pane">
-                <h2>🎵 مشغل نغمات اليوتيوب للدراسة</h2>
-
-                <div class="task-input-container">
-                    <input type="text" id="youtube-link-input" value="https://youtu.be/9Yf8j-vX1Y4" placeholder="ألصق رابط الفيديو أو المعزوفة من يوتيوب هنا">
-                    <button id="load-youtube-btn">تشغيل 🎶</button>
-                </div>
-
-                <div id="youtube-player-container">
-                    <iframe 
-                        id="youtube-player" 
-                        src="" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        title="مشغل اليوتيوب">
-                    </iframe>
-                </div>
-                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
-                    **نصيحة:** استخدم مقاطع ذات ضوضاء بيضاء (White Noise
+</body>
+</html>
