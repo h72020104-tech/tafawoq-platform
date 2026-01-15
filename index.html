@@ -196,7 +196,6 @@
             text-decoration: line-through;
         }
 
-        /* تعديل شبكة الدرجات لتستوعب الخانات الجديدة */
         .grades-grid {
             display: grid;
             grid-template-columns: 1.5fr repeat(7, 1fr);
@@ -226,7 +225,6 @@
             box-sizing: border-box; 
             border-bottom: 1px solid rgba(70, 130, 180, 0.1);
         }
-        /* تمييز الخانات اليدوية بلون خفيف */
         .manual-input {
             background: #2d4566 !important;
             border: 1px solid #1E90FF !important;
@@ -394,7 +392,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // نظام التبويب
+            // 1. نظام التبويب
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
             tabButtons.forEach(btn => {
@@ -406,32 +404,62 @@
                 });
             });
 
-            // نظام المهام (الحفظ التلقائي)
+            // 2. نظام المهام مع الحفظ
             const taskInput = document.getElementById('task-input');
             const addTaskBtn = document.getElementById('add-task-btn');
             const taskList = document.getElementById('task-list');
 
-            function saveTasks() {
+            window.saveTasks = function() {
                 const tasks = [];
                 document.querySelectorAll('#task-list li').forEach(li => {
-                    tasks.push({ text: li.querySelector('.task-text').textContent, completed: li.classList.contains('completed') });
+                    tasks.push({ 
+                        text: li.querySelector('.task-text').textContent, 
+                        completed: li.classList.contains('completed') 
+                    });
                 });
                 localStorage.setItem('mustafa_tasks', JSON.stringify(tasks));
-            }
+            };
 
             function createTask(text, comp = false) {
                 const li = document.createElement('li');
                 if(comp) li.classList.add('completed');
-                li.innerHTML = `<span class="task-text">${text}</span><div><button onclick="this.parentElement.parentElement.classList.toggle('completed'); saveTasks();">✓</button><button onclick="this.parentElement.parentElement.remove(); saveTasks();">✗</button></div>`;
+                li.innerHTML = `
+                    <span class="task-text">${text}</span>
+                    <div>
+                        <button onclick="this.parentElement.parentElement.classList.toggle('completed'); window.saveTasks();">✓</button>
+                        <button onclick="this.parentElement.parentElement.remove(); window.saveTasks();">✗</button>
+                    </div>`;
                 taskList.appendChild(li);
             }
 
             addTaskBtn.addEventListener('click', () => {
-                if(taskInput.value.trim()){ createTask(taskInput.value); saveTasks(); taskInput.value=''; }
+                if(taskInput.value.trim()){ 
+                    createTask(taskInput.value); 
+                    window.saveTasks(); 
+                    taskInput.value=''; 
+                }
             });
 
-            // حساب الدرجات مع الخانات اليدوية الجديدة
+            // 3. نظام حفظ واسترجاع الدرجات
             const calcBtn = document.getElementById('calculate-grades-btn');
+
+            function saveGradesToStorage() {
+                const gradesData = [];
+                for (let i = 0; i < 7; i++) {
+                    gradesData.push({
+                        name: document.querySelectorAll('.subject-name')[i].value,
+                        m1: document.querySelector(`[data-subject="${i}"][data-type="m1"]`).value,
+                        m2: document.querySelector(`[data-subject="${i}"][data-type="m2"]`).value,
+                        avg1: document.querySelector(`[data-subject="${i}"][data-type="avg1"]`).value,
+                        mid: document.querySelector(`[data-subject="${i}"][data-type="mid"]`).value,
+                        m3: document.querySelector(`[data-subject="${i}"][data-type="m3"]`).value,
+                        m4: document.querySelector(`[data-subject="${i}"][data-type="m4"]`).value,
+                        avg2: document.querySelector(`[data-subject="${i}"][data-type="avg2"]`).value
+                    });
+                }
+                localStorage.setItem('mustafa_grades', JSON.stringify(gradesData));
+            }
+
             calcBtn.addEventListener('click', () => {
                 let resultsHTML = '';
                 let totalSaiiSum = 0;
@@ -443,7 +471,6 @@
                     const mid = parseFloat(document.querySelector(`[data-subject="${i}"][data-type="mid"]`).value) || 0;
                     const avg2 = parseFloat(document.querySelector(`[data-subject="${i}"][data-type="avg2"]`).value) || 0;
 
-                    // السعي = (معدل فصل أول يدوي + نصف سنة + معدل فصل ثاني يدوي) / 3
                     const saii = (avg1 + mid + avg2) / 3;
                     
                     if(saii > 0) {
@@ -466,9 +493,29 @@
                 document.getElementById('subjects-saii-results').innerHTML = resultsHTML;
                 const finalAvg = subjectsCount > 0 ? (totalSaiiSum / subjectsCount).toFixed(2) : "--";
                 document.querySelector('#result-final span').textContent = finalAvg;
+                saveGradesToStorage();
             });
 
-            // العداد
+            // 4. تحميل البيانات عند التشغيل
+            const savedTasks = JSON.parse(localStorage.getItem('mustafa_tasks') || '[]');
+            savedTasks.forEach(t => createTask(t.text, t.completed));
+
+            const savedGrades = JSON.parse(localStorage.getItem('mustafa_grades'));
+            if (savedGrades) {
+                savedGrades.forEach((data, i) => {
+                    document.querySelectorAll('.subject-name')[i].value = data.name;
+                    document.querySelector(`[data-subject="${i}"][data-type="m1"]`).value = data.m1;
+                    document.querySelector(`[data-subject="${i}"][data-type="m2"]`).value = data.m2;
+                    document.querySelector(`[data-subject="${i}"][data-type="avg1"]`).value = data.avg1;
+                    document.querySelector(`[data-subject="${i}"][data-type="mid"]`).value = data.mid;
+                    document.querySelector(`[data-subject="${i}"][data-type="m3"]`).value = data.m3;
+                    document.querySelector(`[data-subject="${i}"][data-type="m4"]`).value = data.m4;
+                    document.querySelector(`[data-subject="${i}"][data-type="avg2"]`).value = data.avg2;
+                });
+                calcBtn.click();
+            }
+
+            // 5. العداد
             let sec = 0, timerInterval = null;
             const startB = document.getElementById('start-btn'), pauseB = document.getElementById('pause-btn');
             
@@ -494,7 +541,7 @@
                 startB.disabled = false; pauseB.disabled = true;
             });
 
-            // اليوتيوب
+            // 6. اليوتيوب
             document.getElementById('load-youtube-btn').addEventListener('click', () => {
                 const link = document.getElementById('youtube-link-input').value;
                 let id = link.split('v=')[1] || link.split('/').pop();
@@ -502,7 +549,6 @@
                 document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
             });
         });
-        window.saveTasks = () => {}; // لتجنب أخطاء الأزرار الديناميكية
     </script>
 </body>
 </html>
